@@ -41,9 +41,9 @@
         <el-pagination layout="prev, pager, next" :total="50"> </el-pagination>
       </el-card>
     </el-col>
-  </el-row>
-  <el-row>
-    <img src="../../assets/coaldata.png" />
+    <el-col>
+      <img src="../../assets/coaldata.png" />
+    </el-col>
   </el-row>
 </template>
 

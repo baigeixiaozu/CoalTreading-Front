@@ -22,11 +22,11 @@
           <span>资讯中心</span>
         </template>
         <el-menu-item-group>
-          <el-menu-item index="/editnews"
+          <el-menu-item index="/news/edit"
             ><i class="el-icon-edit"> </i>编辑资讯
           </el-menu-item>
 
-          <el-menu-item index="/newslist"
+          <el-menu-item index="/news/list"
             ><i class="el-icon-s-order"></i>资讯列表</el-menu-item
           >
         </el-menu-item-group>
