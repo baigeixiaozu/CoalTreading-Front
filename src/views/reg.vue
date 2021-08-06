@@ -96,7 +96,7 @@
       };
     },
     mounted() {
-      alert(localStorage.token)
+      console.log(localStorage.token)
     },
     methods: {
       submitForm(formName) {

@@ -358,13 +358,10 @@
       },
 
       getData: function() {
-        alert(localStorage.token);
+        console.log(localStorage.token);
         this.axios({
             method: 'get',
-            url: this.baseURL + '/user/info',
-            headers: {
-                        Authorization: "Bear " + localStorage.token
-                      },
+            url: this.baseURL + '/user/info'
           }).then(repos => {
             console.log(repos)
             this.form.nick = repos.data.login;
