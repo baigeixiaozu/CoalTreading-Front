@@ -1,8 +1,6 @@
 <template>
   <div class="reg2">
-    <p>
     <h2>基础信息</h2>
-    </p>
     <hr>
     <el-form :label-position="labelPosition" :rules="rules" ref="form" :model="form">
       <el-row>
@@ -120,7 +118,7 @@
       </el-form-item>
       <h2>企业资质</h2>
       <hr />
-      <el-form-item></el-form-item>
+      <el-form-item>
       <el-upload class="upload-demo" action="https://jsonplaceholder.typicode.com/posts/" :on-preview="handlePreview"
         :on-remove="handleRemove" :before-remove="beforeRemove" multiple :limit="3" :on-exceed="handleExceed"
         :file-list="busL">
@@ -128,7 +126,7 @@
         <div slot="tip" class="el-upload__tip">只能上传jpg/png文件，且不超过500kb</div>
       </el-upload>
       </el-form-item>
-      <el-form-item></el-form-item>
+      <el-form-item>
       <el-upload class="upload-demo" action="https://jsonplaceholder.typicode.com/posts/" :on-preview="handlePreview"
         :on-remove="handleRemove" :before-remove="beforeRemove" multiple :limit="3" :on-exceed="handleExceed"
         :file-list="taxRC">
@@ -136,7 +134,7 @@
         <div slot="tip" class="el-upload__tip">只能上传jpg/png文件，且不超过500kb</div>
       </el-upload>
       </el-form-item>
-      <el-form-item></el-form-item>
+      <el-form-item>
       <el-upload class="upload-demo" action="https://jsonplaceholder.typicode.com/posts/" :on-preview="handlePreview"
         :on-remove="handleRemove" :before-remove="beforeRemove" multiple :limit="3" :on-exceed="handleExceed"
         :file-list="orgCodeC">
@@ -144,7 +142,7 @@
         <div slot="tip" class="el-upload__tip">只能上传jpg/png文件，且不超过500kb</div>
       </el-upload>
       </el-form-item>
-      <el-form-item></el-form-item>
+      <el-form-item>
       <el-upload class="upload-demo" action="https://jsonplaceholder.typicode.com/posts/" :on-preview="handlePreview"
         :on-remove="handleRemove" :before-remove="beforeRemove" multiple :limit="3" :on-exceed="handleExceed"
         :file-list="peiA">
@@ -152,7 +150,7 @@
         <div slot="tip" class="el-upload__tip">只能上传jpg/png文件，且不超过500kb</div>
       </el-upload>
       </el-form-item>
-      <el-form-item></el-form-item>
+      <el-form-item>
       <el-upload class="upload-demo" action="https://jsonplaceholder.typicode.com/posts/" :on-preview="handlePreview"
         :on-remove="handleRemove" :before-remove="beforeRemove" multiple :limit="3" :on-exceed="handleExceed"
         :file-list="coalBL">
@@ -160,7 +158,7 @@
         <div slot="tip" class="el-upload__tip">只能上传jpg/png文件，且不超过500kb</div>
       </el-upload>
       </el-form-item>
-      <el-form-item></el-form-item>
+      <el-form-item>
       <el-upload class="upload-demo" action="https://jsonplaceholder.typicode.com/posts/" :on-preview="handlePreview"
         :on-remove="handleRemove" :before-remove="beforeRemove" multiple :limit="3" :on-exceed="handleExceed"
         :file-list="corid">
