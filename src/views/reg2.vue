@@ -311,7 +311,7 @@
       };
     },
     mounted() {
-      alert(localStorage.token)
+     
         this.getData();
       //alert();
     },
@@ -360,11 +360,12 @@
       },
 
       getData: function() {
+        alert(localStorage.token);
         this.axios({
             method: 'get',
             url: this.baseURL + '/user/info',
             headers: {
-                        Authorization: "Bearer " + localStorage.token
+                        Authorization: "Bear " + localStorage.token
                       },
           }).then(repos => {
             console.log(repos)
