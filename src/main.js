@@ -30,19 +30,19 @@ new Vue({
   render: h => h(App)
 })
 //token 获取成功后使用
-/* router.beforeEach((to, from, next) => {
+ router.beforeEach((to, from, next) => {
 	  //如果前往登陆页面放行
 	  if (to.path === '/login') return next()
     if (to.path === '/reg1') return next()
 
 	  //读取客户端sessionStorage 中存储的Token
 	  const tokenStr = window.localStorage.getItem('token')
-    
+
 	  //判断Token是否存在，存在则放行，不存在则需进行登录
 	  if (!tokenStr) return next('/login')
 	  next()
 })
-
+/*
 axios.interceptors.request.use(config => {
   //此处读取上文存储的token并设置请求头
   //alert();
