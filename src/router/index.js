@@ -1,47 +1,36 @@
-import Vue from 'vue'
-import Router from 'vue-router'
-import login from '../views/login'
-import reg from '../views/reg'
-import reg1 from '../views/reg1'
-import reg2 from '../views/reg2'
-import test from '../views/test'
-import success from '../views/success'
+import { createRouter, createWebHashHistory } from "vue-router";
 
-Vue.use(Router);
+const routes = [
+  {
+    path: "/editnews",
+    component: () => import("../views/editnews.vue"),
+    meta: { title: "编辑资讯" },
+  },
+  {
+    path: "/newslist",
+    component: () => import("../views/newslist.vue"),
+    meta: { title: "资讯中心" },
+  },
+  {
+    path: "/search",
+    component: () => import("../views/search.vue"),
+    meta: { title: "搜索资讯" },
+  },
+  {
+    path: "/audit",
+    component: () => import("../views/audit.vue"),
+    meta: { title: "审核界面" },
+  },
+  {
+    path: "/user/login",
+    component: () => import("../views/user/login.vue"),
+    meta: { title: "登录" },
+  },
+];
 
+const router = createRouter({
+  history: createWebHashHistory(),
+  routes,
+});
 
-export default new Router({
-
-
-  routes: [{
-      path: '/login',
-      name: 'login',
-      component: login
-    },
-    {
-      path: '/reg',
-      name: 'reg',
-      component: reg
-    },
-    {
-      path: '/reg1',
-      name: 'reg1',
-      component: reg1
-    },
-    {
-      path: '/reg2',
-      name: 'reg2',
-      component: reg2
-    },
-    {
-      path: '/test',
-      name: 'test',
-      component: test
-    },
-    {
-      path: '/success',
-      name: 'success',
-      component: success
-    },
-  ]
-})
+export default router;
