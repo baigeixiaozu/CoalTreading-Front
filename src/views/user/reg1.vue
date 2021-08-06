@@ -1,4 +1,5 @@
 <template>
+<!-- 交易用户注册 -->
   <div class="reg1">
     <p>用户注册</p>
     <el-form :label-position="labelPosition" :model="ruleForm" status-icon :rules="rules" ref="ruleForm"

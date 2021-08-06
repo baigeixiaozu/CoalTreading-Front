@@ -23,8 +23,6 @@
         <el-select v-model="formLabel.role" placeholder="请选择角色">
           <el-option label="管理人员" value="管理人员"></el-option>
           <el-option label="资讯发布人员" value="资讯发布人员"></el-option>
-          <el-option label="燃料业务人员" value="燃料业务人员"></el-option>
-          <el-option label="监察人员" value="监察人员"></el-option>
         </el-select>
       </el-form-item>
       <el-form-item>
