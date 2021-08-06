@@ -177,7 +177,7 @@
 
 <script>
   export default {
-    name: 'reg2',
+    name: 'complete',
     data() {
       return {
         labelPosition: 'right',

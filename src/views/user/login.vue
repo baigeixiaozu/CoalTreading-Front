@@ -84,7 +84,7 @@ export default {
     regForm(formName) {
       localStorage.removeItem("token");
       this.$router.push({
-        name: "reg1",
+        name: "userReg",
       });
     },
 

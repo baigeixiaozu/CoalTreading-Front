@@ -1,100 +1,140 @@
 <template>
-
-    <el-form :label-position="labelPosition" :rules="rules" ref="formLabel" label-width="80px" :model="formLabel">
-      <el-form-item>
-        <span><h2>用户注册</h2></span>
+<!-- 交易用户注册 -->
+  <div class="reg1">
+    <p>用户注册</p>
+    <el-form :label-position="labelPosition" :model="ruleForm" status-icon :rules="rules" ref="ruleForm"
+      label-width="100px" class="demo-ruleForm">
+      <el-form-item label="用户名" prop="login">
+        <el-input v-model.number="ruleForm.login" placeholder="请输入用户名"></el-input>
       </el-form-item>
-      <el-form-item label="用户名：" prop="login">
-        <el-input v-model="formLabel.login" type="text" name="name" value="" placeholder="请输入用户名"></el-input>
+      <el-form-item label="密码" prop="pass">
+        <el-input type="password" v-model="ruleForm.pass" autocomplete="off" placeholder="请输入密码"></el-input>
       </el-form-item>
-      <el-form-item label="密码：" prop="pass">
-        <el-input v-model="formLabel.pass" type="text" name="pwd" value="" placeholder="请输入密码"></el-input>
+      <el-form-item label="确认密码" prop="checkPass">
+        <el-input type="password" v-model="ruleForm.checkPass" autocomplete="off" placeholder="请确认密码"></el-input>
       </el-form-item>
-      <el-form-item label="真实姓名：" prop="nick">
-        <el-input v-model="formLabel.nick" type="text" name="nick" value="" placeholder="请输入真实姓名"></el-input>
+      <el-form-item prop="email" label="邮箱">
+        <el-input v-model="ruleForm.email"></el-input>
       </el-form-item>
-      <el-form-item label="邮箱：" prop="email">
-        <el-input v-model="formLabel.email" type="text" name="email" value="" placeholder="请输入邮箱"></el-input>
+      <el-form-item prop="nick" label="公司">
+        <el-input v-model="ruleForm.nick"></el-input>
       </el-form-item>
-      <el-form-item label="联系方式：" prop="phn">
-        <el-input v-model="formLabel.phn" type="text" name="phn" value="" placeholder="请输入联系方式"></el-input>
-      </el-form-item>
-      <el-form-item label="角色：" prop="role">
-        <el-select v-model="formLabel.role" placeholder="请选择角色">
-          <el-option label="管理人员" value="管理人员"></el-option>
-          <el-option label="资讯发布人员" value="资讯发布人员"></el-option>
+      <el-form-item label="身份" prop="role">
+        <el-select v-model="ruleForm.role" type="text" name="role" placeholder="请选择身份">
+          <el-option label="供应商" value="7"></el-option>
+          <el-option label="采购商" value="8"></el-option>
         </el-select>
       </el-form-item>
-      <el-form-item>
-        <el-button type="primary" @click="submitForm('formLabel')">立即创建</el-button>
-        <el-button @click.native="resetForm('formLabel')">重置</el-button>
+      <p>完成此注册，即表明您同意了我们的<a href="#">
+          使用条款和隐私策略
+        </a></p>
+      <p class="txt"><a href="#"><span></span>已有账号登录</a></p>
+      <!--<a href="#" class="off"><img src="img/temp/off.png"></a>-->
+      <el-form-item prop="check">
+        <el-radio-group v-model="ruleForm.check">
+          <el-radio label="同意"></el-radio>
+        </el-radio-group>
       </el-form-item>
+      <el-form-item>
+        <el-button type="primary" @click="submitForm('ruleForm')">提交</el-button>
+        <el-button @click="resetForm('ruleForm')">重置</el-button>
+      </el-form-item>
+
     </el-form>
+
+  </div>
 
 </template>
 
 <script>
   export default {
+    name: "reg",
     data() {
+
+      var validatePass = (rule, value, callback) => {
+        if (value === '') {
+          callback(new Error('请输入密码'));
+        } else {
+          if (this.ruleForm.checkPass !== '') {
+            this.$refs.ruleForm.validateField('checkPass');
+          }
+          callback();
+        }
+      };
+      var validatePass2 = (rule, value, callback) => {
+        if (value === '') {
+          callback(new Error('请再次输入密码'));
+        } else if (value !== this.ruleForm.pass) {
+          callback(new Error('两次输入密码不一致!'));
+        } else {
+          callback();
+        }
+      };
       return {
-        labelPosition: 'top',
-        formLabel: {
-          login: '', //登录名
-          pass: '', //密码
-          email:'',
-          phn: '',//联系方式
-          nick: '',//真实姓名
-          role: '',//角色
+        labelPosition: 'right',
+        ruleForm: {
+          pass: '',
+          //checkPass: '',
+          login: '',
+          nick: '',
+          //check:'',
+          email: '',
+          role: ''
         },
         rules: {
-          login: [{
-              required: true,
-              message: '请输入用户名',
-              trigger: 'blur'
-            },
-             { min: 2, max: 10, message: '长度在 2 到 10 个字符', trigger: 'blur' }
-          ],
           pass: [{
               required: true,
-              message: '请输入密码',
-              trigger: 'blur'
-            },
-            { min: 6, max: 30, message: '密码长度不符', trigger: 'blur' }
-          ],
-          phn: [{
-              required: true,
-              message: '请输入联系方式',
+              validator: validatePass,
               trigger: 'blur'
             },
 
           ],
+          checkPass: [{
+              required: true,
+              validator: validatePass2,
+              trigger: 'blur'
+            },
+
+          ],
+          login: [{
+            required: true,
+            message: '用户名不能为空',
+            trigger: 'blur'
+          }, ],
+          nick: [{
+            required: true,
+            message: '公司不能为空',
+            trigger: 'blur'
+          }, ],
+          role: [{
+            required: true,
+            message: '身份不能为空',
+            trigger: 'blur'
+          }, ],
+          check: [{
+            required: true,
+            message: '请阅读后勾选',
+            trigger: 'blur'
+          }, ],
           email: [{
               required: true,
-              message: '请输入邮箱',
+              message: '请输入邮箱地址',
               trigger: 'blur'
             },
-                { type: 'email', message: '请输入正确的邮箱地址', trigger: ['blur', 'change'] },
-                { min: 2, max: 20, message: '长度不得超过20 个字符', trigger: 'blur' }
-          ],
-          nick: [{
-              required: true,
-              message: '请输入真实姓名',
-              trigger: 'blur'
+            {
+              type: 'email',
+              message: '请输入正确的邮箱地址',
+              trigger: ['blur', 'change']
             },
-            { max: 10, message: '长度不得超过 10 个字符', trigger: 'blur' }
-          ],
-          role: [{
-              required: true,
-              message: '请选择角色',
+            {
+              min: 2,
+              max: 20,
+              message: '长度不得超过20 个字符',
               trigger: 'blur'
-            },
-
+            }
           ],
         }
       };
-    },
-    mounted() {
-      console.log(localStorage.token)
     },
     methods: {
       submitForm(formName) {
@@ -105,7 +145,23 @@
               type: 'success'
             });
             this.postData();
-
+            
+            //this.$store.dispatch("asyncUpdateUser", {
+              /* login:this.ruleForm.login, */
+          //    nick: this.ruleForm.role
+            //})
+            if (this.ruleForm.role == '7')
+              this.$router.push({
+                name: 'reg2',
+                params: {
+                  nick: this.ruleForm.role,
+                  login: this.ruleForm.username
+                }
+              });
+            else
+              this.$router.push({
+                name: 'reg'
+              });
           } else {
             this.$message({
               message: '注册失败',
@@ -115,25 +171,23 @@
           }
         });
       },
-
       resetForm(formName) {
         this.$refs[formName].resetFields();
+        //清楚存储的token数据
+        //window.sessionStorage.clear()
       },
-
       postData: function() {
         this.axios({
-          headers: {
-                      Authorization: "Bearer " + localStorage.token
-                    },
           method: 'post',
-          url: this.baseURL+'/user/new',
-          data:{
-            login: this.formLabel.login, //登录名
-            pass: this.formLabel.pass, //密码
-            email:this.formLabel.email,
-            phn: this.formLabel.phn,//联系方式
-            nick: this.formLabel.nick,//真实姓名
-            role: this.formLabel.role,//角色
+          url: this.baseURL + '/user/register',
+          data: {
+            pass: this.ruleForm.pass,
+            //checkPass: '',
+            login: this.ruleForm.login,
+            nick: this.ruleForm.nick,
+            //check:'',
+            email: this.ruleForm.email,
+            role: this.ruleForm.role
           }
         }).then(function(repos) {
           console.log(repos);
