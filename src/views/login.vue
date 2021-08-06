@@ -75,11 +75,12 @@
       },
 
       regForm(formName) {
-       /* this.$router.push({
-          name: 'reg1'
-        }); */
         localStorage.removeItem('token')
-        alert(localStorage.token)
+       this.$router.push({
+          name: 'reg1'
+        });
+        
+        
       },
 
       postData: function() {
