@@ -66,7 +66,7 @@ export default {
       });
     },
     submitForm(formName) {
-      console.log(formName)
+      console.log(formName);
       this.$refs[formName].validate((valid) => {
         if (!valid) {
           this.$message({
@@ -90,7 +90,7 @@ export default {
     },
 
     postData: function () {
-      console.log(this)
+      console.log(this);
       var params = new URLSearchParams();
       params.append("key", "value");
       this.axios({
@@ -111,19 +111,17 @@ export default {
             }else if(repos.data.code == 101401){
               alert('密码错误');
             } */
-          if (res.data.code == 200) {
-            var userInfo = res.data.data;
-            console.log(res);
-            localStorage.token = res.data.data.access_token;
+          const resp = res;
+          console.log("resp", resp);
+          if (resp.code == 200) {
+            localStorage.token = resp.data.access_token;
             console.log(localStorage.token);
             //	self.$store.commit('$_setToken', userInfo.token);
 
-            //alert('cg');
-            // Toast({ message: '登录成功', type: 'success',duration: 1500});   // ui弹窗提示
+            // Toast({ message: "登录成功", type: "success", duration: 1500 }); // ui弹窗提示
             //              this.$router.push({ name:'success' });  // 跳转到首页
           } else {
-            //Toast({ message: res.data.message, duration: 1500});   // ui弹窗提示
-            alert("sb");
+            // Toast({ message: res.data.message, duration: 1500 }); // ui弹窗提示
           }
           //console.log(res);
         })

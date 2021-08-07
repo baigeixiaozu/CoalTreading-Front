@@ -177,10 +177,6 @@ export default {
         ],
       },
       roleList: [
-        {
-          id: 7,
-          name: "测试",
-        },
       ],
     };
   },
