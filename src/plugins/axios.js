@@ -15,7 +15,16 @@ let config = {
 };
 
 const _axios = axios.create(config);
-
+_axios.interceptors.request.use(config => {
+  //此处读取上文存储的token并设置请求头
+  console.log("1234");
+  let token = localStorage.getItem("token");
+  if (token) {
+    config.headers["Authorization"] = "Bearer " + token;
+  }
+  // 这里需要注意，必须return config才能生效
+  return config;
+});
 _axios.interceptors.request.use(
   function (config) {
     // Do something before request is sent
