@@ -173,7 +173,7 @@
       },
       resetForm(formName) {
         this.$refs[formName].resetFields();
-        //清楚存储的token数据
+        //清除存储的token数据
         //window.sessionStorage.clear()
       },
       postData: function() {
