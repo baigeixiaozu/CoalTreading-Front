@@ -48,7 +48,7 @@
 </template>
 
 <script>
-import axios from "axios";
+import {getNewsList} from './api';
 import search from "./search.vue";
 export default {
   data() {
@@ -66,17 +66,14 @@ export default {
   },
   methods: {
     getExactly(id) {
-      axios.get("https://yapi.jysafe.cn/mock/12/news/detail/{" + id + "}").then(
-        function (response) {},
-        function (error) {}
-      );
     },
   },
   created() {
     var that = this;
-    axios.get("https://yapi.jysafe.cn/mock/12/news/show").then(
+    getNewsList().then(
       function (response) {
-        that.tableData = response.data.data;
+        console.log(response)
+        that.tableData = response.data;
       },
       function (error) {}
     );

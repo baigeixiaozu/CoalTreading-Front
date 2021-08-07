@@ -38,7 +38,7 @@ export default {
       isCollapse: false,
       menuList: [
         {
-          index: 1,
+          index: "1",
           name: "资讯",
           icon: "el-icon-chat-line-square",
           role: "",
@@ -58,14 +58,26 @@ export default {
           ]
         },
         {
-          index: 2,
+          index: "2",
           name: "账户管理",
           icon: "",
           role: "",
           child: [
             {
               index: "/user/login",
-              name: "登录/注册",
+              name: "登录",
+              icon: "el-icon-s-open",
+              role: "",
+            },
+            {
+              index: "/user/reg",
+              name: "注册",
+              icon: "el-icon-s-open",
+              role: "",
+            },
+            {
+              index: "/user/complete",
+              name: "信息完善",
               icon: "el-icon-s-open",
               role: "",
             },
@@ -78,7 +90,7 @@ export default {
           ]
         },
         {
-          index: 3,
+          index: "3",
           name: "审核中心",
           icon: "",
           role: "",
@@ -92,7 +104,7 @@ export default {
           ]
         },
         {
-          index: 4,
+          index: "4",
           name: "交易中心",
           icon: "",
           role: "",
