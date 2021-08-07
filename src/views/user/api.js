@@ -12,8 +12,8 @@ import request from '../../utils/axios';
  *           __\///\\\\\\\\\/___\///\\\\\\\\\\\/___\/\\\\\\\\\\\\\\\_\/\\\______\//\\\_ 
  *            ____\/////////_______\///////////_____\///////////////__\///________\///__
  */
-export const getUserRole = ()=>{
-    return request.get("/user/getRoleList/user")
+export const getRoleList = (type)=>{
+    return request.get("/user/getRoleList/" + type)
 }
 
 export const userLogin = (login, pass)=>{

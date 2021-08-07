@@ -181,7 +181,7 @@ export default {
     };
   },
   mounted() {
-    getUserRole().then((res) => {
+    getUserRole("user").then((res) => {
       console.log(res);
       this.roleList = res.data;
     });
