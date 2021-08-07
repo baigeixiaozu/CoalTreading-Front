@@ -66,6 +66,7 @@ export default {
       });
     },
     submitForm(formName) {
+      console.log(formName)
       this.$refs[formName].validate((valid) => {
         if (!valid) {
           this.$message({
@@ -89,11 +90,12 @@ export default {
     },
 
     postData: function () {
+      console.log(this)
       var params = new URLSearchParams();
       params.append("key", "value");
       this.axios({
         method: "post",
-        url: this.baseURL + "/user/login",
+        url: "/user/login",
         data: {
           pass: this.loginForm.pass,
           login: this.loginForm.login,
@@ -113,7 +115,7 @@ export default {
             var userInfo = res.data.data;
             console.log(res);
             localStorage.token = res.data.data.access_token;
-            alert(localStorage.token);
+            console.log(localStorage.token);
             //	self.$store.commit('$_setToken', userInfo.token);
 
             //alert('cg');

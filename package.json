@@ -1,7 +1,6 @@
 {
   "name": "coal",
   "version": "0.1.0",
-  "homepage": ".",
   "private": true,
   "scripts": {
     "serve": "vue-cli-service serve",
@@ -10,7 +9,9 @@
   "dependencies": {
     "core-js": "^3.6.5",
     "element-plus": "^1.0.2-beta.28",
+    "sweetalert": "^2.1.2",
     "vue": "^3.0.0",
+    "vue-axios": "^3.2.5",
     "vue-router": "^4.0.0-0"
   },
   "devDependencies": {
@@ -18,10 +19,10 @@
     "@vue/cli-plugin-router": "^4.5.13",
     "@vue/cli-service": "~4.5.0",
     "@vue/compiler-sfc": "^3.0.0",
-    "axios": "^0.18.0",
+    "axios": "^0.18.1",
     "sass": "^1.26.5",
     "sass-loader": "^8.0.2",
-    "vue-cli-plugin-axios": "0.0.4",
     "vue-cli-plugin-element-plus": "0.0.13"
-  }
+  },
+  "homepage": "."
 }
