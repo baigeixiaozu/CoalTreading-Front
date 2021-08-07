@@ -115,7 +115,7 @@ export default {
             var userInfo = res.data.data;
             console.log(res);
             localStorage.token = res.data.data.access_token;
-            alert(localStorage.token);
+            console.log(localStorage.token);
             //	self.$store.commit('$_setToken', userInfo.token);
 
             //alert('cg');
