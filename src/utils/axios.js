@@ -35,11 +35,24 @@ _axios.interceptors.request.use(
 _axios.interceptors.response.use(
   function(response) {
     // Do something with response data
-    return response;
+    console.log("response", response);
+
+    if(response.status !== 200)return Promise.reject(response);
+
+    const resp = response.data;
+    if(resp.code !== 200){
+      Toast({
+        message: resp.error,
+        duration: 1000,
+        forbidClick: true
+      });
+    }
+
+    return response.data;
   },
   function(error) {
     // Do something with response error
-    console.log(error);
+    console.log("网络错误", error);
     if (error.response.code) {
       switch (error.response.code) {
         // 401: 未登录，或者登录过期
