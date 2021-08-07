@@ -1,18 +1,20 @@
 <template>
   <div class="reg2">
+    <p>
     <h2>基础信息</h2>
+    </p>
     <hr>
     <el-form :label-position="labelPosition" :rules="rules" ref="form" :model="form">
       <el-row>
         <el-col :span="12">
-          <el-form-item label="供应商名称" prop="supName">
-            <el-input v-model.number="form.supName" placeholder="请输入供应商名称" style="width:30%;"></el-input>
+          <el-form-item label="公司名称" prop="comName">
+            <el-input v-model="form.comName" placeholder="请输入公司名称" style="width:30%;"></el-input>
           </el-form-item>
         </el-col>
         <el-col :span='12'>
           <el-form-item label="企业类型" prop="nick">
             <span>
-              {{form.nick}}
+              {{this.form.nick}}
 
             </span>
           </el-form-item>
@@ -20,156 +22,178 @@
       </el-row>
       <el-row>
         <el-col :span='12'>
-          <el-form-item label="法人代表" prop="legalR">
-            <el-input v-model.number="form.legalR" placeholder="请输入法人代表" style="width:30%;"></el-input>
+          <el-form-item label="法人代表" prop="legalName">
+            <el-input v-model="form.legalName" placeholder="请输入法人代表" style="width:30%;"></el-input>
           </el-form-item>
         </el-col>
         <el-col :span='12'>
-          <el-form-item label="法人身份证" prop="corid">
-            <el-input v-model.number="form.corid" placeholder="请输入法人身份证" style="width:30%;"></el-input>
-          </el-form-item>
-        </el-col>
-      </el-row>
-      <el-row>
-        <el-col :span='12'>
-          <el-form-item label="注册地区" prop="regArea">
-            <el-input v-model.number="form.regArea" placeholder="请输入注册地区" style="width:30%;"></el-input>
-          </el-form-item>
-        </el-col>
-        <el-col :span='12'>
-          <el-form-item prop="email" label="企业邮箱" :rules="[
-            { required: true, message: '请输入邮箱地址', trigger: 'blur' },
-            { type: 'email', message: '请输入正确的邮箱地址', trigger: ['blur', 'change'] }
-          ]">
-            <el-input v-model="form.email" placeholder="请输入企业邮箱" style="width:30%;"></el-input>
+          <el-form-item label="法人身份证" prop="legalId">
+            <el-input v-model="form.legalId" placeholder="请输入法人身份证" style="width:30%;"></el-input>
           </el-form-item>
         </el-col>
       </el-row>
       <el-row>
         <el-col :span='12'>
-          <el-form-item label="联系电话" prop="conNo">
-            <el-input v-model.number="form.conNo" placeholder="请输入联系电话" style="width:30%;"></el-input>
+          <el-form-item label="公司地址" prop="comAddr">
+            <el-input v-model="form.comAddr" placeholder="请输入注册地区" style="width:30%;"></el-input>
+          </el-form-item>
+        </el-col>
+        <el-col :span='12'>
+          <el-form-item prop="email" label="企业邮箱">
+            {{this.form.email}}
+          </el-form-item>
+        </el-col>
+      </el-row>
+      <el-row>
+        <el-col :span='12'>
+          <el-form-item label="联系电话" prop="comContact">
+            <el-input v-model="form.comContact" placeholder="请输入联系电话" style="width:30%;"></el-input>
           </el-form-item>
         </el-col>
         <el-col :span='12'>
           <el-form-item label="传真" prop="fax">
-            <el-input v-model.number="form.fax" placeholder="请输入传真" style="width:30%;"></el-input>
+            <el-input v-model="form.fax" placeholder="请输入传真" style="width:30%;"></el-input>
           </el-form-item>
         </el-col>
       </el-row>
       <el-row>
         <el-col :span='12'>
-          <el-form-item label="邮政编码" prop="postCode">
-            <el-input v-model.number="form.postCode" placeholder="请输入邮政编码" style="width:30%;"></el-input>
+          <el-form-item label="邮政编码" prop="comZip">
+            <el-input v-model="form.comZip" placeholder="请输入邮政编码" style="width:30%;"></el-input>
           </el-form-item>
         </el-col>
         <el-col :span='12'>
-          <el-form-item label="注册资金（万元）" prop="regCap">
-            <el-input v-model.number="form.regCap" placeholder="请输入注册资金" style="width:30%;"></el-input>
-          </el-form-item>
-        </el-col>
-      </el-row>
-      <el-row>
-        <el-col :span='12'>
-          <el-form-item label="营业执照号" prop="blNo">
-            <el-input v-model.number="form.blNo" placeholder="请输入营业执照号" style="width:30%;"></el-input>
-          </el-form-item>
-        </el-col>
-        <el-col :span='12'>
-          <el-form-item label="组织机构代码" prop="orgCode">
-            <el-input v-model.number="form.orgCode" placeholder="请输入组织机构代码" style="width:30%;"></el-input>
+          <el-form-item label="注册资金（万元）" prop="registeredCapital">
+            <el-input v-model="form.registeredCapital" placeholder="请输入注册资金" style="width:30%;"></el-input>
           </el-form-item>
         </el-col>
       </el-row>
       <el-row>
         <el-col :span='12'>
-          <el-form-item label="经营许可证编号" prop="bpNo">
-            <el-input v-model.number="form.bpNo" placeholder="请输入经营许可证编号" style="width:30%;"></el-input>
+          <el-form-item label="营业执照号" prop="businessLicenseId">
+            <el-input v-model="form.businessLicenseId" placeholder="请输入营业执照号" style="width:30%;"></el-input>
           </el-form-item>
         </el-col>
         <el-col :span='12'>
-          <el-form-item label="税务登记证编号" prop="RCcode">
-            <el-input v-model.number="form.RCcode" placeholder="请输入税务登记证编号" style="width:30%;"></el-input>
+          <el-form-item label="组织机构代码" prop="oibCode">
+            <el-input v-model="form.oibCode" placeholder="请输入组织机构代码" style="width:30%;"></el-input>
           </el-form-item>
         </el-col>
       </el-row>
       <el-row>
         <el-col :span='12'>
-          <el-form-item label="开户银行" prop="bank">
-            <el-input v-model.number="form.bank" placeholder="请输入开户银行" style="width:30%;"></el-input>
+          <el-form-item label="经营许可证编号" prop="manageLicenseId">
+            <el-input v-model="form.manageLicenseId" placeholder="请输入经营许可证编号" style="width:30%;"></el-input>
+          </el-form-item>
+        </el-col>
+        <el-col :span='12'>
+          <el-form-item label="税务登记证编号" prop="trCert">
+            <el-input v-model="form.trCert" placeholder="请输入税务登记证编号" style="width:30%;"></el-input>
+          </el-form-item>
+        </el-col>
+      </el-row>
+      <el-row>
+        <el-col :span='12'>
+          <el-form-item label="煤炭存放地点" prop="coalStoreSite">
+            <el-input v-model="form.coalStoreSite" placeholder="请输入煤炭存放地点" style="width:30%;"></el-input>
           </el-form-item>
         </el-col>
         <el-col :span="12">
-          <el-form-item label="银行账号" prop="Account">
-            <el-input v-model.number="form.Account" placeholder="请输入银行账号" style="width:30%;"></el-input>
+          <el-form-item label="煤炭数量（吨）" prop="number">
+            <el-input v-model.number="form.number" placeholder="请输入煤炭数量" style="width:30%;"></el-input>
           </el-form-item>
         </el-col>
       </el-row>
-      <hr>
-      <el-form-item label="煤源存放地点、数量、质量" prop="lqq">
-        <el-input v-model.number="form.lqq" type="textarea" :rows="2" placeholder="请输入内容"></el-input>
-      </el-form-item>
-
-      <el-form-item label="运输方式及保障能力" prop="typeOfShipping">
-        <el-input v-model.number="form.typeOfShipping" type="textarea" :rows="2" placeholder="请输入内容"></el-input>
-      </el-form-item>
-      <el-form-item label="应商介绍" prop="introduction">
-        <el-input v-model.number="form.introduction" type="textarea" :rows="2" placeholder="请输入内容"></el-input>
+      <el-row>
+        <el-col :span='12'>
+          <el-form-item label="煤炭质量" prop="coalQuality">
+            <el-input v-model="form.coalQuality" placeholder="请输入内容" style="width:30%;"></el-input>
+          </el-form-item>
+        </el-col>
+        <el-col :span="12">
+          <el-form-item label="运输方式" prop="coalTransport">
+            <el-input v-model="form.coalTransport" placeholder="请输入内容" style="width:30%;"></el-input>
+          </el-form-item>
+        </el-col>
+      </el-row>
+      <el-form-item label="公司简介" prop="comIntro">
+        <el-input v-model="form.comIntro" type="textarea" :rows="2" placeholder="请输入内容"></el-input>
       </el-form-item>
       <h2>企业资质</h2>
       <hr />
-      <el-form-item>
-      <el-upload class="upload-demo" action="https://jsonplaceholder.typicode.com/posts/" :on-preview="handlePreview"
-        :on-remove="handleRemove" :before-remove="beforeRemove" multiple :limit="3" :on-exceed="handleExceed"
-        :file-list="busL">
+      <el-form-item></el-form-item>
+      <el-upload class="upload-demo" action="http://localhost:8080/user/uploadFile" :on-preview="handlePreview"
+        :on-remove="handleRemove" :before-remove="beforeRemove" multiple :limit="1" :on-exceed="handleExceed"
+        :file-list="businessLicenseFile" :before-upload="beforeUpload6">
         <el-button size="small" type="primary">营业执照点击上传</el-button>
         <div slot="tip" class="el-upload__tip">只能上传jpg/png文件，且不超过500kb</div>
       </el-upload>
-      </el-form-item>
-      <el-form-item>
-      <el-upload class="upload-demo" action="https://jsonplaceholder.typicode.com/posts/" :on-preview="handlePreview"
-        :on-remove="handleRemove" :before-remove="beforeRemove" multiple :limit="3" :on-exceed="handleExceed"
-        :file-list="taxRC">
+
+      <el-form-item></el-form-item>
+      <el-upload class="upload-demo" action="http://localhost:8080/user/uploadFile" :on-preview="handlePreview"
+        :on-remove="handleRemove" :before-remove="beforeRemove" multiple :limit="1" :on-exceed="handleExceed"
+        :file-list="trCertFile" :before-upload="beforeUpload5">
         <el-button size="small" type="primary">税务登记证点击上传</el-button>
         <div slot="tip" class="el-upload__tip">只能上传jpg/png文件，且不超过500kb</div>
       </el-upload>
-      </el-form-item>
-      <el-form-item>
-      <el-upload class="upload-demo" action="https://jsonplaceholder.typicode.com/posts/" :on-preview="handlePreview"
-        :on-remove="handleRemove" :before-remove="beforeRemove" multiple :limit="3" :on-exceed="handleExceed"
-        :file-list="orgCodeC">
+
+      <el-form-item></el-form-item>
+      <el-upload class="upload-demo" action="http://localhost:8080/user/uploadFile" :on-preview="handlePreview"
+        :on-remove="handleRemove" :before-remove="beforeRemove" multiple :limit="1" :on-exceed="handleExceed"
+        :file-list="oibCodeFile" :before-upload="beforeUpload4">
         <el-button size="small" type="primary">组织机构代码证点击上传</el-button>
         <div slot="tip" class="el-upload__tip">只能上传jpg/png文件，且不超过500kb</div>
       </el-upload>
-      </el-form-item>
-      <el-form-item>
-      <el-upload class="upload-demo" action="https://jsonplaceholder.typicode.com/posts/" :on-preview="handlePreview"
-        :on-remove="handleRemove" :before-remove="beforeRemove" multiple :limit="3" :on-exceed="handleExceed"
-        :file-list="peiA">
-        <el-button size="small" type="primary">开户许可证点击上传</el-button>
-        <div slot="tip" class="el-upload__tip">只能上传jpg/png文件，且不超过500kb</div>
-      </el-upload>
-      </el-form-item>
-      <el-form-item>
-      <el-upload class="upload-demo" action="https://jsonplaceholder.typicode.com/posts/" :on-preview="handlePreview"
-        :on-remove="handleRemove" :before-remove="beforeRemove" multiple :limit="3" :on-exceed="handleExceed"
-        :file-list="coalBL">
+      <el-form-item></el-form-item>
+      <el-form-item></el-form-item>
+      <el-upload class="upload-demo" action="http://localhost:8080/user/uploadFile" :on-preview="handlePreview"
+        :on-remove="handleRemove" :before-remove="beforeRemove" multiple :limit="1" :on-exceed="handleExceed"
+        :file-list="manageLicenseFile" :before-upload="beforeUpload3">
         <el-button size="small" type="primary">煤炭经营许可证点击上传</el-button>
         <div slot="tip" class="el-upload__tip">只能上传jpg/png文件，且不超过500kb</div>
       </el-upload>
-      </el-form-item>
-      <el-form-item>
-      <el-upload class="upload-demo" action="https://jsonplaceholder.typicode.com/posts/" :on-preview="handlePreview"
-        :on-remove="handleRemove" :before-remove="beforeRemove" multiple :limit="3" :on-exceed="handleExceed"
-        :file-list="corid">
+
+      <el-form-item></el-form-item>
+      <el-upload class="upload-demo" action="http://localhost:8080/user/uploadFile" :on-preview="handlePreview"
+        :on-remove="handleRemove" :before-remove="beforeRemove" multiple :limit="1" :on-exceed="handleExceed"
+        :file-list="legalIdFile" :before-upload="beforeUpload2">
         <el-button size="small" type="primary">法人身份证点击上传</el-button>
         <div slot="tip" class="el-upload__tip">只能上传jpg/png文件，且不超过500kb</div>
       </el-upload>
+    </el-form>
+    <p>
+    <h2>完善财务信息</h2>
+    </p>
+    <hr>
+    <el-form :label-position="labelPosition" :rules="rules" ref="form1" :model="form1">
+      <el-form-item label="汇款单位名称" prop="comName">
+        <el-input v-model="form1.comName" placeholder="请输入......" style="width:30%;"></el-input>
       </el-form-item>
-      <hr>
+      <el-form-item label="开户银行" prop="bankName">
+        <el-input v-model="form1.bankName" placeholder="请输入......" style="width:30%;"></el-input>
+      </el-form-item>
+      <el-form-item label="银行账号" prop="bankAcc">
+        <el-input v-model="form1.bankAcc" placeholder="请输入......" style="width:30%;"></el-input>
+      </el-form-item>
+      <el-form-item label="账户余额" prop="blance">
+        <el-input v-model.number="form1.blance" placeholder="请输入......" style="width:30%;"></el-input>
+      </el-form-item>
+      <el-form-item label="报价冻结金额" prop="freeze">
+        <el-input v-model.number="form1.freeze" placeholder="请输入......" style="width:30%;"></el-input>
+      </el-form-item>
+      <el-form-item></el-form-item>
+      <el-upload class="upload-demo" action="http://localhost:8080/user/uploadFile" :on-preview="handlePreview"
+        :on-remove="handleRemove" :before-remove="beforeRemove" multiple :limit="1" :on-exceed="handleExceed"
+        :file-list="aoPermitFile" :before-upload="beforeUpload1">
+        <el-button size="small" type="primary">开户许可证证点击上传</el-button>
+        <div slot="tip" class="el-upload__tip">只能上传jpg/png文件，且不超过500kb</div>
+      </el-upload>
+    </el-form>
+    <hr>
+    <el-form>
       <el-form-item>
-        <el-button type="primary" @click="submitForm('form')">提交</el-button>
-        <el-button @click="resetForm('form')">重置</el-button>
+        <el-button type="primary" @click="submitForm('form','form1')">提交</el-button>
+        <el-button @click="resetForm('form','form1')">重置</el-button>
       </el-form-item>
     </el-form>
   </div>
@@ -177,95 +201,103 @@
 
 <script>
   export default {
-    name: 'complete',
+    name: 'reg2',
     data() {
       return {
         labelPosition: 'right',
+        form1: {
+          comName: '',
+          bankName: '',
+          bankAcc: '',
+          blance: '',
+          freeze: '',
+          aoPermitFile: '', //开户许可证文件路径
+
+        },
         form: {
-          login: '',
-          supName: '',
+          comName: '',
+          legalName: '',
           nick: '',
-          regArea: '',
-          legalR: '',
-          conNo: '',
-          postCode: '',
-          blNo: '',
-          bpNo: '',
-          bank: '',
-          regCap: '',
-          corid: '',
-          email: '',
+          legalId: '',
+          comAddr: '',
+          comContact: '',
+          comZip: '',
+          businessLicenseId: '',
+          manageLicenseId: '',
           fax: '',
-          orgCode: '',
-          RCcode: '',
-          Account: '',
-          lqq: '',
-          typeOfShipping: '',
-          introduction: '',
-          busL: [],
-          corid: [],
-          coalBL: [],
-          peiA: [],
-          orgCodeC: [],
-          taxRC: [],
+          registeredCapital: '',
+          oibCode: '',
+          trCert: '',
+          coalStoreSite: '',
+          coalQuantity: '',
+          coalQuality: '',
+          coalTransport: '',
+          comIntro: '',
+          email: '',
+          legalIdFile: '',
+          businessLicenseFile: '',
+          manageLicenseFile:'',
+          oibCodeFile: '',
+          trCertFile: '',
+
         },
         rules: {
-        /*  supName: [{
+          comName: [{
             required: true,
             message: '输入不能为空',
             trigger: 'blur'
           }, ],
-          nick: [{
+          legalName: [{
             required: true,
             message: '输入不能为空',
             trigger: 'blur'
           }, ],
-          regArea: [{
+          legalId: [{
             required: true,
             message: '输入不能为空',
             trigger: 'blur'
           }, ],
-          legalR: [{
+          comAddr: [{
             required: true,
             message: '输入不能为空',
             trigger: 'blur'
           }, ],
-          conNo: [{
+          comContact: [{
             required: true,
             message: '输入不能为空',
             trigger: 'blur'
           }, ],
-          postCode: [{
+          comZip: [{
             required: true,
             message: '输入不能为空',
             trigger: 'blur'
           }, ],
-          blNo: [{
+          businessLicenseId: [{
             required: true,
             message: '输入不能为空',
             trigger: 'blur'
           }, ],
-          bpNo: [{
+          manageLicenseId: [{
             required: true,
             message: '输入不能为空',
             trigger: 'blur'
           }, ],
-          bank: [{
+          registeredCapital: [{
             required: true,
             message: '输入不能为空',
             trigger: 'blur'
           }, ],
-          regCap: [{
+          oibCode: [{
             required: true,
             message: '输入不能为空',
             trigger: 'blur'
           }, ],
-          corid: [{
+          trCert: [{
             required: true,
             message: '输入不能为空',
             trigger: 'blur'
           }, ],
-          email: [{
+          coalStoreSite: [{
             required: true,
             message: '输入不能为空',
             trigger: 'blur'
@@ -275,42 +307,33 @@
             message: '输入不能为空',
             trigger: 'blur'
           }, ],
-          orgCode: [{
+          coalQuantity: [{
             required: true,
             message: '输入不能为空',
             trigger: 'blur'
           }, ],
-          RCcode: [{
+          coalQuality: [{
             required: true,
             message: '输入不能为空',
             trigger: 'blur'
           }, ],
-          Account: [{
+          coalTransport: [{
             required: true,
             message: '输入不能为空',
             trigger: 'blur'
           }, ],
-          lqq: [{
+          comIntro: [{
             required: true,
             message: '输入不能为空',
             trigger: 'blur'
           }, ],
-          typeOfShipping: [{
-            required: true,
-            message: '输入不能为空',
-            trigger: 'blur'
-          }, ],
-          introduction: [{
-            required: true,
-            message: '输入不能为空',
-            trigger: 'blur'
-          }, ], */
+
         }
       };
     },
     mounted() {
-     
-        this.getData();
+
+      this.getData();
       //alert();
     },
     methods: {
@@ -321,13 +344,51 @@
         console.log(file);
       },
       handleExceed(files, fileList) {
-        this.$message.warning(`当前限制选择 3 个文件，本次选择了 ${files.length} 个文件，共选择了 ${files.length + fileList.length} 个文件`);
+        this.$message.warning(`当前限制选择 1 个文件，本次选择了 ${files.length} 个文件，共选择了 ${files.length + fileList.length} 个文件`);
       },
       beforeRemove(file, fileList) {
         return this.$confirm(`确定移除 ${ file.name }？`);
       },
-      submitForm(formName) {
+      beforeUpload1(file) {
+        console.log(file.name)
+        this.form1.aoPermitFile=file.name;
+      },
+      beforeUpload2(file) {
+        console.log(file.name)
+        this.form.legalIdFile=file.name;
+      },
+      beforeUpload3(file) {
+        console.log(file.name)
+        this.form.manageLicenseFile=file.name;
+      },
+      beforeUpload4(file) {
+        console.log(file.name)
+        this.form.oibCodeFile=file.name;
+      },
+      beforeUpload5(file) {
+        console.log(file.name)
+        this.form.trCertFile=file.name;
+      },
+      beforeUpload6(file) {
+        console.log(file.name)
+        this.form.businessLicenseFile=file.name;
+      },
+      submitForm(formName, formName1) {
         this.$refs[formName].validate((valid) => {
+          if (valid) {
+            this.$message({
+              message: '注册成功',
+              type: 'success'
+            });
+          } else {
+            this.$message({
+              message: '注册失败',
+              type: 'warning'
+            });
+            return false;
+          }
+        });
+        this.$refs[formName1].validate((valid) => {
           if (valid) {
             this.$message({
               message: '注册成功',
@@ -343,28 +404,68 @@
           }
         });
       },
-      resetForm(formName) {
+      resetForm(formName, formName1) {
         this.$refs[formName].resetFields();
+        this.$refs[formName1].resetFields();
       },
       postData: function() {
         this.axios({
           method: 'post',
-          url: this.baseURL/* + '/user/complete' */,
+          url: this.baseURL + '/user/complete',
+          data: {
+            comName: this.form.comName,
+            legalName: this.form.legalName,
+            nick: this.form.nick,
+            legalId: this.form.legalId,
+            comAddr: this.form.comAddr,
+            comContact: this.form.comContact,
+            comZip: this.form.comZip,
+            businessLicenseId: this.form.businessLicenseId,
+            manageLicenseId: this.form.manageLicenseId,
+            fax: this.form.fax,
+            registeredCapital: this.form.registeredCapital,
+            oibCode: this.form.oibCode,
+            trCert: this.form.trCert,
+            coalStoreSite: this.form.coalStoreSite,
+            coalQuantity: this.form.coalQuantity,
+            coalQuality: this.form.coalQuality,
+            coalTransport: this.form.coalTransport,
+            comIntro: this.form.comIntro,
+          }
+        }).then(function(repos) {
+          //console.log(repos);
+        }).catch(function(err) {
+          console.log(err);
+        });
+      },
+      //form1 axios
+      postData1: function() {
+        this.axios({
+          method: 'post',
+          url: this.baseURL + '/user/finance',
+          data: {
+            comName:this.form1.comName,
+            bankName:this.form1.bankName,
+            bankAcc:this.form1.bankAcc,
+            blance:this.form1.balance,
+            freeze:this.form1.freeze,
+            aoPermitFile:this.form1.aoPermitFile
+          }
         }).then(function(repos) {
           console.log(repos);
         }).catch(function(err) {
           console.log(err);
         });
       },
-
       getData: function() {
         console.log(localStorage.token);
         this.axios({
             method: 'get',
-            url: this.baseURL + '/user/info'
+            url: this.baseURL + '/user/info',
           }).then(repos => {
             console.log(repos)
-            this.form.nick = repos.data.login;
+            this.form.email = repos.data.data.email;
+            this.form.nick = repos.data.data.userType;
           })
           .catch(function(err) {
             console.log(err);
@@ -372,7 +473,7 @@
       }
     },
 
-}
+  }
 </script>
 
 

@@ -31,6 +31,7 @@
 </template>
 
 <script>
+import {userLogin} from './api';
 export default {
   data() {
     return {
@@ -93,37 +94,16 @@ export default {
       console.log(this);
       var params = new URLSearchParams();
       params.append("key", "value");
-      this.axios({
-        method: "post",
-        url: "/user/login",
-        data: {
-          pass: this.loginForm.pass,
-          login: this.loginForm.login,
-        },
-      })
+      userLogin(this.loginForm.login, this.loginForm.pass)
         .then(function (res) {
-          //console.log(repos.data.code)
-          /* if(repos.data.code == 200){
-              alert('注册成功');
-              this.$router.push({name:'reg'});
-            }else if(repos.data.code == 101404){
-              alert('账号错误');
-            }else if(repos.data.code == 101401){
-              alert('密码错误');
-            } */
           const resp = res;
           console.log("resp", resp);
           if (resp.code == 200) {
             localStorage.token = resp.data.access_token;
+            localStorage.userRole = resp.data.role[0]
             console.log(localStorage.token);
-            //	self.$store.commit('$_setToken', userInfo.token);
-
-            // Toast({ message: "登录成功", type: "success", duration: 1500 }); // ui弹窗提示
-            //              this.$router.push({ name:'success' });  // 跳转到首页
           } else {
-            // Toast({ message: res.data.message, duration: 1500 }); // ui弹窗提示
           }
-          //console.log(res);
         })
         .catch(function (err) {
           console.log(err);

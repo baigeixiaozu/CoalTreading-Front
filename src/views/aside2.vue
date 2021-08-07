@@ -16,46 +16,15 @@
       :collapse="isCollapse"
       router
     >
-      <el-submenu index="1">
+      <el-submenu v-for="menuGroup in menuList" :key="menuGroup.index" :index="menuGroup.index">
         <template #title>
-          <i class="el-icon-chat-line-square"></i>
-          <span>资讯中心</span>
+          <i :class="menuGroup.icon"></i>
+          <span>{{menuGroup.name}}</span>
         </template>
         <el-menu-item-group>
-          <el-menu-item index="/news/edit"
-            ><i class="el-icon-edit"> </i>编辑资讯
+          <el-menu-item v-for="subMenu in menuGroup.child" :key="subMenu.index" :index="subMenu.index"
+            ><i :class="subMenu.icon"> </i>{{subMenu.name}}
           </el-menu-item>
-
-          <el-menu-item index="/news/list"
-            ><i class="el-icon-s-order"></i>资讯列表</el-menu-item
-          >
-        </el-menu-item-group>
-      </el-submenu>
-
-      <el-submenu index="2">
-        <template #title>
-          <span>账户管理</span>
-        </template>
-        <el-menu-item-group>
-          <el-menu-item index="/user/login">
-            <i class="el-icon-s-open"></i>登录/注册
-          </el-menu-item>
-        </el-menu-item-group>
-      </el-submenu>
-
-      <el-menu-item index="/audit">审核中心</el-menu-item>
-
-      <el-submenu index="4">
-        <template #title>
-          <span>交易中心</span>
-        </template>
-        <el-menu-item-group>
-          <el-menu-item index="4-1"
-            ><i class="el-icon-s-open"></i>挂牌</el-menu-item
-          >
-          <el-menu-item index="4-2"
-            ><i class="el-icon-s-order"></i>摘牌</el-menu-item
-          >
         </el-menu-item-group>
       </el-submenu>
     </el-menu>
@@ -67,6 +36,80 @@ export default {
   data() {
     return {
       isCollapse: false,
+      menuList: [
+        {
+          index: 1,
+          name: "资讯",
+          icon: "el-icon-chat-line-square",
+          role: "",
+          child: [
+            {
+              index: "/news/edit",
+              name: "资讯编辑",
+              icon: "el-icon-edit",
+              role: "",
+            },
+            {
+              index: "/news/list",
+              name: "资讯列表",
+              icon: "el-icon-s-order",
+              role: ""
+            }
+          ]
+        },
+        {
+          index: 2,
+          name: "账户管理",
+          icon: "",
+          role: "",
+          child: [
+            {
+              index: "/user/login",
+              name: "登录/注册",
+              icon: "el-icon-s-open",
+              role: "",
+            },
+            {
+              index: "/user/new",
+              name: "新增用户",
+              icon: "el-icon-s-open",
+              role: "",
+            }
+          ]
+        },
+        {
+          index: 3,
+          name: "审核中心",
+          icon: "",
+          role: "",
+          child: [
+            {
+              index: "/audit",
+              name: "审核中心",
+              icon: "",
+              role: "",
+            }
+          ]
+        },
+        {
+          index: 4,
+          name: "交易中心",
+          icon: "",
+          role: "",
+          child: [
+            {
+              index: "4-1",
+              name: "挂牌",
+              icon: "el-icon-s-open"
+            },
+            {
+              index: "4-2",
+              name: "摘牌",
+              icon: "el-icon-s-order"
+            }
+          ]
+        }
+      ]
     };
   },
   methods: {

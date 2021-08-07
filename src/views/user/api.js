@@ -15,3 +15,9 @@ import request from '../../utils/axios';
 export const getUserRole = ()=>{
     return request.get("/user/getRoleList/user")
 }
+
+export const userLogin = (login, pass)=>{
+    return request.post("/user/login", {
+        login,pass
+    })
+}
