@@ -14,7 +14,7 @@
             <el-input
               v-model="form.comName"
               placeholder="请输入公司名称"
-              style="width: 30%"
+              style="width: 90%"
             ></el-input>
           </el-form-item>
         </el-col>
@@ -32,7 +32,7 @@
             <el-input
               v-model="form.legalName"
               placeholder="请输入法人代表"
-              style="width: 30%"
+              style="width: 90%"
             ></el-input>
           </el-form-item>
         </el-col>
@@ -41,7 +41,7 @@
             <el-input
               v-model="form.legalId"
               placeholder="请输入法人身份证"
-              style="width: 30%"
+              style="width: 90%"
             ></el-input>
           </el-form-item>
         </el-col>
@@ -52,7 +52,7 @@
             <el-input
               v-model="form.comAddr"
               placeholder="请输入注册地区"
-              style="width: 30%"
+              style="width: 90%"
             ></el-input>
           </el-form-item>
         </el-col>
@@ -68,7 +68,7 @@
             <el-input
               v-model="form.comContact"
               placeholder="请输入联系电话"
-              style="width: 30%"
+              style="width: 90%"
             ></el-input>
           </el-form-item>
         </el-col>
@@ -77,7 +77,7 @@
             <el-input
               v-model="form.fax"
               placeholder="请输入传真"
-              style="width: 30%"
+              style="width: 90%"
             ></el-input>
           </el-form-item>
         </el-col>
@@ -88,7 +88,7 @@
             <el-input
               v-model="form.comZip"
               placeholder="请输入邮政编码"
-              style="width: 30%"
+              style="width: 90%"
             ></el-input>
           </el-form-item>
         </el-col>
@@ -97,7 +97,7 @@
             <el-input
               v-model="form.registeredCapital"
               placeholder="请输入注册资金"
-              style="width: 30%"
+              style="width: 90%"
             ></el-input>
           </el-form-item>
         </el-col>
@@ -108,7 +108,7 @@
             <el-input
               v-model="form.businessLicenseId"
               placeholder="请输入营业执照号"
-              style="width: 30%"
+              style="width: 90%"
             ></el-input>
           </el-form-item>
         </el-col>
@@ -117,7 +117,7 @@
             <el-input
               v-model="form.oibCode"
               placeholder="请输入组织机构代码"
-              style="width: 30%"
+              style="width: 90%"
             ></el-input>
           </el-form-item>
         </el-col>
@@ -128,7 +128,7 @@
             <el-input
               v-model="form.manageLicenseId"
               placeholder="请输入经营许可证编号"
-              style="width: 30%"
+              style="width: 90%"
             ></el-input>
           </el-form-item>
         </el-col>
@@ -137,7 +137,7 @@
             <el-input
               v-model="form.trCert"
               placeholder="请输入税务登记证编号"
-              style="width: 30%"
+              style="width: 90%"
             ></el-input>
           </el-form-item>
         </el-col>
@@ -148,7 +148,7 @@
             <el-input
               v-model="form.coalStoreSite"
               placeholder="请输入煤炭存放地点"
-              style="width: 30%"
+              style="width: 90%"
             ></el-input>
           </el-form-item>
         </el-col>
@@ -157,7 +157,7 @@
             <el-input
               v-model.number="form.number"
               placeholder="请输入煤炭数量"
-              style="width: 30%"
+              style="width: 90%"
             ></el-input>
           </el-form-item>
         </el-col>
@@ -168,7 +168,7 @@
             <el-input
               v-model="form.coalQuality"
               placeholder="请输入内容"
-              style="width: 30%"
+              style="width: 90%"
             ></el-input>
           </el-form-item>
         </el-col>
@@ -177,7 +177,7 @@
             <el-input
               v-model="form.coalTransport"
               placeholder="请输入内容"
-              style="width: 30%"
+              style="width: 90%"
             ></el-input>
           </el-form-item>
         </el-col>
@@ -192,85 +192,118 @@
       </el-form-item>
       <h2>企业资质</h2>
       <hr />
-      <el-form-item></el-form-item>
-      <el-upload
-        class="upload-demo"
-        :action="API + '/user/uploadFile?type=BUSINESS_LICENSE_FILE'"
-        :headers="auth"
-        :on-preview="handlePreview"
-        :on-remove="handleRemove"
-        :before-remove="beforeRemove"
-        :limit="1"
-        :on-exceed="handleExceed"
-        :before-upload="beforeUpload6"
-      >
-        <el-button size="small" type="primary">营业执照点击上传</el-button>
-        <div class="el-upload__tip">只能上传jpg/png文件，且不超过500kb</div>
-      </el-upload>
-
-      <el-form-item></el-form-item>
-      <el-upload
-        class="upload-demo"
-        action="{{API}}/user/uploadFile?type=TR_CERT_FILE"
-        :on-preview="handlePreview"
-        :on-remove="handleRemove"
-        :before-remove="beforeRemove"
-        :limit="1"
-        :on-exceed="handleExceed"
-        :before-upload="beforeUpload5"
-      >
-        <el-button size="small" type="primary">税务登记证点击上传</el-button>
-        <div class="el-upload__tip">只能上传jpg/png文件，且不超过500kb</div>
-      </el-upload>
-
-      <el-form-item></el-form-item>
-      <el-upload
-        class="upload-demo"
-        action="{{API}}/user/uploadFile?type=OIB_CODE_FILE"
-        :on-preview="handlePreview"
-        :on-remove="handleRemove"
-        :before-remove="beforeRemove"
-        :limit="1"
-        :on-exceed="handleExceed"
-        :before-upload="beforeUpload4"
-      >
-        <el-button size="small" type="primary"
-          >组织机构代码证点击上传</el-button
+      <el-row>
+        <el-col :span="12">
+          <el-form-item>
+            <el-upload
+              class="upload-demo"
+              :action="API + '/user/uploadFile?type=BUSINESS_LICENSE_FILE'"
+              :headers="auth"
+              :on-preview="handlePreview"
+              :on-remove="handleRemove"
+              :before-remove="beforeRemove"
+              :limit="1"
+              :on-exceed="handleExceed"
+              :before-upload="beforeUpload6"
+            >
+              <el-button size="small" type="primary"
+                >营业执照点击上传</el-button
+              >
+              <div class="el-upload__tip">
+                只能上传jpg/png文件，且不超过500kb
+              </div>
+            </el-upload>
+          </el-form-item>
+        </el-col>
+        <el-col :span="12">
+          <el-form-item>
+            <el-upload
+              class="upload-demo"
+              action="{{API}}/user/uploadFile?type=TR_CERT_FILE"
+              :on-preview="handlePreview"
+              :on-remove="handleRemove"
+              :before-remove="beforeRemove"
+              :limit="1"
+              :on-exceed="handleExceed"
+              :before-upload="beforeUpload5"
+            >
+              <el-button size="small" type="primary"
+                >税务登记证点击上传</el-button
+              >
+              <div class="el-upload__tip">
+                只能上传jpg/png文件，且不超过500kb
+              </div>
+            </el-upload>
+          </el-form-item></el-col
         >
-        <div class="el-upload__tip">只能上传jpg/png文件，且不超过500kb</div>
-      </el-upload>
-      <el-form-item></el-form-item>
-      <el-form-item></el-form-item>
-      <el-upload
-        class="upload-demo"
-        action="{{API}}/user/uploadFile?type=MANAGE_LICENSE_FILE"
-        :on-preview="handlePreview"
-        :on-remove="handleRemove"
-        :before-remove="beforeRemove"
-        :limit="1"
-        :on-exceed="handleExceed"
-        :before-upload="beforeUpload3"
-      >
-        <el-button size="small" type="primary"
-          >煤炭经营许可证点击上传</el-button
+      </el-row>
+      <el-row>
+        <el-col :span="12">
+          <el-form-item>
+            <el-upload
+              class="upload-demo"
+              action="{{API}}/user/uploadFile?type=OIB_CODE_FILE"
+              :on-preview="handlePreview"
+              :on-remove="handleRemove"
+              :before-remove="beforeRemove"
+              :limit="1"
+              :on-exceed="handleExceed"
+              :before-upload="beforeUpload4"
+            >
+              <el-button size="small" type="primary"
+                >组织机构代码证点击上传</el-button
+              >
+              <div class="el-upload__tip">
+                只能上传jpg/png文件，且不超过500kb
+              </div>
+            </el-upload></el-form-item
+          ></el-col
         >
-        <div class="el-upload__tip">只能上传jpg/png文件，且不超过500kb</div>
-      </el-upload>
-
-      <el-form-item></el-form-item>
-      <el-upload
-        class="upload-demo"
-        action="{{API}}/user/uploadFile?type=LEGAL_ID_FILE"
-        :on-preview="handlePreview"
-        :on-remove="handleRemove"
-        :before-remove="beforeRemove"
-        :limit="1"
-        :on-exceed="handleExceed"
-        :before-upload="beforeUpload2"
-      >
-        <el-button size="small" type="primary">法人身份证点击上传</el-button>
-        <div class="el-upload__tip">只能上传jpg/png文件，且不超过500kb</div>
-      </el-upload>
+        <el-col :span="12">
+          <el-form-item>
+            <el-upload
+              class="upload-demo"
+              action="{{API}}/user/uploadFile?type=MANAGE_LICENSE_FILE"
+              :on-preview="handlePreview"
+              :on-remove="handleRemove"
+              :before-remove="beforeRemove"
+              :limit="1"
+              :on-exceed="handleExceed"
+              :before-upload="beforeUpload3"
+            >
+              <el-button size="small" type="primary"
+                >煤炭经营许可证点击上传</el-button
+              >
+              <div class="el-upload__tip">
+                只能上传jpg/png文件，且不超过500kb
+              </div>
+            </el-upload>
+          </el-form-item></el-col
+        >
+      </el-row>
+      <el-row>
+        <el-col :span="12">
+          <el-form-item>
+            <el-upload
+              class="upload-demo"
+              action="{{API}}/user/uploadFile?type=LEGAL_ID_FILE"
+              :on-preview="handlePreview"
+              :on-remove="handleRemove"
+              :before-remove="beforeRemove"
+              :limit="1"
+              :on-exceed="handleExceed"
+              :before-upload="beforeUpload2"
+            >
+              <el-button size="small" type="primary"
+                >法人身份证点击上传</el-button
+              >
+              <div class="el-upload__tip">
+                只能上传jpg/png文件，且不超过500kb
+              </div>
+            </el-upload></el-form-item
+          ></el-col
+        >
+      </el-row>
     </el-form>
     <h2>完善财务信息</h2>
     <hr />
@@ -284,21 +317,21 @@
         <el-input
           v-model="form1.comName"
           placeholder="请输入......"
-          style="width: 30%"
+          style="width: 90%"
         ></el-input>
       </el-form-item>
       <el-form-item label="开户银行" prop="bankName">
         <el-input
           v-model="form1.bankName"
           placeholder="请输入......"
-          style="width: 30%"
+          style="width: 90%"
         ></el-input>
       </el-form-item>
       <el-form-item label="银行账号" prop="bankAcc">
         <el-input
           v-model="form1.bankAcc"
           placeholder="请输入......"
-          style="width: 30%"
+          style="width: 90%"
         ></el-input>
       </el-form-item>
       <!-- <el-form-item label="账户余额" prop="blance">
@@ -340,7 +373,7 @@ export default {
     return {
       API: process.env.VUE_APP_BASE_URL,
       auth: {
-        Authorization: `Bearer ${this.$store.state.token}`
+        Authorization: `Bearer ${this.$store.state.token}`,
       },
       labelPosition: "right",
       form1: {
