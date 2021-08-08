@@ -25,3 +25,7 @@ export const userLogin = (login, pass)=>{
 export const getUserInfo = ()=>{
     return request.get("/user/info")
 }
+
+export const genNewUser = (data)=>{
+    return request.post("/user/new", data)
+}
