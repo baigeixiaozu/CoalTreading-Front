@@ -12,8 +12,7 @@
         <el-col :span='12'>
           <el-form-item label="企业类型" prop="nick">
             <span>
-              {{this.form.nick}}
-
+              {{form.userType}}
             </span>
           </el-form-item>
         </el-col>
@@ -38,7 +37,7 @@
         </el-col>
         <el-col :span='12'>
           <el-form-item prop="email" label="企业邮箱">
-            {{this.form.email}}
+            {{form.email}}
           </el-form-item>
         </el-col>
       </el-row>
@@ -171,13 +170,12 @@
       <el-form-item label="银行账号" prop="bankAcc">
         <el-input v-model="form1.bankAcc" placeholder="请输入......" style="width:30%;"></el-input>
       </el-form-item>
-      <el-form-item label="账户余额" prop="blance">
+      <!-- <el-form-item label="账户余额" prop="blance">
         <el-input v-model.number="form1.blance" placeholder="请输入......" style="width:30%;"></el-input>
-      </el-form-item>
-      <el-form-item label="报价冻结金额" prop="freeze">
+      </el-form-item> -->
+      <!-- <el-form-item label="报价冻结金额" prop="freeze">
         <el-input v-model.number="form1.freeze" placeholder="请输入......" style="width:30%;"></el-input>
-      </el-form-item>
-      <el-form-item></el-form-item>
+      </el-form-item> -->
       <el-upload class="upload-demo" action="http://localhost:8080/user/uploadFile" :on-preview="handlePreview"
         :on-remove="handleRemove" :before-remove="beforeRemove" multiple :limit="1" :on-exceed="handleExceed"
         :file-list="aoPermitFile" :before-upload="beforeUpload1">
@@ -462,10 +460,10 @@
       },
       getData: function() {
         console.log(localStorage.token);
-        getUserInfo().then(repos => {
-            console.log(repos)
-            this.form.email = repos.data.data.email;
-            this.form.nick = repos.data.data.userType;
+        getUserInfo().then(resp => {
+            console.log(resp)
+            this.form.email = resp.data.email;
+            this.form.userType = resp.data.userType;
           })
           .catch(function(err) {
             console.log(err);
