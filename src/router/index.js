@@ -52,6 +52,12 @@ const routes = [
     component: () => import("../views/user/new.vue"),
     meta: { title: "新增用户" }
   },
+  {
+    path: "/user/info",
+    name: "userInfo",
+    component: () => import("../views/user/info.vue"),
+    meta: { title: "个人信息" }
+  },
   // 用户路由END
   {
     path: "/test",
