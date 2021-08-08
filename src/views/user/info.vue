@@ -69,7 +69,7 @@
         };
     },
     mounted() {
-      getData();
+      this.getData();
     },
     methods: {
       patchData : function(){

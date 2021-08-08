@@ -102,9 +102,10 @@ export default {
             this.$store.commit("set_role", resp.data.role[0]);
             
             // console.log("login test", localStorage.token);
-            ElMessage({
+            this.$message({
               message: "登录成功",
               type: "success",
+              duration: 1000
             });
             if(this.$route.query.redirect){
               this.$router.push({
@@ -112,6 +113,9 @@ export default {
               });
             }else{
               console.log("跳转至个人信息页")
+              this.$router.push({
+                path: "/user/info"
+              });
             }
           } else {
           }
