@@ -1,6 +1,7 @@
 "use strict";
 
 import axios from "axios";
+import router from '../router'
 
 // Full config:  https://github.com/axios/axios#request-config
 // axios.defaults.baseURL = process.env.baseURL || process.env.apiUrl || '';
