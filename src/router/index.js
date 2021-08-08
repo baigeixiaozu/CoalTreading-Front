@@ -32,8 +32,7 @@ const routes = [
     name: "userReg",
     component: () => import("../views/user/reg.vue"),
     meta: { title: "注册" }
-  },
-  ,
+  },,
   {
     path: "/user/complete",
     name: "userComplete",
@@ -46,13 +45,13 @@ const routes = [
     component: () => import("../views/user/new.vue"),
     meta: { title: "新增用户" }
   },
-  // 用户路由END
   {
-    path: "/test",
-    name: "test",
-    component: () => import("../views/test.vue"),
-    meta: { title: "测试" }
-  }
+    path: "/user/userinfo",
+    name: "userinfo",
+    component: () => import("../views/user/userinfo.vue"),
+    meta: { title: "用户信息修改" }
+  },
+  // 用户路由END
 ];
 
 const router = createRouter({

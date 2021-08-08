@@ -1,6 +1,8 @@
 <template>
   <div class="reg2">
+    <p>
     <h2>基础信息</h2>
+    </p>
     <hr>
     <el-form :label-position="labelPosition" :rules="rules" ref="form" :model="form">
       <el-row>
@@ -122,9 +124,9 @@
       <el-form-item></el-form-item>
       <el-upload class="upload-demo" action="http://localhost:8080/user/uploadFile" :on-preview="handlePreview"
         :on-remove="handleRemove" :before-remove="beforeRemove" multiple :limit="1" :on-exceed="handleExceed"
-        :file-list="businessLicenseFileList" :before-upload="beforeUpload6">
+        :file-list="businessLicenseFile" :before-upload="beforeUpload6">
         <el-button size="small" type="primary">营业执照点击上传</el-button>
-        <div class="el-upload__tip">只能上传jpg/png文件，且不超过500kb</div>
+        <div slot="tip" class="el-upload__tip">只能上传jpg/png文件，且不超过500kb</div>
       </el-upload>
 
       <el-form-item></el-form-item>
@@ -132,7 +134,7 @@
         :on-remove="handleRemove" :before-remove="beforeRemove" multiple :limit="1" :on-exceed="handleExceed"
         :file-list="trCertFile" :before-upload="beforeUpload5">
         <el-button size="small" type="primary">税务登记证点击上传</el-button>
-        <div class="el-upload__tip">只能上传jpg/png文件，且不超过500kb</div>
+        <div slot="tip" class="el-upload__tip">只能上传jpg/png文件，且不超过500kb</div>
       </el-upload>
 
       <el-form-item></el-form-item>
@@ -140,7 +142,7 @@
         :on-remove="handleRemove" :before-remove="beforeRemove" multiple :limit="1" :on-exceed="handleExceed"
         :file-list="oibCodeFile" :before-upload="beforeUpload4">
         <el-button size="small" type="primary">组织机构代码证点击上传</el-button>
-        <div class="el-upload__tip">只能上传jpg/png文件，且不超过500kb</div>
+        <div slot="tip" class="el-upload__tip">只能上传jpg/png文件，且不超过500kb</div>
       </el-upload>
       <el-form-item></el-form-item>
       <el-form-item></el-form-item>
@@ -148,7 +150,7 @@
         :on-remove="handleRemove" :before-remove="beforeRemove" multiple :limit="1" :on-exceed="handleExceed"
         :file-list="manageLicenseFile" :before-upload="beforeUpload3">
         <el-button size="small" type="primary">煤炭经营许可证点击上传</el-button>
-        <div class="el-upload__tip">只能上传jpg/png文件，且不超过500kb</div>
+        <div slot="tip" class="el-upload__tip">只能上传jpg/png文件，且不超过500kb</div>
       </el-upload>
 
       <el-form-item></el-form-item>
@@ -156,10 +158,12 @@
         :on-remove="handleRemove" :before-remove="beforeRemove" multiple :limit="1" :on-exceed="handleExceed"
         :file-list="legalIdFile" :before-upload="beforeUpload2">
         <el-button size="small" type="primary">法人身份证点击上传</el-button>
-        <div class="el-upload__tip">只能上传jpg/png文件，且不超过500kb</div>
+        <div slot="tip" class="el-upload__tip">只能上传jpg/png文件，且不超过500kb</div>
       </el-upload>
     </el-form>
+    <p>
     <h2>完善财务信息</h2>
+    </p>
     <hr>
     <el-form :label-position="labelPosition" :rules="rules" ref="form1" :model="form1">
       <el-form-item label="汇款单位名称" prop="comName">
@@ -182,7 +186,7 @@
         :on-remove="handleRemove" :before-remove="beforeRemove" multiple :limit="1" :on-exceed="handleExceed"
         :file-list="aoPermitFile" :before-upload="beforeUpload1">
         <el-button size="small" type="primary">开户许可证证点击上传</el-button>
-        <div class="el-upload__tip">只能上传jpg/png文件，且不超过500kb</div>
+        <div slot="tip" class="el-upload__tip">只能上传jpg/png文件，且不超过500kb</div>
       </el-upload>
     </el-form>
     <hr>
@@ -196,7 +200,6 @@
 </template>
 
 <script>
-  import {getUserInfo} from './api'
   export default {
     name: 'reg2',
     data() {
@@ -211,12 +214,6 @@
           aoPermitFile: '', //开户许可证文件路径
 
         },
-        businessLicenseFileList: [],
-        trCertFile: [],
-        oibCodeFile: [],
-        manageLicenseFile: [],
-        legalIdFile: [],
-        aoPermitFile: [],
         form: {
           comName: '',
           legalName: '',
@@ -414,7 +411,7 @@
       postData: function() {
         this.axios({
           method: 'post',
-          url: '/user/complete',
+          url: this.baseURL + '/user/complete',
           data: {
             comName: this.form.comName,
             legalName: this.form.legalName,
@@ -445,7 +442,7 @@
       postData1: function() {
         this.axios({
           method: 'post',
-          url: '/user/finance',
+          url: this.baseURL + '/user/finance',
           data: {
             comName:this.form1.comName,
             bankName:this.form1.bankName,
@@ -462,7 +459,10 @@
       },
       getData: function() {
         console.log(localStorage.token);
-        getUserInfo().then(repos => {
+        this.axios({
+            method: 'get',
+            url: this.baseURL + '/user/info',
+          }).then(repos => {
             console.log(repos)
             this.form.email = repos.data.data.email;
             this.form.nick = repos.data.data.userType;

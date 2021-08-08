@@ -7,14 +7,15 @@
     <el-form-item label="用户名：" prop="login">
       <el-input v-model="form.login" type="text" name="name" value="" :disabled="true"></el-input>
     </el-form-item>
-    <el-form-item label="昵称：" prop="nick">
-      <el-input v-model="form.nick" type="text" name="nick" value="" :disabled="true"></el-input>
-    </el-form-item>
-    <el-form-item label="新密码：" prop="pass">
+    <el-form-item label="密码：" prop="pass">
       <el-input v-model="form.pass" type="text" name="pwd" value="" placeholder="请输入密码"></el-input>
     </el-form-item>
+
     <el-form-item label="邮箱：" prop="email">
       <el-input v-model="form.email" type="text" name="email" value="" placeholder="请输入邮箱"></el-input>
+    </el-form-item>
+    <el-form-item label="昵称：" prop="nick">
+      <el-input v-model="form.nick" type="text" name="nick" value="" :disabled="true"></el-input>
     </el-form-item>
     <el-form-item>
       <el-button type="primary" @click="patchData()">立即修改</el-button>
@@ -68,7 +69,7 @@
         };
     },
     mounted() {
-      this.getData();
+      getData();
     },
     methods: {
       patchData : function(){
@@ -80,10 +81,7 @@
             pass:this.form.pass
           }
         }).then(function(repos) {
-          ElMessage({
-            message: "修改成功",
-            type: "success",
-          });
+          alert('修改成功');
           console.log(repos);
         }).catch(function(err) {
           console.log(err);

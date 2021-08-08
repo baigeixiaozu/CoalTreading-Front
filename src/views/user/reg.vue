@@ -80,7 +80,7 @@
 </template>
 
 <script>
-import { getRoleList } from "./api";
+import { getUserRole } from "./api";
 export default {
   name: "reg",
   data() {
@@ -181,7 +181,7 @@ export default {
     };
   },
   mounted() {
-    getRoleList("user").then((res) => {
+    getUserRole().then((res) => {
       console.log(res);
       this.roleList = res.data;
     });
