@@ -63,6 +63,12 @@ export default {
               icon: "el-icon-s-order",
               roles: ['all'],
             },
+            {
+              index: "/news/detail",
+              name: "资讯详情",
+              icon: "el-icon-s-order",
+              roles: ['all'],
+            },
           ],
         },
         {

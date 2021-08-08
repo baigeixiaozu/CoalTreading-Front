@@ -17,9 +17,14 @@ const routes = [
     meta: { title: "搜索资讯" }
   },
   {
-    path: "/audit",
+    path: "/news/audit",
     component: () => import("../views/news/audit.vue"),
     meta: { title: "审核界面" }
+  },
+  {
+    path: "/news/detail",
+    component: () => import("../views/news/detail.vue"),
+    meta: { title: "资讯详情" }
   },
   // 用户路由START
   {

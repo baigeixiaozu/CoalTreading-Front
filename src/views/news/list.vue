@@ -17,7 +17,7 @@
     <el-col :span="12">
       <el-card height="300px" shadow="hover">
         <el-row>
-          <el-col class="grid-content bg-purple-dark">综合新闻</el-col>
+          <el-col class="grid-content bg-purple-dark title">综合新闻</el-col>
         </el-row>
         <el-row>
           <el-col :span="6">
