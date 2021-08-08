@@ -32,7 +32,9 @@ export default {
     return {};
   },
   methods: {
-    goBack() {},
+    goBack() {
+      this.$router.back()
+    },
   },
 };
 </script>

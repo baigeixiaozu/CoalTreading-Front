@@ -18,7 +18,7 @@
     >
       <template v-for="menuGroup in menuList" :key="menuGroup.index">
         <el-submenu
-          v-if="menuGroup.roles.length === 0 || currentRole in menuGroup.roles"
+          v-if="menuGroup.roles.includes('all') || currentRole in menuGroup.roles"
           :index="menuGroup.index"
         >
           <template #title>
@@ -27,7 +27,7 @@
           </template>
           <el-menu-item-group>
             <template v-for="subMenu in menuGroup.child" :key="subMenu.index">
-              <el-menu-item v-if="subMenu.roles.length === 0 || currentRole in subMenu.roles" :index="subMenu.index"
+              <el-menu-item v-if="subMenu.roles.includes('all') || currentRole in subMenu.roles" :index="subMenu.index"
                 ><i :class="subMenu.icon"> </i>{{ subMenu.name }}
               </el-menu-item>
             </template>
@@ -49,19 +49,19 @@ export default {
           index: "1",
           name: "资讯",
           icon: "el-icon-chat-line-square",
-          roles: [],
+          roles: ['all'],
           child: [
             {
               index: "/news/edit",
               name: "资讯编辑",
               icon: "el-icon-edit",
-              roles: [],
+              roles: ['NEWS_EDITOR'],
             },
             {
               index: "/news/list",
               name: "资讯列表",
               icon: "el-icon-s-order",
-              roles: [],
+              roles: ['all'],
             },
           ],
         },
@@ -69,37 +69,37 @@ export default {
           index: "2",
           name: "账户管理",
           icon: "",
-          roles: [],
+          roles: ['all'],
           child: [
             {
               index: "/user/login",
               name: "登录",
               icon: "el-icon-s-open",
-              roles: [],
+              roles: ['all'],
             },
             {
               index: "/user/reg",
               name: "注册",
               icon: "el-icon-s-open",
-              roles: [],
+              roles: ['all'],
             },
             {
               index: "/user/complete",
               name: "信息完善",
               icon: "el-icon-s-open",
-              roles: [],
+              roles: ['USER_SALE', 'USER_BUY'],
             },
             {
               index: "/user/userinfo",
               name: "用户信息修改",
               icon: "el-icon-s-open",
-              roles: [],
+              roles: ['USER_SALE', 'USER_BUY', 'USER_MONEY'],
             },
             {
               index: "/user/new",
               name: "新增用户",
               icon: "el-icon-s-open",
-              roles: [],
+              roles: ['SUPER_ADMIN'],
             },
           ],
         },

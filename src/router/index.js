@@ -53,12 +53,6 @@ const routes = [
     meta: { title: "新增用户" }
   },
   // 用户路由END
-  {
-    path: "/test",
-    name: "test",
-    component: () => import("../views/test.vue"),
-    meta: { title: "测试" }
-  }
 ];
 
 const router = createRouter({
