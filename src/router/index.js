@@ -44,7 +44,13 @@ const routes = [
     name: "userNew",
     component: () => import("../views/user/new.vue"),
     meta: { title: "新增用户" }
-  }
+  },
+  {
+    path: "/user/userinfo",
+    name: "userinfo",
+    component: () => import("../views/user/userinfo.vue"),
+    meta: { title: "用户信息修改" }
+  },
   // 用户路由END
 ];
 
