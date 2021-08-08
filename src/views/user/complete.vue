@@ -195,14 +195,13 @@
       <el-form-item></el-form-item>
       <el-upload
         class="upload-demo"
-        action="http://localhost:8080/user/uploadFile"
+        :action="API + '/user/uploadFile?type=BUSINESS_LICENSE_FILE'"
+        :headers="auth"
         :on-preview="handlePreview"
         :on-remove="handleRemove"
         :before-remove="beforeRemove"
-        multiple
         :limit="1"
         :on-exceed="handleExceed"
-        :file-list="businessLicenseFileList"
         :before-upload="beforeUpload6"
       >
         <el-button size="small" type="primary">营业执照点击上传</el-button>
@@ -212,14 +211,12 @@
       <el-form-item></el-form-item>
       <el-upload
         class="upload-demo"
-        action="http://localhost:8080/user/uploadFile"
+        action="{{API}}/user/uploadFile?type=TR_CERT_FILE"
         :on-preview="handlePreview"
         :on-remove="handleRemove"
         :before-remove="beforeRemove"
-        multiple
         :limit="1"
         :on-exceed="handleExceed"
-        :file-list="trCertFile"
         :before-upload="beforeUpload5"
       >
         <el-button size="small" type="primary">税务登记证点击上传</el-button>
@@ -229,14 +226,12 @@
       <el-form-item></el-form-item>
       <el-upload
         class="upload-demo"
-        action="http://localhost:8080/user/uploadFile"
+        action="{{API}}/user/uploadFile?type=OIB_CODE_FILE"
         :on-preview="handlePreview"
         :on-remove="handleRemove"
         :before-remove="beforeRemove"
-        multiple
         :limit="1"
         :on-exceed="handleExceed"
-        :file-list="oibCodeFile"
         :before-upload="beforeUpload4"
       >
         <el-button size="small" type="primary"
@@ -248,14 +243,12 @@
       <el-form-item></el-form-item>
       <el-upload
         class="upload-demo"
-        action="http://localhost:8080/user/uploadFile"
+        action="{{API}}/user/uploadFile?type=MANAGE_LICENSE_FILE"
         :on-preview="handlePreview"
         :on-remove="handleRemove"
         :before-remove="beforeRemove"
-        multiple
         :limit="1"
         :on-exceed="handleExceed"
-        :file-list="manageLicenseFile"
         :before-upload="beforeUpload3"
       >
         <el-button size="small" type="primary"
@@ -267,14 +260,12 @@
       <el-form-item></el-form-item>
       <el-upload
         class="upload-demo"
-        action="http://localhost:8080/user/uploadFile"
+        action="{{API}}/user/uploadFile?type=LEGAL_ID_FILE"
         :on-preview="handlePreview"
         :on-remove="handleRemove"
         :before-remove="beforeRemove"
-        multiple
         :limit="1"
         :on-exceed="handleExceed"
-        :file-list="legalIdFile"
         :before-upload="beforeUpload2"
       >
         <el-button size="small" type="primary">法人身份证点击上传</el-button>
@@ -318,14 +309,12 @@
       </el-form-item> -->
       <el-upload
         class="upload-demo"
-        action="http://localhost:8080/user/uploadFile"
+        action="{{API}}/user/uploadFile?type=AO_PERMIT_FILE"
         :on-preview="handlePreview"
         :on-remove="handleRemove"
         :before-remove="beforeRemove"
-        multiple
         :limit="1"
         :on-exceed="handleExceed"
-        :file-list="aoPermitFile"
         :before-upload="beforeUpload1"
       >
         <el-button size="small" type="primary">开户许可证证点击上传</el-button>
@@ -349,6 +338,10 @@ import { getUserInfo } from "./api";
 export default {
   data() {
     return {
+      API: process.env.VUE_APP_BASE_URL,
+      auth: {
+        Authorization: `Bearer ${this.$store.state.token}`
+      },
       labelPosition: "right",
       form1: {
         comName: "",
@@ -358,12 +351,6 @@ export default {
         freeze: "",
         aoPermitFile: "", //开户许可证文件路径
       },
-      businessLicenseFileList: [],
-      trCertFile: [],
-      oibCodeFile: [],
-      manageLicenseFile: [],
-      legalIdFile: [],
-      aoPermitFile: [],
       form: {
         comName: "",
         legalName: "",
