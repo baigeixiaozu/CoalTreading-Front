@@ -21,8 +21,7 @@
       </el-form-item>
       <el-form-item label="角色：" prop="role">
         <el-select v-model="formLabel.role" placeholder="请选择角色">
-          <el-option label="管理人员" value="管理人员"></el-option>
-          <el-option label="资讯发布人员" value="资讯发布人员"></el-option>
+          <el-option v-for="role in roleList" :key="role.id" :label="role.name" :value="role.id"></el-option>
         </el-select>
       </el-form-item>
       <el-form-item>
@@ -97,7 +96,7 @@
     },
     created(){
       getRoleList("admin").then(res=>{
-        console.log(res);
+        this.roleList = res.data;
       })
     },
     mounted() {
