@@ -93,15 +93,15 @@ export default {
     },
 
     postData: function () {
-      console.log(this.$route.query);
       
       userLogin(this.loginForm.login, this.loginForm.pass)
         .then( (res)=> {
           const resp = res;
           if (resp.code == 200) {
-            localStorage.token = resp.data.access_token;
-            localStorage.userRole = resp.data.role[0]
-            console.log(localStorage.token);
+            this.$store.commit("set_token", resp.data.access_token);
+            this.$store.commit("set_role", resp.data.role[0]);
+            
+            // console.log("login test", localStorage.token);
             ElMessage({
               message: "登录成功",
               type: "success",

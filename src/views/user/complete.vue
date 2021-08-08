@@ -196,6 +196,7 @@
 </template>
 
 <script>
+  import {getUserInfo} from './api'
   export default {
     name: 'reg2',
     data() {
@@ -461,10 +462,7 @@
       },
       getData: function() {
         console.log(localStorage.token);
-        this.axios({
-            method: 'get',
-            url: '/user/info',
-          }).then(repos => {
+        getUserInfo().then(repos => {
             console.log(repos)
             this.form.email = repos.data.data.email;
             this.form.nick = repos.data.data.userType;

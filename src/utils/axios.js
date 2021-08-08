@@ -3,6 +3,7 @@
 import axios from "axios";
 import router from '../router';
 import { ElMessage } from 'element-plus';
+import store from '../store'
 
 // Full config:  https://github.com/axios/axios#request-config
 // axios.defaults.baseURL = process.env.baseURL || process.env.apiUrl || '';
@@ -20,9 +21,9 @@ const _axios = axios.create(config);
 _axios.interceptors.request.use(
   function(config) {
     // Do something before request is sent
-    let token = localStorage.getItem("Authorization");
+    let token = store.state.token;
     if (token) {
-      config.headers["Authorization"] = token;
+      config.headers["Authorization"] = "Bearer " + token;
     }
     return config;
   },

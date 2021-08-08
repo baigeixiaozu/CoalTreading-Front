@@ -21,3 +21,7 @@ export const userLogin = (login, pass)=>{
         login,pass
     })
 }
+
+export const getUserInfo = ()=>{
+    return request.get("/user/info")
+}
