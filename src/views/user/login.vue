@@ -32,6 +32,7 @@
 
 <script>
 import {userLogin} from './api';
+import { ElMessage } from 'element-plus';
 export default {
   data() {
     return {
@@ -68,9 +69,10 @@ export default {
     },
     submitForm(formName) {
       console.log(formName);
+      console.log
       this.$refs[formName].validate((valid) => {
         if (!valid) {
-          this.$message({
+          ElMessage({
             message: "注册失败,请填写用户名密码",
             type: "warning",
           });
@@ -91,17 +93,26 @@ export default {
     },
 
     postData: function () {
-      console.log(this);
-      var params = new URLSearchParams();
-      params.append("key", "value");
+      console.log(this.$route.query);
+      
       userLogin(this.loginForm.login, this.loginForm.pass)
-        .then(function (res) {
+        .then( (res)=> {
           const resp = res;
-          console.log("resp", resp);
           if (resp.code == 200) {
             localStorage.token = resp.data.access_token;
             localStorage.userRole = resp.data.role[0]
             console.log(localStorage.token);
+            ElMessage({
+              message: "登录成功",
+              type: "success",
+            });
+            if(this.$route.query.redirect){
+              this.$router.push({
+                path: this.$route.query.redirect
+              });
+            }else{
+              console.log("跳转至个人信息页")
+            }
           } else {
           }
         })

@@ -1,7 +1,8 @@
 "use strict";
 
 import axios from "axios";
-import router from '../router'
+import router from '../router';
+import { ElMessage } from 'element-plus';
 
 // Full config:  https://github.com/axios/axios#request-config
 // axios.defaults.baseURL = process.env.baseURL || process.env.apiUrl || '';
@@ -63,6 +64,10 @@ _axios.interceptors.response.use(
         // 未登录则跳转登录页面，并携带当前页面的路径
         // 在登录成功后返回当前页面，这一步需要在登录页操作。
         case 401:
+          ElMessage({
+            message: '未登录',
+            center: true
+          });
           console.log("401")
           // Toast({
           //   message: "登录过期，请重新登录",
@@ -72,10 +77,10 @@ _axios.interceptors.response.use(
           // 清除token
           localStorage.removeItem("token");
           // store.commit("loginSuccess", null);
-          router.replace({
+          router.push({
             path: "/user/login",
             query: {
-              redirect: router.currentRoute.fullPath
+              redirect: router.currentRoute.value.fullPath
             }
           });
           break;
