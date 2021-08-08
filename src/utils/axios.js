@@ -11,7 +11,7 @@ import store from '../store'
 // axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
 
 let config = {
-  baseURL: process.env.baseURL || process.env.apiUrl || "http://127.0.0.1:8080",
+  baseURL: process.env.VUE_APP_BASE_URL || "http://127.0.0.1:8080",
   timeout: 60 * 1000, // Timeout
   withCredentials: false // Check cross-site Access-Control
 };

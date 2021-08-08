@@ -34,13 +34,6 @@ const routes = [
     meta: { title: "注册" }
   },
   {
-    path: "/user/userinfo",
-    name: "userinfo",
-    component: () => import("../views/user/userinfo.vue"),
-    meta: { title: "信息修改" }
-  },
-  ,
-  {
     path: "/user/complete",
     name: "userComplete",
     component: () => import("../views/user/complete.vue"),
