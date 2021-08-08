@@ -17,7 +17,7 @@
     <el-col :span="12">
       <el-card height="300px" shadow="hover">
         <el-row>
-          <el-col class="grid-content bg-purple-dark title">综合新闻</el-col>
+          <el-col class="grid-content bg-purple-dark">综合新闻</el-col>
         </el-row>
         <el-row>
           <el-col :span="6">
@@ -30,15 +30,24 @@
 
         <el-scrollbar height="400px">
           <p
+            
             class="item"
-            v-for="item in tableData"
+            v-for="item in tableData.slice((currentPage-1)*pagesize,currentPage*pagesize)"
             :key="item"
             @click="getExactly(item.id)"
           >
             <el-link>{{ item.title }}</el-link>
           </p>
         </el-scrollbar>
-        <el-pagination layout="prev, pager, next" :total="50"> </el-pagination>
+        <el-pagination
+        @size-change="handleSizeChange"
+        @current-change="handleCurrentChange"
+        :current-page="currentPage"
+        :page-sizes="[5, 10, 20, 40]"
+        :page-size="pagesize"         
+        layout="total, sizes, prev, pager, next, jumper"
+        :total="tableData.length"
+        :background="true"> </el-pagination>
       </el-card>
     </el-col>
     <el-col>
@@ -52,10 +61,13 @@ import {getNewsList} from './api';
 import search from "./search.vue";
 export default {
   data() {
-    const item = { title: "这是新闻", id: 1 };
+   
 
     return {
-      tableData: Array(20).fill(item),
+      currentPage:1, //初始页
+      pagesize:15,    //    每页的数据
+      tableData: [],
+
       picitem: [
         { image: require("../../assets/coal2.png") },
 
@@ -67,6 +79,14 @@ export default {
   methods: {
     getExactly(id) {
     },
+    handleSizeChange: function (size) {
+                this.pagesize = size;
+                console.log(this.pagesize)  //每页下拉显示数据
+        },
+        handleCurrentChange: function(currentPage){
+                this.currentPage = currentPage;
+                console.log(this.currentPage)  //点击第几页
+        }
   },
   created() {
     var that = this;
