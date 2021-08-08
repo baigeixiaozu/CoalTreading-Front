@@ -90,6 +90,12 @@ export default {
               roles: [],
             },
             {
+              index: "/user/userinfo",
+              name: "用户信息修改",
+              icon: "el-icon-s-open",
+              roles: [],
+            },
+            {
               index: "/user/new",
               name: "新增用户",
               icon: "el-icon-s-open",
