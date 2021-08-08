@@ -32,7 +32,6 @@
 
 <script>
 import {userLogin} from './api';
-import { ElMessage } from 'element-plus';
 export default {
   data() {
     return {
@@ -69,10 +68,9 @@ export default {
     },
     submitForm(formName) {
       console.log(formName);
-      console.log
       this.$refs[formName].validate((valid) => {
         if (!valid) {
-          ElMessage({
+          this.$message({
             message: "注册失败,请填写用户名密码",
             type: "warning",
           });
@@ -95,8 +93,9 @@ export default {
     postData: function () {
       
       userLogin(this.loginForm.login, this.loginForm.pass)
-        .then( (res)=> {
+        .then(function (res) {
           const resp = res;
+          console.log("resp", resp);
           if (resp.code == 200) {
             this.$store.commit("set_token", resp.data.access_token);
             this.$store.commit("set_role", resp.data.role[0]);

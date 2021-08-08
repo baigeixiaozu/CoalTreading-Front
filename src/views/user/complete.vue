@@ -122,7 +122,7 @@
       <el-form-item></el-form-item>
       <el-upload class="upload-demo" action="http://localhost:8080/user/uploadFile" :on-preview="handlePreview"
         :on-remove="handleRemove" :before-remove="beforeRemove" multiple :limit="1" :on-exceed="handleExceed"
-        :file-list="businessLicenseFileList" :before-upload="beforeUpload6">
+        :file-list="businessLicenseFile" :before-upload="beforeUpload6">
         <el-button size="small" type="primary">营业执照点击上传</el-button>
         <div class="el-upload__tip">只能上传jpg/png文件，且不超过500kb</div>
       </el-upload>
@@ -211,12 +211,6 @@
           aoPermitFile: '', //开户许可证文件路径
 
         },
-        businessLicenseFileList: [],
-        trCertFile: [],
-        oibCodeFile: [],
-        manageLicenseFile: [],
-        legalIdFile: [],
-        aoPermitFile: [],
         form: {
           comName: '',
           legalName: '',
@@ -414,7 +408,7 @@
       postData: function() {
         this.axios({
           method: 'post',
-          url: '/user/complete',
+          url: this.baseURL + '/user/complete',
           data: {
             comName: this.form.comName,
             legalName: this.form.legalName,
@@ -445,7 +439,7 @@
       postData1: function() {
         this.axios({
           method: 'post',
-          url: '/user/finance',
+          url: this.baseURL + '/user/finance',
           data: {
             comName:this.form1.comName,
             bankName:this.form1.bankName,
