@@ -82,12 +82,6 @@ export default {
               role: "",
             },
             {
-              index: "/user/userinfo",
-              name: "信息修改",
-              icon: "el-icon-s-open",
-              role: "",
-            },
-            {
               index: "/user/new",
               name: "新增用户",
               icon: "el-icon-s-open",

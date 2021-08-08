@@ -2,7 +2,7 @@
 
     <el-form :label-position="labelPosition" :rules="rules" ref="formLabel" label-width="80px" :model="formLabel">
       <el-form-item>
-        <span><h2>用户注册</h2></span>
+        <span><h2>新增用户</h2></span>
       </el-form-item>
       <el-form-item label="用户名：" prop="login">
         <el-input v-model="formLabel.login" type="text" name="name" value="" placeholder="请输入用户名"></el-input>
@@ -27,13 +27,14 @@
       </el-form-item>
       <el-form-item>
         <el-button type="primary" @click="submitForm('formLabel')">立即创建</el-button>
-        <el-button @click.native="resetForm('formLabel')">重置</el-button>
+        <el-button @click="resetForm('formLabel')">重置</el-button>
       </el-form-item>
     </el-form>
 
 </template>
 
 <script>
+  import {getRoleList} from './api';  
   export default {
     data() {
       return {
@@ -90,8 +91,14 @@
             },
 
           ],
-        }
+        },
+        roleList: []
       };
+    },
+    created(){
+      getRoleList("admin").then(res=>{
+        console.log(res);
+      })
     },
     mounted() {
       console.log(localStorage.token)
