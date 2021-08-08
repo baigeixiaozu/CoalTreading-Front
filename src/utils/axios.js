@@ -26,7 +26,7 @@ _axios.interceptors.request.use(
   },
   function(error) {
     // Do something with request error
-    console.log("error", error)
+    console.log("request error", error)
     return Promise.reject(error);
   }
 );
@@ -53,11 +53,11 @@ _axios.interceptors.response.use(
   },
   (error) => {
     // Do something with response error
-    console.log("error response",error.response);
-    
+    console.log("response error",error.response);
     console.log("网络错误", error);
-    if (error.response.status) {
-      switch (error.response.status) {
+    const resp = error.response;
+    if (resp.status) {
+      switch (resp.status) {
         // 401: 未登录，或者登录过期
         // 未登录则跳转登录页面，并携带当前页面的路径
         // 在登录成功后返回当前页面，这一步需要在登录页操作。
@@ -70,7 +70,7 @@ _axios.interceptors.response.use(
           // });
           // 清除token
           localStorage.removeItem("token");
-          store.commit("loginSuccess", null);
+          // store.commit("loginSuccess", null);
           router.replace({
             path: "/user/login",
             query: {
@@ -111,10 +111,9 @@ _axios.interceptors.response.use(
           //   forbidClick: true
           // });
       }
-      return Promise.reject(error.response);
     }else
       console.log("网络请求 - ", error);
-    // return Promise.reject(error);
+    return Promise.reject(error);
   }
 );
 

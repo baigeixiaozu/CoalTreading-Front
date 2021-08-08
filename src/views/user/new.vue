@@ -2,7 +2,7 @@
 
     <el-form :label-position="labelPosition" :rules="rules" ref="formLabel" label-width="80px" :model="formLabel">
       <el-form-item>
-        <span><h2>用户注册</h2></span>
+        <span><h2>新增用户</h2></span>
       </el-form-item>
       <el-form-item label="用户名：" prop="login">
         <el-input v-model="formLabel.login" type="text" name="name" value="" placeholder="请输入用户名"></el-input>
