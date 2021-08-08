@@ -1,7 +1,9 @@
 "use strict";
 
-import { defineComponent, getCurrentInstance, onMounted } from "vue";
 import axios from "axios";
+import router from '../router';
+import { ElMessage } from 'element-plus';
+import store from '../store'
 
 // Full config:  https://github.com/axios/axios#request-config
 // axios.defaults.baseURL = process.env.baseURL || process.env.apiUrl || '';
@@ -19,21 +21,22 @@ const _axios = axios.create(config);
 _axios.interceptors.request.use(
   function(config) {
     // Do something before request is sent
-    let token = localStorage.getItem("Authorization");
+    let token = store.state.token;
     if (token) {
-      config.headers["Authorization"] = token;
+      config.headers["Authorization"] = "Bearer " + token;
     }
     return config;
   },
   function(error) {
     // Do something with request error
+    console.log("request error", error)
     return Promise.reject(error);
   }
 );
 
 // Add a response interceptor
 _axios.interceptors.response.use(
-  function(response) {
+  (response) => {
     // Do something with response data
     console.log("response", response);
 
@@ -41,36 +44,44 @@ _axios.interceptors.response.use(
 
     const resp = response.data;
     if(resp.code !== 200){
-      Toast({
-        message: resp.error,
-        duration: 1000,
-        forbidClick: true
-      });
+      console.log("状态码异常", resp)
+      // Toast({
+      //   message: resp.error,
+      //   duration: 1000,
+      //   forbidClick: true
+      // });
     }
 
     return response.data;
   },
-  function(error) {
+  (error) => {
     // Do something with response error
+    console.log("response error",error.response);
     console.log("网络错误", error);
-    if (error.response.code) {
-      switch (error.response.code) {
+    const resp = error.response;
+    if (resp.status) {
+      switch (resp.status) {
         // 401: 未登录，或者登录过期
         // 未登录则跳转登录页面，并携带当前页面的路径
         // 在登录成功后返回当前页面，这一步需要在登录页操作。
         case 401:
-          Toast({
-            message: "登录过期，请重新登录",
-            duration: 1000,
-            forbidClick: true
+          ElMessage({
+            message: '未登录',
+            center: true
           });
+          console.log("401")
+          // Toast({
+          //   message: "登录过期，请重新登录",
+          //   duration: 1000,
+          //   forbidClick: true
+          // });
           // 清除token
           localStorage.removeItem("token");
-          store.commit("loginSuccess", null);
-          router.replace({
+          // store.commit("loginSuccess", null);
+          router.push({
             path: "/user/login",
             query: {
-              redirect: router.currentRoute.fullPath
+              redirect: router.currentRoute.value.fullPath
             }
           });
           break;
@@ -92,24 +103,24 @@ _axios.interceptors.response.use(
 
         // 404请求不存在
         case 404:
-          Toast({
-            message: "网络请求不存在",
-            duration: 1500,
-            forbidClick: true
-          });
+          console.log("404")
+          // Toast({
+          //   message: "网络请求不存在",
+          //   duration: 1500,
+          //   forbidClick: true
+          // });
           break;
         // 其他错误，直接抛出错误提示
         default:
-          Toast({
-            message: error.response.data.error,
-            duration: 1500,
-            forbidClick: true
-          });
+          // Toast({
+          //   message: error.response.data.error,
+          //   duration: 1500,
+          //   forbidClick: true
+          // });
       }
-      return Promise.reject(error.response);
     }else
       console.log("网络请求 - ", error);
-    // return Promise.reject(error);
+    return Promise.reject(error);
   }
 );
 

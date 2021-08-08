@@ -1,6 +1,5 @@
 <template>
   <div>成功跳转页面
-   
 
 
   </div>
@@ -8,8 +7,7 @@
 
 <script>
   export default {
-   
-  }
+}
 </script>
 
 <style>

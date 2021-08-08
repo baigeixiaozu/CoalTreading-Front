@@ -1,12 +1,9 @@
 const user = {
-
-
   state: {
     user: {
-      token: ''
-
+      token: localStorage.getItem('token') || '',
+      role: ""
     }
-
   },
   getters: {
     getUser(state) {
@@ -17,7 +14,7 @@ const user = {
   mutations: {
     set_token(state, token) {
       state.token = token;
-      sessionStorage.token = token
+      sessionStorage.token = token;
     }
   },
   //异步使用mutations
@@ -26,8 +23,6 @@ const user = {
       context.commit("set_token", user);
     }
   }
-
-
-}
+};
 
 export default user;
