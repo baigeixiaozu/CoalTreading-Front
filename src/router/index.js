@@ -33,6 +33,12 @@ const routes = [
     component: () => import("../views/user/reg.vue"),
     meta: { title: "注册" }
   },
+  {
+    path: "/user/userinfo",
+    name: "userinfo",
+    component: () => import("../views/user/userinfo.vue"),
+    meta: { title: "信息修改" }
+  },
   ,
   {
     path: "/user/complete",
