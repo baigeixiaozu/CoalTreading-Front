@@ -11,7 +11,9 @@ import request from '../../utils/axios';
  *          _\//\\\______/\\\___/\\\______\//\\\__\/\\\_____________\/\\\_____\//\\\__  
  *           __\///\\\\\\\\\/___\///\\\\\\\\\\\/___\/\\\\\\\\\\\\\\\_\/\\\______\//\\\_ 
  *            ____\/////////_______\///////////_____\///////////////__\///________\///__
- */
+ * 
+ * 链接：http://patorjk.com/software/taag/#p=testall&c=c&f=Efti%20Wall&t=USER
+ * */
 export const getRoleList = (type)=>{
     return request.get("/user/getRoleList/" + type)
 }
