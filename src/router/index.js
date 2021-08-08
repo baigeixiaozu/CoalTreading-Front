@@ -34,9 +34,9 @@ const routes = [
     meta: { title: "注册" }
   },
   {
-    path: "/user/userinfo",
-    name: "userinfo",
-    component: () => import("../views/user/userinfo.vue"),
+    path: "/user/info",
+    name: "info",
+    component: () => import("../views/user/info.vue"),
     meta: { title: "信息修改" }
   },
   ,
@@ -51,12 +51,6 @@ const routes = [
     name: "userNew",
     component: () => import("../views/user/new.vue"),
     meta: { title: "新增用户" }
-  },
-  {
-    path: "/user/info",
-    name: "userInfo",
-    component: () => import("../views/user/info.vue"),
-    meta: { title: "个人信息" }
   },
   // 用户路由END
   {
