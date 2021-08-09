@@ -4,15 +4,15 @@
     <hr />
     <el-form
       :label-position="labelPosition"
-      :rules="rules"
-      ref="form"
-      :model="form"
+      :rules="comInfoRules"
+      ref="comInfo"
+      :model="comInfo"
     >
       <el-row>
         <el-col :span="12">
           <el-form-item label="公司名称" prop="comName">
             <el-input
-              v-model="form.comName"
+              v-model="comInfo.comName"
               placeholder="请输入公司名称"
               style="width: 90%"
             ></el-input>
@@ -21,7 +21,7 @@
         <el-col :span="12">
           <el-form-item label="企业类型" prop="nick">
             <span>
-              {{ form.userType }}
+              {{ comInfo.userType }}
             </span>
           </el-form-item>
         </el-col>
@@ -30,7 +30,7 @@
         <el-col :span="12">
           <el-form-item label="法人代表" prop="legalName">
             <el-input
-              v-model="form.legalName"
+              v-model="comInfo.legalName"
               placeholder="请输入法人代表"
               style="width: 90%"
             ></el-input>
@@ -39,7 +39,7 @@
         <el-col :span="12">
           <el-form-item label="法人身份证" prop="legalId">
             <el-input
-              v-model.number="form.legalId"
+              v-model.number="comInfo.legalId"
               placeholder="请输入法人身份证"
               style="width: 90%"
             ></el-input>
@@ -50,7 +50,7 @@
         <el-col :span="12">
           <el-form-item label="公司地址" prop="comAddr">
             <el-input
-              v-model="form.comAddr"
+              v-model="comInfo.comAddr"
               placeholder="请输入注册地区"
               style="width: 90%"
             ></el-input>
@@ -58,7 +58,7 @@
         </el-col>
         <el-col :span="12">
           <el-form-item prop="email" label="企业邮箱">
-            {{ form.email }}
+            {{ comInfo.email }}
           </el-form-item>
         </el-col>
       </el-row>
@@ -66,7 +66,7 @@
         <el-col :span="12">
           <el-form-item label="联系电话" prop="comContact">
             <el-input
-              v-model.number="form.comContact"
+              v-model.number="comInfo.comContact"
               placeholder="请输入联系电话"
               style="width: 90%"
             ></el-input>
@@ -75,7 +75,7 @@
         <el-col :span="12">
           <el-form-item label="传真" prop="fax">
             <el-input
-              v-model="form.fax"
+              v-model="comInfo.fax"
               placeholder="请输入传真"
               style="width: 90%"
             ></el-input>
@@ -86,7 +86,7 @@
         <el-col :span="12">
           <el-form-item label="邮政编码" prop="comZip">
             <el-input
-              v-model.number="form.comZip"
+              v-model.number="comInfo.comZip"
               placeholder="请输入邮政编码"
               style="width: 90%"
             ></el-input>
@@ -95,7 +95,7 @@
         <el-col :span="12">
           <el-form-item label="注册资金（万元）" prop="registeredCapital">
             <el-input
-              v-model="form.registeredCapital"
+              v-model="comInfo.registeredCapital"
               placeholder="请输入注册资金"
               style="width: 90%"
             ></el-input>
@@ -106,7 +106,7 @@
         <el-col :span="12">
           <el-form-item label="营业执照号" prop="businessLicenseId">
             <el-input
-              v-model="form.businessLicenseId"
+              v-model="comInfo.businessLicenseId"
               placeholder="请输入营业执照号"
               style="width: 90%"
             ></el-input>
@@ -115,7 +115,7 @@
         <el-col :span="12">
           <el-form-item label="组织机构代码" prop="oibCode">
             <el-input
-              v-model="form.oibCode"
+              v-model="comInfo.oibCode"
               placeholder="请输入组织机构代码"
               style="width: 90%"
             ></el-input>
@@ -126,7 +126,7 @@
         <el-col :span="12">
           <el-form-item label="经营许可证编号" prop="manageLicenseId">
             <el-input
-              v-model="form.manageLicenseId"
+              v-model="comInfo.manageLicenseId"
               placeholder="请输入经营许可证编号"
               style="width: 90%"
             ></el-input>
@@ -135,7 +135,7 @@
         <el-col :span="12">
           <el-form-item label="税务登记证编号" prop="trCert">
             <el-input
-              v-model="form.trCert"
+              v-model="comInfo.trCert"
               placeholder="请输入税务登记证编号"
               style="width: 90%"
             ></el-input>
@@ -146,7 +146,7 @@
         <el-col :span="12">
           <el-form-item label="煤炭存放地点" prop="coalStoreSite">
             <el-input
-              v-model="form.coalStoreSite"
+              v-model="comInfo.coalStoreSite"
               placeholder="请输入煤炭存放地点"
               style="width: 90%"
             ></el-input>
@@ -155,7 +155,7 @@
         <el-col :span="12">
           <el-form-item label="煤炭数量（吨）" prop="number">
             <el-input
-              v-model.number="form.number"
+              v-model.number="comInfo.number"
               placeholder="请输入煤炭数量"
               style="width: 90%"
             ></el-input>
@@ -166,7 +166,7 @@
         <el-col :span="12">
           <el-form-item label="煤炭质量" prop="coalQuality">
             <el-input
-              v-model="form.coalQuality"
+              v-model="comInfo.coalQuality"
               placeholder="请输入内容"
               style="width: 90%"
             ></el-input>
@@ -175,7 +175,7 @@
         <el-col :span="12">
           <el-form-item label="运输方式" prop="coalTransport">
             <el-input
-              v-model="form.coalTransport"
+              v-model="comInfo.coalTransport"
               placeholder="请输入内容"
               style="width: 90%"
             ></el-input>
@@ -184,7 +184,7 @@
       </el-row>
       <el-form-item label="公司简介" prop="comIntro">
         <el-input
-          v-model="form.comIntro"
+          v-model="comInfo.comIntro"
           type="textarea"
           :rows="2"
           placeholder="请输入内容"
@@ -332,7 +332,7 @@
       ref="financeInfo"
       :model="financeInfo"
     >
-      <el-form-item label="财务邮箱" prop="financeEmail">
+      <el-form-item label="财务邮箱" prop="email">
         <el-input
           v-model="financeInfo.email"
           placeholder="请输入......"
@@ -405,7 +405,7 @@ export default {
         Authorization: `Bearer ${this.$store.state.token}`,
       },
       labelPosition: "right",
-      form: {
+      comInfo: {
         comName: "",
         legalName: "",
         nick: "",
@@ -431,7 +431,7 @@ export default {
         oibCodeFile: "",
         trCertFile: "",
       },
-      rules: {
+      comInfoRules: {
         comName: [
           {
             required: true,
@@ -553,7 +553,7 @@ export default {
         ],
       },
       financeInfo: {
-        email: "",
+        email: '',
         comName: "",
         bankName: "",
         bankAcc: "",
@@ -562,7 +562,7 @@ export default {
         aoPermitFile: "", //开户许可证文件路径
       },
       fiRules: {
-        financeEmail: [
+        email: [
           {
             required: true,
             message: "输入不能为空",
@@ -681,8 +681,8 @@ export default {
       getUserInfo()
         .then((resp) => {
           console.log(resp);
-          this.form.email = resp.data.email;
-          this.form.userType = resp.data.userType;
+          this.comInfo.email = resp.data.email;
+          this.comInfo.userType = resp.data.userType;
         })
         .catch(function (err) {
           console.log(err);
