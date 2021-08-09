@@ -1,6 +1,6 @@
 <template>
   <!--
-  卖方挂牌
+  买方摘牌
   -->
   <div class="reg1">
       <el-form
@@ -131,78 +131,7 @@
              ms:'',//全水分  number
              publish:''
           },
-          rules:{
-
-             supplyQuantity: [{
-                   type:'number',
-                   required: true,
-                   message: '不能为空，且只能为数字',
-                   trigger: 'blur'
-                 },
-
-               ],
-               calorificValue: [{
-                 type:'number',
-                   required: true,
-                   message: '不能为空，且只能为数字',
-                   trigger: 'blur'
-                 },
-               ],
-               unitPrice: [{
-                 type:'number',
-                   required: true,
-                   message: '不能为空，且只能为数字',
-                   trigger: 'blur'
-                 },
-               ],
-               ts: [{
-                 type:'number',
-                   required: true,
-                   message: '不能为空，且只能为数字',
-                   trigger: 'blur'
-                 },
-               ],
-               location:[{
-                   required: true,
-                   message: '不能为空',
-                   trigger: 'blur'
-                 },
-               ],
-               transportPrice: [{
-                 type:'number',
-                   required: true,
-                   message: '不能为空，且只能为数字',
-                   trigger: 'blur'
-                 },
-               ],
-              vc: [{
-                type:'number',
-                   required: true,
-                   message: '不能为空，且只能为数字',
-                   trigger: 'blur'
-                 },
-               ],
-               sendLocal:  [{
-                   required: true,
-                   message: '不能为空',
-                   trigger: 'blur'
-                 },
-               ],//发站 string
-             kgjhf: [{
-               type:'number',
-                   required: true,
-                   message: '不能为空，且只能为数字',
-                   trigger: 'blur'
-                 },
-               ],// 空干基灰分 number
-              ms: [{
-                type:'number',
-                   required: true,
-                   message: '不能为空，且只能为数字',
-                   trigger: 'blur'
-                 },
-               ],//全水分  number
-          }
+         
       }
     },
     mounted() {
