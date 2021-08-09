@@ -1,5 +1,5 @@
 <template>
-
+  <!-- 卖方摘牌 -->
   <div class="baseData">
     <el-form :label-position="labelPosition" :model="buyPubData" status-icon :rules="rules" ref="buyPubData"
       label-width="150px" class="demo-buyPubData">

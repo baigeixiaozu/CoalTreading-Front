@@ -75,8 +75,7 @@
             <el-input
               v-model.number="salelistForm.vc"
               style="width:25%">
-              </el-input>
-            </el-select>
+            </el-input>
           </el-form-item>
         </el-col>
 

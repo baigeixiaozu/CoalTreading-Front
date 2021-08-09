@@ -18,7 +18,7 @@
     >
       <template v-for="menuGroup in menuList" :key="menuGroup.index">
         <el-submenu
-          v-if="menuGroup.roles.includes('all') || currentRole in menuGroup.roles"
+          v-if="menuGroup.roles.includes('ALL') || menuGroup.roles.includes(currentRole)"
           :index="menuGroup.index"
         >
           <template #title>
@@ -27,7 +27,7 @@
           </template>
           <el-menu-item-group>
             <template v-for="subMenu in menuGroup.child" :key="subMenu.index">
-              <el-menu-item v-if="subMenu.roles.includes('all') || currentRole in subMenu.roles" :index="subMenu.index"
+              <el-menu-item v-if="subMenu.roles.includes('ALL') || subMenu.roles.includes(currentRole)" :index="subMenu.index"
                 ><i :class="subMenu.icon"> </i>{{ subMenu.name }}
               </el-menu-item>
             </template>
@@ -49,7 +49,7 @@ export default {
           index: "1",
           name: "资讯",
           icon: "el-icon-chat-line-square",
-          roles: ['all'],
+          roles: ['ALL'],
           child: [
             {
               index: "/news/edit",
@@ -61,13 +61,13 @@ export default {
               index: "/news/list",
               name: "资讯列表",
               icon: "el-icon-s-order",
-              roles: ['all'],
+              roles: ['ALL'],
             },
             {
               index: "/news/detail",
               name: "资讯详情",
               icon: "el-icon-s-order",
-              roles: ['all'],
+              roles: ['ALL'],
             },
           ],
         },
@@ -75,19 +75,19 @@ export default {
           index: "2",
           name: "账户管理",
           icon: "",
-          roles: ['all'],
+          roles: ['ALL'],
           child: [
             {
               index: "/user/login",
               name: "登录",
               icon: "el-icon-s-open",
-              roles: ['all'],
+              roles: ['ALL'],
             },
             {
               index: "/user/reg",
               name: "注册",
               icon: "el-icon-s-open",
-              roles: ['all'],
+              roles: ['ALL'],
             },
             {
               index: "/user/complete",
@@ -113,7 +113,7 @@ export default {
           index: "3",
           name: "审核中心",
           icon: "",
-          roles: [],
+          roles: ['ALL'],
           child: [
             {
               index: "/audit",
@@ -127,19 +127,19 @@ export default {
           index: "4",
           name: "交易中心",
           icon: "",
-          roles: [],
+          roles: ["USER_SALE", "USER_BUY"],
           child: [
             {
               index: "4-1",
               name: "挂牌",
               icon: "el-icon-s-open",
-              roles: [],
+              roles: ["USER_SALE", "USER_BUY"],
             },
             {
               index: "4-2",
               name: "摘牌",
               icon: "el-icon-s-order",
-              roles: [],
+              roles: ["USER_SALE", "USER_BUY"],
             },
           ],
         },
