@@ -36,7 +36,9 @@
             :key="item"
             @click="getExactly(item.id)"
           >
-            <el-link>{{ item.title }}</el-link>
+        
+            {{ item.title}}
+          
           </p>
         </el-scrollbar>
         <el-pagination
@@ -58,10 +60,12 @@
 
 <script>
 import {getNewsList} from './api';
+import {loadNewsDetail} from './api';
 import search from "./search.vue";
 export default {
+  
   data() {
-   
+    
 
     return {
       currentPage:1, //初始页
@@ -78,6 +82,7 @@ export default {
   },
   methods: {
     getExactly(id) {
+      this.$router.push({path:'/news/detail',query: {id:id}})
     },
     handleSizeChange: function (size) {
                 this.pagesize = size;
@@ -112,7 +117,10 @@ export default {
   line-height: 150px;
   margin: 0;
 }
-
+.item:hover{
+  color: rgb(99, 238, 248);
+  cursor: pointer;
+}
 .el-carousel__item:nth-child(2n) {
   background-color: #99a9bf;
 }
