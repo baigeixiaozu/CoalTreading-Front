@@ -328,34 +328,34 @@
     <hr />
     <el-form
       :label-position="labelPosition"
-      :rules="rules"
-      ref="form1"
-      :model="form1"
+      :rules="fiRules"
+      ref="financeInfo"
+      :model="financeInfo"
     >
-      <el-form-item label="财务邮箱" prop="email">
+      <el-form-item label="财务邮箱" prop="financeEmail">
         <el-input
-          v-model="form1.email"
+          v-model="financeInfo.email"
           placeholder="请输入......"
           style="width: 90%"
         ></el-input>
       </el-form-item>
-      <el-form-item label="汇款单位名称" prop="comName">
+      <el-form-item label="汇款单位名称" prop="comName2">
         <el-input
-          v-model="form1.comName"
+          v-model="financeInfo.comName"
           placeholder="请输入......"
           style="width: 90%"
         ></el-input>
       </el-form-item>
       <el-form-item label="开户银行" prop="bankName">
         <el-input
-          v-model="form1.bankName"
+          v-model="financeInfo.bankName"
           placeholder="请输入......"
           style="width: 90%"
         ></el-input>
       </el-form-item>
       <el-form-item label="银行账号" prop="bankAcc">
         <el-input
-          v-model="form1.bankAcc"
+          v-model="financeInfo.bankAcc"
           placeholder="请输入......"
           style="width: 90%"
         ></el-input>
@@ -387,10 +387,8 @@
     <hr />
     <el-form>
       <el-form-item>
-        <el-button type="primary" @click="submitForm('form', 'form1')"
-          >提交</el-button
-        >
-        <el-button @click="resetForm('form', 'form1')">重置</el-button>
+        <el-button type="primary" @click="submitForm">提交</el-button>
+        <el-button @click="resetForm">重置</el-button>
       </el-form-item>
     </el-form>
   </div>
@@ -398,6 +396,7 @@
 
 <script>
 import { getUserInfo, userComplete } from "./api";
+import { validateEMail } from "./../../utils/validator.js";
 export default {
   data() {
     return {
@@ -406,14 +405,6 @@ export default {
         Authorization: `Bearer ${this.$store.state.token}`,
       },
       labelPosition: "right",
-      form1: {
-        comName: "",
-        bankName: "",
-        bankAcc: "",
-        blance: "",
-        freeze: "",
-        aoPermitFile: "", //开户许可证文件路径
-      },
       form: {
         comName: "",
         legalName: "",
@@ -561,6 +552,50 @@ export default {
           },
         ],
       },
+      financeInfo: {
+        email: "",
+        comName: "",
+        bankName: "",
+        bankAcc: "",
+        blance: "",
+        freeze: "",
+        aoPermitFile: "", //开户许可证文件路径
+      },
+      fiRules: {
+        financeEmail: [
+          {
+            required: true,
+            message: "输入不能为空",
+            trigger: "blur",
+          },
+          {
+            validator: validateEMail,
+            message: "邮箱格式不正确",
+            trigger: "change",
+          },
+        ],
+        comName2: [
+          {
+            required: true,
+            message: "输入不能为空",
+            trigger: "blur",
+          },
+        ],
+        bankName: [
+          {
+            required: true,
+            message: "输入不能为空",
+            trigger: "blur",
+          },
+        ],
+        bankAcc: [
+          {
+            required: true,
+            message: "输入不能为空",
+            trigger: "blur",
+          },
+        ],
+      },
     };
   },
   mounted() {
@@ -586,42 +621,36 @@ export default {
     beforeUpload(file) {
       console.log("beforeUpload", file.name);
     },
-    uploadErrorHandle(err, file, fileList){
+    uploadErrorHandle(err, file, fileList) {
       const resp = JSON.parse(err.message);
       this.$message({
         message: `文件上传失败`,
-        type: "error"
-      })
+        type: "error",
+      });
       // console.log("on-error", fileList);
     },
-    uploadSuccessHandle(res, file, fileList){
+    uploadSuccessHandle(res, file, fileList) {
       // console.log(res, file, fileList)
       file.name = res.data.path;
       this.$message({
         message: "上传成功",
-        type: "success"
-      })
-    },
-    submitForm(formName, formName1) {
-      this.$refs[formName].validate((valid) => {
-        if (valid) {
-          this.$message({
-            message: "注册成功",
-            type: "success",
-          });
-        } else {
-          this.$message({
-            message: "数据填写不完整",
-            type: "warning",
-          });
-          return false;
-        }
+        type: "success",
       });
-      this.$refs[formName1].validate((valid) => {
+    },
+    submitForm() {
+      this.$refs["form"].validate((valid) => {
         if (valid) {
-          this.$message({
-            message: "注册成功",
-            type: "success",
+          console.log("数据通过验证1");
+          this.$refs["financeInfo"].validate((valid) => {
+            if (valid) {
+              console.log("数据通过验证2");
+            } else {
+              this.$message({
+                message: "数据填写不完整",
+                type: "warning",
+              });
+              return false;
+            }
           });
         } else {
           this.$message({
@@ -632,52 +661,14 @@ export default {
         }
       });
     },
-    resetForm(formName, formName1) {
-      this.$refs[formName].resetFields();
-      this.$refs[formName1].resetFields();
+    resetForm() {
+      this.$refs["form"].resetFields();
+      this.$refs["financeInfo"].resetFields();
     },
     postData: function () {
-      userComplete({
-        comName: this.form.comName,
-        legalName: this.form.legalName,
-        nick: this.form.nick,
-        legalId: this.form.legalId,
-        comAddr: this.form.comAddr,
-        comContact: this.form.comContact,
-        comZip: this.form.comZip,
-        businessLicenseId: this.form.businessLicenseId,
-        manageLicenseId: this.form.manageLicenseId,
-        fax: this.form.fax,
-        registeredCapital: this.form.registeredCapital,
-        oibCode: this.form.oibCode,
-        trCert: this.form.trCert,
-        coalStoreSite: this.form.coalStoreSite,
-        coalQuantity: this.form.coalQuantity,
-        coalQuality: this.form.coalQuality,
-        coalTransport: this.form.coalTransport,
-        comIntro: this.form.comIntro,
-      })
-        .then((res) => {
-          console.log(res)
-        })
-        .catch((err) => {
-          console.log(err)
-        });
-    },
-    //form1 axios
-    postData1: function () {
-      this.axios({
-        method: "post",
-        url: "/user/finance",
-        data: {
-          comName: this.form1.comName,
-          bankName: this.form1.bankName,
-          bankAcc: this.form1.bankAcc,
-          blance: this.form1.balance,
-          freeze: this.form1.freeze,
-          aoPermitFile: this.form1.aoPermitFile,
-        },
-      })
+      const data = Object.create(this.form);
+      data.financeInfo = this.financeInfo;
+      userComplete(data)
         .then((res) => {
           console.log(res);
         })
@@ -685,8 +676,8 @@ export default {
           console.log(err);
         });
     },
+    // 获取用户数据（TODO: 是否获取公司等数据？）
     getData: function () {
-      console.log(localStorage.token);
       getUserInfo()
         .then((resp) => {
           console.log(resp);
