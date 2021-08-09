@@ -4,15 +4,15 @@
     <hr />
     <el-form
       :label-position="labelPosition"
-      :rules="rules"
-      ref="form"
-      :model="form"
+      :rules="comInfoRules"
+      ref="comInfo"
+      :model="comInfo"
     >
       <el-row>
         <el-col :span="12">
           <el-form-item label="公司名称" prop="comName">
             <el-input
-              v-model="form.comName"
+              v-model="comInfo.comName"
               placeholder="请输入公司名称"
               style="width: 90%"
             ></el-input>
@@ -21,7 +21,7 @@
         <el-col :span="12">
           <el-form-item label="企业类型" prop="nick">
             <span>
-              {{ form.userType }}
+              {{ comInfo.userType }}
             </span>
           </el-form-item>
         </el-col>
@@ -30,7 +30,7 @@
         <el-col :span="12">
           <el-form-item label="法人代表" prop="legalName">
             <el-input
-              v-model="form.legalName"
+              v-model="comInfo.legalName"
               placeholder="请输入法人代表"
               style="width: 90%"
             ></el-input>
@@ -39,7 +39,7 @@
         <el-col :span="12">
           <el-form-item label="法人身份证" prop="legalId">
             <el-input
-              v-model.number="form.legalId"
+              v-model.number="comInfo.legalId"
               placeholder="请输入法人身份证"
               style="width: 90%"
             ></el-input>
@@ -50,7 +50,7 @@
         <el-col :span="12">
           <el-form-item label="公司地址" prop="comAddr">
             <el-input
-              v-model="form.comAddr"
+              v-model="comInfo.comAddr"
               placeholder="请输入注册地区"
               style="width: 90%"
             ></el-input>
@@ -58,7 +58,7 @@
         </el-col>
         <el-col :span="12">
           <el-form-item prop="email" label="企业邮箱">
-            {{ form.email }}
+            {{ comInfo.email }}
           </el-form-item>
         </el-col>
       </el-row>
@@ -66,7 +66,7 @@
         <el-col :span="12">
           <el-form-item label="联系电话" prop="comContact">
             <el-input
-              v-model.number="form.comContact"
+              v-model.number="comInfo.comContact"
               placeholder="请输入联系电话"
               style="width: 90%"
             ></el-input>
@@ -75,7 +75,7 @@
         <el-col :span="12">
           <el-form-item label="传真" prop="fax">
             <el-input
-              v-model="form.fax"
+              v-model="comInfo.fax"
               placeholder="请输入传真"
               style="width: 90%"
             ></el-input>
@@ -86,7 +86,7 @@
         <el-col :span="12">
           <el-form-item label="邮政编码" prop="comZip">
             <el-input
-              v-model.number="form.comZip"
+              v-model.number="comInfo.comZip"
               placeholder="请输入邮政编码"
               style="width: 90%"
             ></el-input>
@@ -95,7 +95,7 @@
         <el-col :span="12">
           <el-form-item label="注册资金（万元）" prop="registeredCapital">
             <el-input
-              v-model="form.registeredCapital"
+              v-model="comInfo.registeredCapital"
               placeholder="请输入注册资金"
               style="width: 90%"
             ></el-input>
@@ -106,7 +106,7 @@
         <el-col :span="12">
           <el-form-item label="营业执照号" prop="businessLicenseId">
             <el-input
-              v-model="form.businessLicenseId"
+              v-model="comInfo.businessLicenseId"
               placeholder="请输入营业执照号"
               style="width: 90%"
             ></el-input>
@@ -115,7 +115,7 @@
         <el-col :span="12">
           <el-form-item label="组织机构代码" prop="oibCode">
             <el-input
-              v-model="form.oibCode"
+              v-model="comInfo.oibCode"
               placeholder="请输入组织机构代码"
               style="width: 90%"
             ></el-input>
@@ -126,7 +126,7 @@
         <el-col :span="12">
           <el-form-item label="经营许可证编号" prop="manageLicenseId">
             <el-input
-              v-model="form.manageLicenseId"
+              v-model="comInfo.manageLicenseId"
               placeholder="请输入经营许可证编号"
               style="width: 90%"
             ></el-input>
@@ -135,7 +135,7 @@
         <el-col :span="12">
           <el-form-item label="税务登记证编号" prop="trCert">
             <el-input
-              v-model="form.trCert"
+              v-model="comInfo.trCert"
               placeholder="请输入税务登记证编号"
               style="width: 90%"
             ></el-input>
@@ -146,7 +146,7 @@
         <el-col :span="12">
           <el-form-item label="煤炭存放地点" prop="coalStoreSite">
             <el-input
-              v-model="form.coalStoreSite"
+              v-model="comInfo.coalStoreSite"
               placeholder="请输入煤炭存放地点"
               style="width: 90%"
             ></el-input>
@@ -155,7 +155,7 @@
         <el-col :span="12">
           <el-form-item label="煤炭数量（吨）" prop="number">
             <el-input
-              v-model.number="form.number"
+              v-model.number="comInfo.number"
               placeholder="请输入煤炭数量"
               style="width: 90%"
             ></el-input>
@@ -166,7 +166,7 @@
         <el-col :span="12">
           <el-form-item label="煤炭质量" prop="coalQuality">
             <el-input
-              v-model="form.coalQuality"
+              v-model="comInfo.coalQuality"
               placeholder="请输入内容"
               style="width: 90%"
             ></el-input>
@@ -175,7 +175,7 @@
         <el-col :span="12">
           <el-form-item label="运输方式" prop="coalTransport">
             <el-input
-              v-model="form.coalTransport"
+              v-model="comInfo.coalTransport"
               placeholder="请输入内容"
               style="width: 90%"
             ></el-input>
@@ -184,7 +184,7 @@
       </el-row>
       <el-form-item label="公司简介" prop="comIntro">
         <el-input
-          v-model="form.comIntro"
+          v-model="comInfo.comIntro"
           type="textarea"
           :rows="2"
           placeholder="请输入内容"
@@ -328,34 +328,34 @@
     <hr />
     <el-form
       :label-position="labelPosition"
-      :rules="rules"
-      ref="form1"
-      :model="form1"
+      :rules="fiRules"
+      ref="financeInfo"
+      :model="financeInfo"
     >
       <el-form-item label="财务邮箱" prop="email">
         <el-input
-          v-model="form1.email"
+          v-model="financeInfo.email"
           placeholder="请输入......"
           style="width: 90%"
         ></el-input>
       </el-form-item>
       <el-form-item label="汇款单位名称" prop="comName">
         <el-input
-          v-model="form1.comName"
+          v-model="financeInfo.comName"
           placeholder="请输入......"
           style="width: 90%"
         ></el-input>
       </el-form-item>
       <el-form-item label="开户银行" prop="bankName">
         <el-input
-          v-model="form1.bankName"
+          v-model="financeInfo.bankName"
           placeholder="请输入......"
           style="width: 90%"
         ></el-input>
       </el-form-item>
       <el-form-item label="银行账号" prop="bankAcc">
         <el-input
-          v-model="form1.bankAcc"
+          v-model.number="financeInfo.bankAcc"
           placeholder="请输入......"
           style="width: 90%"
         ></el-input>
@@ -387,10 +387,8 @@
     <hr />
     <el-form>
       <el-form-item>
-        <el-button type="primary" @click="submitForm('form', 'form1')"
-          >提交</el-button
-        >
-        <el-button @click="resetForm('form', 'form1')">重置</el-button>
+        <el-button type="primary" @click="submitForm">提交</el-button>
+        <el-button @click="resetForm">重置</el-button>
       </el-form-item>
     </el-form>
   </div>
@@ -398,6 +396,7 @@
 
 <script>
 import { getUserInfo, userComplete } from "./api";
+import { validateEMail } from "./../../utils/validator.js";
 export default {
   data() {
     return {
@@ -406,15 +405,7 @@ export default {
         Authorization: `Bearer ${this.$store.state.token}`,
       },
       labelPosition: "right",
-      form1: {
-        comName: "",
-        bankName: "",
-        bankAcc: "",
-        blance: "",
-        freeze: "",
-        aoPermitFile: "", //开户许可证文件路径
-      },
-      form: {
+      comInfo: {
         comName: "",
         legalName: "",
         nick: "",
@@ -440,7 +431,7 @@ export default {
         oibCodeFile: "",
         trCertFile: "",
       },
-      rules: {
+      comInfoRules: {
         comName: [
           {
             required: true,
@@ -561,10 +552,60 @@ export default {
           },
         ],
       },
+      financeInfo: {
+        email: '',
+        comName: "",
+        bankName: "",
+        bankAcc: "",
+        blance: "",
+        freeze: "",
+        aoPermitFile: "", //开户许可证文件路径
+      },
+      fiRules: {
+        email: [
+          {
+            required: true,
+            message: "输入不能为空",
+            trigger: "blur",
+          },
+          {
+            validator: validateEMail,
+            message: "邮箱格式不正确",
+            trigger: "change",
+          },
+        ],
+        comName: [
+          {
+            required: true,
+            message: "输入不能为空",
+            trigger: "blur",
+          },
+        ],
+        bankName: [
+          {
+            required: true,
+            message: "输入不能为空",
+            trigger: "blur",
+          },
+        ],
+        bankAcc: [
+          {
+            required: true,
+            message: "输入不能为空",
+            trigger: "blur",
+          },
+        ],
+      },
     };
   },
   mounted() {
+    
+  },
+  created(){
     this.getData();
+    // const data = JSON.parse(`{"comName":"公司名","legalName":"法人代表","nick":"","legalId":6546416741,"comAddr":"公司地址","comContact":13615996870,"comZip":351168,"businessLicenseId":"73873879","manageLicenseId":"736987639786","fax":"8796896+86","registeredCapital":"8968","oibCode":"34637863","trCert":"7387863","coalStoreSite":"煤炭存放地点","coalQuantity":"","coalQuality":"高高高","coalTransport":"水水水","comIntro":"简介简介简介简介","email":"jiyecafe@gmail.com","legalIdFile":"","businessLicenseFile":"","manageLicenseFile":"","oibCodeFile":"","trCertFile":"","userType":"供应商","number":999,"financeInfo":{"email":"dfgdg@fsdf.cdfb","comName":"汇款单位名称","bankName":"开户银行","bankAcc":6354169419674,"blance":"","freeze":"","aoPermitFile":""}}`);
+    // this.comInfo = data;
+    // this.financeInfo = data.financeInfo
   },
   methods: {
     handleRemove(file, fileList) {
@@ -586,42 +627,37 @@ export default {
     beforeUpload(file) {
       console.log("beforeUpload", file.name);
     },
-    uploadErrorHandle(err, file, fileList){
+    uploadErrorHandle(err, file, fileList) {
       const resp = JSON.parse(err.message);
       this.$message({
         message: `文件上传失败`,
-        type: "error"
-      })
+        type: "error",
+      });
       // console.log("on-error", fileList);
     },
-    uploadSuccessHandle(res, file, fileList){
+    uploadSuccessHandle(res, file, fileList) {
       // console.log(res, file, fileList)
       file.name = res.data.path;
       this.$message({
         message: "上传成功",
-        type: "success"
-      })
-    },
-    submitForm(formName, formName1) {
-      this.$refs[formName].validate((valid) => {
-        if (valid) {
-          this.$message({
-            message: "注册成功",
-            type: "success",
-          });
-        } else {
-          this.$message({
-            message: "数据填写不完整",
-            type: "warning",
-          });
-          return false;
-        }
+        type: "success",
       });
-      this.$refs[formName1].validate((valid) => {
+    },
+    submitForm() {
+      this.$refs["comInfo"].validate((valid) => {
         if (valid) {
-          this.$message({
-            message: "注册成功",
-            type: "success",
+          console.log("数据通过验证1");
+          this.$refs["financeInfo"].validate((valid) => {
+            if (valid) {
+              console.log("数据通过验证2");
+              this.postData()
+            } else {
+              this.$message({
+                message: "数据填写不完整",
+                type: "warning",
+              });
+              return false;
+            }
           });
         } else {
           this.$message({
@@ -632,66 +668,40 @@ export default {
         }
       });
     },
-    resetForm(formName, formName1) {
-      this.$refs[formName].resetFields();
-      this.$refs[formName1].resetFields();
+    resetForm() {
+      this.$refs["form"].resetFields();
+      this.$refs["financeInfo"].resetFields();
     },
     postData: function () {
-      userComplete({
-        comName: this.form.comName,
-        legalName: this.form.legalName,
-        nick: this.form.nick,
-        legalId: this.form.legalId,
-        comAddr: this.form.comAddr,
-        comContact: this.form.comContact,
-        comZip: this.form.comZip,
-        businessLicenseId: this.form.businessLicenseId,
-        manageLicenseId: this.form.manageLicenseId,
-        fax: this.form.fax,
-        registeredCapital: this.form.registeredCapital,
-        oibCode: this.form.oibCode,
-        trCert: this.form.trCert,
-        coalStoreSite: this.form.coalStoreSite,
-        coalQuantity: this.form.coalQuantity,
-        coalQuality: this.form.coalQuality,
-        coalTransport: this.form.coalTransport,
-        comIntro: this.form.comIntro,
-      })
-        .then((res) => {
-          console.log(res)
-        })
-        .catch((err) => {
-          console.log(err)
-        });
-    },
-    //form1 axios
-    postData1: function () {
-      this.axios({
-        method: "post",
-        url: "/user/finance",
-        data: {
-          comName: this.form1.comName,
-          bankName: this.form1.bankName,
-          bankAcc: this.form1.bankAcc,
-          blance: this.form1.balance,
-          freeze: this.form1.freeze,
-          aoPermitFile: this.form1.aoPermitFile,
-        },
-      })
+      const data = JSON.parse(JSON.stringify(this.comInfo));
+      data.financeInfo = this.financeInfo;
+      console.log(JSON.stringify(data))
+      userComplete(data)
         .then((res) => {
           console.log(res);
+          this.$message({
+            message:"提交成功",
+            type: "success"
+          })
         })
         .catch((err) => {
           console.log(err);
+          if(err.error)
+          {
+            this.$message({
+              message: err.error,
+              type: "error"
+            })
+          }
         });
     },
+    // 获取用户数据（TODO: 是否获取公司等数据？）
     getData: function () {
-      console.log(localStorage.token);
       getUserInfo()
         .then((resp) => {
           console.log(resp);
-          this.form.email = resp.data.email;
-          this.form.userType = resp.data.userType;
+          this.comInfo.email = resp.data.email;
+          this.comInfo.userType = resp.data.userType;
         })
         .catch(function (err) {
           console.log(err);
