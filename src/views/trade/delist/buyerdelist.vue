@@ -18,7 +18,7 @@
             <el-input
               v-model.number="salelistForm.supplyQuantity"
               style="width:25%"
-
+              :disabled="true"
             ></el-input>
           </el-form-item>
         </el-col>
@@ -27,7 +27,7 @@
           <el-input
             v-model.number="salelistForm.calorificValue"
             style="width:25%"
-
+            :disabled="true"
           ></el-input>
         </el-form-item>
         </el-col>
@@ -39,7 +39,7 @@
             <el-input
               v-model.number="salelistForm.unitPrice"
               style="width:25%"
-
+              :disabled="true"
             ></el-input>
           </el-form-item>
         </el-col>
@@ -47,6 +47,7 @@
           <el-form-item prop="transportPrice" label="运费单价(元/吨)">
             <el-input v-model.number="salelistForm.transportPrice"
             style="width:25%"
+            :disabled="true"
            ></el-input>
           </el-form-item>
         </el-col>
@@ -57,14 +58,15 @@
             <el-input
               v-model.number="salelistForm.ts"
               style="width:25%"
-
+              :disabled="true"
             ></el-input>
           </el-form-item>
         </el-col>
         <el-col :span="12">
           <el-form-item prop="location" label="产地">
             <el-input v-model="salelistForm.location"
-            style="width:25%"></el-input>
+            style="width:25%"
+            :disabled="true"></el-input>
           </el-form-item>
         </el-col>
 
@@ -74,7 +76,8 @@
           <el-form-item label="挥发分(%)<" prop="vc">
             <el-input
               v-model.number="salelistForm.vc"
-              style="width:25%">
+              style="width:25%"
+              :disabled="true">
               </el-input>
             </el-select>
           </el-form-item>
@@ -83,7 +86,8 @@
         <el-col :span="12">
           <el-form-item prop="sendLocal" label="发站(发货港口)">
             <el-input v-model="salelistForm.sendLocal"
-            style="width:25%"></el-input>
+            style="width:25%"
+            :disabled="true"></el-input>
           </el-form-item>
         </el-col>
 
@@ -93,6 +97,7 @@
           <el-form-item prop="kgjhf" label="空干基灰分(%)<">
             <el-input v-model.number="salelistForm.kgjhf"
             style="width:25%"
+            :disabled="true"
             ></el-input>
           </el-form-item>
         </el-col>
@@ -100,6 +105,7 @@
           <el-form-item prop="ms" label="全水分(%)<">
             <el-input v-model.number="salelistForm.ms"
             style="width:25%"
+            :disabled="true"
             ></el-input>
           </el-form-item>
         </el-col>
@@ -131,7 +137,7 @@
              ms:'',//全水分  number
              publish:''
           },
-         
+
       }
     },
     mounted() {
