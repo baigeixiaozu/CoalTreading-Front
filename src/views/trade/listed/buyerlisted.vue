@@ -157,16 +157,15 @@
           </el-form-item>
         </el-col>
         <el-col :span="8">
-          <el-form-item prop="sdjhff1" label="收到基挥发分起">
-            <el-input v-model="buyPubData.coalForm.sdjhff1" style="width:20%;"></el-input>
-          </el-form-item>
-        </el-col>
-        <el-col :span="8">
-          <el-form-item prop="sdjhff2" label="收到基挥发分止">
-            <el-input v-model="buyPubData.coalForm.sdjhff2" style="width:20%;"></el-input>
+          <el-form-item prop="sdjhff1" label="收到基挥发分">
+            <el-input v-model="buyPubData.coalForm.sdjhff1" style="width:8%;"></el-input>
+            (%)至
+            <el-input v-model="buyPubData.coalForm.sdjhff2" style="width:8%;"></el-input>
+            (%)
           </el-form-item>
         </el-col>
       </el-row>
+      <hr />
       <el-row>
         <el-col :span="8">
           <el-form-item label="空干基水分" prop="kgjsf">
@@ -175,21 +174,20 @@
         </el-col>
         <el-col :span="8">
           <el-form-item prop="kgjhff1" label="空干基挥发分起">
-            <el-input v-model="buyPubData.coalForm.kgjhff1" style="width:20%;"></el-input>
+            <el-input v-model="buyPubData.coalForm.kgjhff1" style="width:8%;"></el-input>
+            (%)至
+             <el-input v-model="buyPubData.coalForm.kgjhff2" style="width:8%;"></el-input>
+             (%)
           </el-form-item>
         </el-col>
-        <el-col :span="8">
-          <el-form-item prop="kgjhff2" label="空干基挥发分止">
-            <el-input v-model="buyPubData.coalForm.kgjhff2" style="width:20%;"></el-input>
-          </el-form-item>
-        </el-col>
+       <el-col :span="8">
+         <el-form-item label="空干基全硫" prop="kgjql">
+           <el-input v-model="buyPubData.coalForm.kgjql" style="width:20%;"></el-input>
+         </el-form-item>
+       </el-col>
       </el-row>
       <el-row>
-        <el-col :span="8">
-          <el-form-item label="空干基全硫" prop="kgjql">
-            <el-input v-model="buyPubData.coalForm.kgjql" style="width:20%;"></el-input>
-          </el-form-item>
-        </el-col>
+        <hr />
         <el-col :span="8">
           <el-form-item prop="highHeat" label="干基高位发热量">
             <el-input v-model="buyPubData.coalForm.highHeat" style="width:20%;"></el-input>
@@ -200,20 +198,16 @@
             <el-input v-model="buyPubData.coalForm.gjql" style="width:20%;"></el-input>
           </el-form-item>
         </el-col>
-      </el-row>
-      <el-row>
-        <el-col :span="12">
+        <el-col :span="8">
           <el-form-item label="干燥无灰基挥发分起" prop="gzwhjhff1">
-            <el-input v-model="buyPubData.coalForm.gzwhjhff1" style="width:20%;"></el-input>
+            <el-input v-model="buyPubData.coalForm.gzwhjhff1" style="width:8%;"></el-input>
+            (%)至
+            <el-input v-model="buyPubData.coalForm.gzwhjhff2" style="width:8%;"></el-input>
+            (%)
           </el-form-item>
-        </el-col>
-        <el-col :span="12">
-          <el-form-item prop="gzwhjhff2" label="干燥无灰基挥发分止">
-            <el-input v-model="buyPubData.coalForm.gzwhjhff2" style="width:20%;"></el-input>
-          </el-form-item>
-        </el-col>
-
+          </el-col>
       </el-row>
+<hr />
       <el-row>
         <el-col :span="8">
           <el-form-item label="粒度" prop="granularity">
@@ -238,9 +232,9 @@
   :rows="2"></el-input>
       </el-form-item>
       <el-form-item>
-        <el-button type="primary" @click="submitForm('ruleForm')">提交</el-button>
-        <el-button @click="resetForm('ruleForm')">保存</el-button>
-        <el-button @click="resetForm('ruleForm')">重置</el-button>
+        <el-button type="primary" @click="submitForm('buyPubData')">提交</el-button>
+        <el-button @click="resetForm('buyPubData')">保存</el-button>
+        <el-button @click="resetForm('buyPubData')">重置</el-button>
       </el-form-item>
     </el-form>
 </div>
