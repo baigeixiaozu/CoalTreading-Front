@@ -80,7 +80,7 @@
 </template>
 
 <script>
-import { getRoleList } from "./api";
+import { getRoleList, userRegister } from "./api";
 export default {
   name: "reg",
   data() {
@@ -176,8 +176,7 @@ export default {
           },
         ],
       },
-      roleList: [
-      ],
+      roleList: [],
     };
   },
   mounted() {
@@ -190,31 +189,10 @@ export default {
     submitForm(formName) {
       this.$refs[formName].validate((valid) => {
         if (valid) {
-          this.$message({
-            message: "注册成功",
-            type: "success",
-          });
           this.postData();
-
-          //this.$store.dispatch("asyncUpdateUser", {
-          /* login:this.ruleForm.login, */
-          //    nick: this.ruleForm.role
-          //})
-          if (this.ruleForm.role == "7")
-            this.$router.push({
-              name: "reg2",
-              params: {
-                nick: this.ruleForm.role,
-                login: this.ruleForm.username,
-              },
-            });
-          else
-            this.$router.push({
-              name: "reg",
-            });
         } else {
           this.$message({
-            message: "注册失败",
+            message: "资料填写不规范，请检查！",
             type: "warning",
           });
           return false;
@@ -227,24 +205,27 @@ export default {
       //window.sessionStorage.clear()
     },
     postData: function () {
-      this.axios({
-        method: "post",
-        url: this.baseURL + "/user/register",
-        data: {
-          pass: this.ruleForm.pass,
-          //checkPass: '',
-          login: this.ruleForm.login,
-          nick: this.ruleForm.nick,
-          //check:'',
-          email: this.ruleForm.email,
-          role: this.ruleForm.role,
-        },
+      userRegister({
+        pass: this.ruleForm.pass,
+        //checkPass: '',
+        login: this.ruleForm.login,
+        nick: this.ruleForm.nick,
+        //check:'',
+        email: this.ruleForm.email,
+        role: this.ruleForm.role,
       })
-        .then(function (repos) {
-          console.log(repos);
+        .then((res) => {
+          console.log(res);
+          this.$router.push("/user/login");
         })
-        .catch(function (err) {
+        .catch((err) => {
           console.log(err);
+          if (err.error) {
+            this.$message({
+              type: "error",
+              message: err.error,
+            });
+          }
         });
     },
   },

@@ -24,6 +24,10 @@ export const userLogin = (login, pass)=>{
     })
 }
 
+export const userRegister = (data)=>{
+    return request.post("/user/register", data)
+}
+
 export const getUserInfo = ()=>{
     return request.get("/user/info")
 }

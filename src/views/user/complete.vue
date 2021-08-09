@@ -313,6 +313,13 @@
       ref="form1"
       :model="form1"
     >
+      <el-form-item label="财务邮箱" prop="email">
+        <el-input
+          v-model="form1.email"
+          placeholder="请输入......"
+          style="width: 90%"
+        ></el-input>
+      </el-form-item>
       <el-form-item label="汇款单位名称" prop="comName">
         <el-input
           v-model="form1.comName"
