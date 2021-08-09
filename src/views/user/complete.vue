@@ -39,7 +39,7 @@
         <el-col :span="12">
           <el-form-item label="法人身份证" prop="legalId">
             <el-input
-              v-model="form.legalId"
+              v-model.number="form.legalId"
               placeholder="请输入法人身份证"
               style="width: 90%"
             ></el-input>
@@ -66,7 +66,7 @@
         <el-col :span="12">
           <el-form-item label="联系电话" prop="comContact">
             <el-input
-              v-model="form.comContact"
+              v-model.number="form.comContact"
               placeholder="请输入联系电话"
               style="width: 90%"
             ></el-input>
@@ -86,7 +86,7 @@
         <el-col :span="12">
           <el-form-item label="邮政编码" prop="comZip">
             <el-input
-              v-model="form.comZip"
+              v-model.number="form.comZip"
               placeholder="请输入邮政编码"
               style="width: 90%"
             ></el-input>
@@ -199,12 +199,15 @@
               class="upload-demo"
               :action="API + '/user/uploadFile?type=BUSINESS_LICENSE_FILE'"
               :headers="auth"
+              :limit="1"
+              :before-remove="beforeRemove"
+              :before-upload="beforeUpload"
               :on-preview="handlePreview"
               :on-remove="handleRemove"
-              :before-remove="beforeRemove"
-              :limit="1"
               :on-exceed="handleExceed"
-              :before-upload="beforeUpload6"
+              :on-error="uploadErrorHandle"
+              :on-success="uploadSuccessHandle"
+              accept="image/*"
             >
               <el-button size="small" type="primary"
                 >营业执照点击上传</el-button
@@ -219,13 +222,17 @@
           <el-form-item>
             <el-upload
               class="upload-demo"
-              action="{{API}}/user/uploadFile?type=TR_CERT_FILE"
+              :action="API + '/user/uploadFile?type=TR_CERT_FILE'"
+              :headers="auth"
+              :limit="1"
+              :before-remove="beforeRemove"
+              :before-upload="beforeUpload"
               :on-preview="handlePreview"
               :on-remove="handleRemove"
-              :before-remove="beforeRemove"
-              :limit="1"
               :on-exceed="handleExceed"
-              :before-upload="beforeUpload5"
+              :on-error="uploadErrorHandle"
+              :on-success="uploadSuccessHandle"
+              accept="image/*"
             >
               <el-button size="small" type="primary"
                 >税务登记证点击上传</el-button
@@ -242,13 +249,17 @@
           <el-form-item>
             <el-upload
               class="upload-demo"
-              action="{{API}}/user/uploadFile?type=OIB_CODE_FILE"
+              :action="API + '/user/uploadFile?type=OIB_CODE_FILE'"
+              :headers="auth"
+              :limit="1"
+              :before-remove="beforeRemove"
+              :before-upload="beforeUpload"
               :on-preview="handlePreview"
               :on-remove="handleRemove"
-              :before-remove="beforeRemove"
-              :limit="1"
               :on-exceed="handleExceed"
-              :before-upload="beforeUpload4"
+              :on-error="uploadErrorHandle"
+              :on-success="uploadSuccessHandle"
+              accept="image/*"
             >
               <el-button size="small" type="primary"
                 >组织机构代码证点击上传</el-button
@@ -263,13 +274,17 @@
           <el-form-item>
             <el-upload
               class="upload-demo"
-              action="{{API}}/user/uploadFile?type=MANAGE_LICENSE_FILE"
+              :action="API + '/user/uploadFile?type=MANAGE_LICENSE_FILE'"
+              :headers="auth"
+              :limit="1"
+              :before-remove="beforeRemove"
+              :before-upload="beforeUpload"
               :on-preview="handlePreview"
               :on-remove="handleRemove"
-              :before-remove="beforeRemove"
-              :limit="1"
               :on-exceed="handleExceed"
-              :before-upload="beforeUpload3"
+              :on-error="uploadErrorHandle"
+              :on-success="uploadSuccessHandle"
+              accept="image/*"
             >
               <el-button size="small" type="primary"
                 >煤炭经营许可证点击上传</el-button
@@ -286,13 +301,17 @@
           <el-form-item>
             <el-upload
               class="upload-demo"
-              action="{{API}}/user/uploadFile?type=LEGAL_ID_FILE"
+              :action="API + '/user/uploadFile?type=LEGAL_ID_FILE'"
+              :headers="auth"
+              :limit="1"
+              :before-remove="beforeRemove"
+              :before-upload="beforeUpload"
               :on-preview="handlePreview"
               :on-remove="handleRemove"
-              :before-remove="beforeRemove"
-              :limit="1"
               :on-exceed="handleExceed"
-              :before-upload="beforeUpload2"
+              :on-error="uploadErrorHandle"
+              :on-success="uploadSuccessHandle"
+              accept="image/*"
             >
               <el-button size="small" type="primary"
                 >法人身份证点击上传</el-button
@@ -349,13 +368,17 @@
       </el-form-item> -->
       <el-upload
         class="upload-demo"
-        action="{{API}}/user/uploadFile?type=AO_PERMIT_FILE"
+        :action="API + '/user/uploadFile?type=AO_PERMIT_FILE'"
+        :headers="auth"
+        :limit="1"
+        :before-remove="beforeRemove"
+        :before-upload="beforeUpload"
         :on-preview="handlePreview"
         :on-remove="handleRemove"
-        :before-remove="beforeRemove"
-        :limit="1"
         :on-exceed="handleExceed"
-        :before-upload="beforeUpload1"
+        :on-error="uploadErrorHandle"
+        :on-success="uploadSuccessHandle"
+        accept="image/*"
       >
         <el-button size="small" type="primary">开户许可证证点击上传</el-button>
         <div class="el-upload__tip">只能上传jpg/png文件，且不超过500kb</div>
@@ -374,7 +397,7 @@
 </template>
 
 <script>
-import { getUserInfo } from "./api";
+import { getUserInfo, userComplete } from "./api";
 export default {
   data() {
     return {
@@ -560,29 +583,24 @@ export default {
     beforeRemove(file, fileList) {
       return this.$confirm(`确定移除 ${file.name}？`);
     },
-    beforeUpload1(file) {
-      console.log(file.name);
-      this.form1.aoPermitFile = file.name;
+    beforeUpload(file) {
+      console.log("beforeUpload", file.name);
     },
-    beforeUpload2(file) {
-      console.log(file.name);
-      this.form.legalIdFile = file.name;
+    uploadErrorHandle(err, file, fileList){
+      const resp = JSON.parse(err.message);
+      this.$message({
+        message: `文件上传失败`,
+        type: "error"
+      })
+      // console.log("on-error", fileList);
     },
-    beforeUpload3(file) {
-      console.log(file.name);
-      this.form.manageLicenseFile = file.name;
-    },
-    beforeUpload4(file) {
-      console.log(file.name);
-      this.form.oibCodeFile = file.name;
-    },
-    beforeUpload5(file) {
-      console.log(file.name);
-      this.form.trCertFile = file.name;
-    },
-    beforeUpload6(file) {
-      console.log(file.name);
-      this.form.businessLicenseFile = file.name;
+    uploadSuccessHandle(res, file, fileList){
+      // console.log(res, file, fileList)
+      file.name = res.data.path;
+      this.$message({
+        message: "上传成功",
+        type: "success"
+      })
     },
     submitForm(formName, formName1) {
       this.$refs[formName].validate((valid) => {
@@ -593,7 +611,7 @@ export default {
           });
         } else {
           this.$message({
-            message: "注册失败",
+            message: "数据填写不完整",
             type: "warning",
           });
           return false;
@@ -605,10 +623,9 @@ export default {
             message: "注册成功",
             type: "success",
           });
-          this.$router.push("/success");
         } else {
           this.$message({
-            message: "注册失败",
+            message: "数据填写不完整",
             type: "warning",
           });
           return false;
@@ -620,35 +637,31 @@ export default {
       this.$refs[formName1].resetFields();
     },
     postData: function () {
-      this.axios({
-        method: "post",
-        url: "/user/complete",
-        data: {
-          comName: this.form.comName,
-          legalName: this.form.legalName,
-          nick: this.form.nick,
-          legalId: this.form.legalId,
-          comAddr: this.form.comAddr,
-          comContact: this.form.comContact,
-          comZip: this.form.comZip,
-          businessLicenseId: this.form.businessLicenseId,
-          manageLicenseId: this.form.manageLicenseId,
-          fax: this.form.fax,
-          registeredCapital: this.form.registeredCapital,
-          oibCode: this.form.oibCode,
-          trCert: this.form.trCert,
-          coalStoreSite: this.form.coalStoreSite,
-          coalQuantity: this.form.coalQuantity,
-          coalQuality: this.form.coalQuality,
-          coalTransport: this.form.coalTransport,
-          comIntro: this.form.comIntro,
-        },
+      userComplete({
+        comName: this.form.comName,
+        legalName: this.form.legalName,
+        nick: this.form.nick,
+        legalId: this.form.legalId,
+        comAddr: this.form.comAddr,
+        comContact: this.form.comContact,
+        comZip: this.form.comZip,
+        businessLicenseId: this.form.businessLicenseId,
+        manageLicenseId: this.form.manageLicenseId,
+        fax: this.form.fax,
+        registeredCapital: this.form.registeredCapital,
+        oibCode: this.form.oibCode,
+        trCert: this.form.trCert,
+        coalStoreSite: this.form.coalStoreSite,
+        coalQuantity: this.form.coalQuantity,
+        coalQuality: this.form.coalQuality,
+        coalTransport: this.form.coalTransport,
+        comIntro: this.form.comIntro,
       })
-        .then(function (repos) {
-          //console.log(repos);
+        .then((res) => {
+          console.log(res)
         })
-        .catch(function (err) {
-          console.log(err);
+        .catch((err) => {
+          console.log(err)
         });
     },
     //form1 axios
@@ -665,10 +678,10 @@ export default {
           aoPermitFile: this.form1.aoPermitFile,
         },
       })
-        .then(function (repos) {
-          console.log(repos);
+        .then((res) => {
+          console.log(res);
         })
-        .catch(function (err) {
+        .catch((err) => {
           console.log(err);
         });
     },

@@ -28,6 +28,10 @@ export const userRegister = (data)=>{
     return request.post("/user/register", data)
 }
 
+export const userComplete = (data)=>{
+    return request.post("/user/complete", data)
+}
+
 export const getUserInfo = ()=>{
     return request.get("/user/info")
 }

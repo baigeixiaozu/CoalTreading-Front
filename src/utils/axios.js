@@ -55,7 +55,7 @@ _axios.interceptors.response.use(
     console.log("response error",error.response);
     console.log("网络错误", error);
     const resp = error.response;
-    if (resp.status) {
+    if (resp && resp.status) {
       switch (resp.status) {
         // 401: 未登录，或者登录过期
         // 未登录则跳转登录页面，并携带当前页面的路径
@@ -108,14 +108,20 @@ _axios.interceptors.response.use(
           break;
         // 其他错误，直接抛出错误提示
         default:
-          // Toast({
-          //   message: error.response.data.error,
-          //   duration: 1500,
-          //   forbidClick: true
-          // });
+          ElMessage({
+            message: '网络错误！',
+            center: true,
+            type: "error"
+          });
       }
-    }else
+    }else{
       console.log("网络请求 - ", error);
+      ElMessage({
+        message: '网络错误！',
+        center: true,
+        type: "error"
+      });
+    }
     return Promise.reject(error);
   }
 );
