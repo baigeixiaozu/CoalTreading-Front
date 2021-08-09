@@ -9,7 +9,7 @@
           <el-row>
             <el-page-header @back="goBack" content="详情页面"> </el-page-header>
             <el-col :span="24">
-              <div class="grid-content bg-purple-dark">
+              <div class="grid-content bg-purple-dark title">
                 {{ this.$route.meta.title }}
               </div>
             </el-col>
@@ -82,5 +82,10 @@ export default {
 .row-bg {
   padding: 10px 0;
   background-color: #f9fafc;
+}
+.title{
+  display:flex;
+  align-items: center;
+  justify-content: center;
 }
 </style>
