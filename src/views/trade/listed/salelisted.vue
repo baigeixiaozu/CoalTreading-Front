@@ -113,11 +113,12 @@
 </template>
 
 <script>
-import {requestPublish, requestEdit} from '../api'
+import { requestPublish, requestEdit, loadDetail } from "../api";
 export default {
   data() {
     return {
       labelPosition: "right",
+      isNew: true,
       publish: false,
       salelistForm: {
         supplyQuantity: "", //供应量 number
@@ -214,15 +215,23 @@ export default {
     };
   },
   mounted() {
-    console.log(this.$route.query)
+    // console.log(this.$route.query)
+  },
+  created() {
+    const q = this.$route.query;
+    if (q.id) {
+      // 获取详细信息
+      this.isNew = false;
+      this.loadDetail(q.id);
+    }
   },
   methods: {
     Save(formName) {
       //保存草稿
       const q = this.$route.query;
-      if(q.id){
+      if (q.id) {
         this.editData(q.id, false);
-      }else{
+      } else {
         this.publishData(false);
       }
     },
@@ -231,9 +240,9 @@ export default {
       this.$refs[formName].validate((valid) => {
         if (valid) {
           //提交
-          if(q.id){
+          if (q.id) {
             this.editData(q.id, true);
-          }else{
+          } else {
             this.publishData(true);
           }
         } else {
@@ -252,24 +261,66 @@ export default {
     publishData(publish = false) {
       requestPublish({
         publish: publish,
-        salePubData: this.salelistForm
-      }).then(res=>{
-        console.log(res)
-      }).catch(err=>{
-        console.log(err)
+        salePubData: this.salelistForm,
       })
+        .then((res) => {
+          console.log(res);
+          this.$message({
+            message: "提交成功",
+            type: "success",
+          });
+          if(this.isNew){
+            this.$router.push("/trade/listed/salelisted?id=" + res.data.reqId)
+          }
+        })
+        .catch((err) => {
+          console.log(err);
+          if (err.error) {
+            this.$message({
+              message: err.error,
+              type: "error",
+            });
+          }
+        });
     },
     editData(id, publish = false) {
       requestEdit({
         id: id,
         publish: publish,
-        salePubData: this.salelistForm
-      }).then(res=>{
-        console.log(res)
+        salePubData: this.salelistForm,
+      })
+        .then((res) => {
+          this.$message({
+            message: "提交成功",
+            type: "success",
+          });
+          if(this.isNew){
+            this.$router.push("/trade/listed/salelisted?id=" + res.data.reqId)
+          }
+        })
+        .catch((err) => {
+          console.log(err);
+          if (err.error) {
+            this.$message({
+              message: err.error,
+              type: "error",
+            });
+          }
+        });
+    },
+    loadDetail(id){
+      loadDetail(id).then(res=>{
+        this.salelistForm = res.data.detail;
       }).catch(err=>{
         console.log(err)
+        if(err.error){
+          this.$message({
+            message: err.error,
+            type: "error"
+          })
+        }
       })
-    },
+    }
   },
 };
 </script>

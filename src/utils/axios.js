@@ -12,7 +12,7 @@ import store from '../store'
 
 let config = {
   baseURL: process.env.VUE_APP_BASE_URL || "http://127.0.0.1:8080",
-  timeout: 60 * 1000, // Timeout
+  timeout: 5 * 1000, // Timeout
   withCredentials: false // Check cross-site Access-Control
 };
 
