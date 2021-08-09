@@ -1,4 +1,5 @@
 <template>
+<el-config-provider :locale="locale">
   <el-container>
     <el-header><img src="./assets/logo1.png" /></el-header>
     <el-container>
@@ -8,7 +9,7 @@
           <el-row>
             <el-page-header @back="goBack" content="详情页面"> </el-page-header>
             <el-col :span="24">
-              <div class="grid-content bg-purple-dark title">
+              <div class="grid-content bg-purple-dark">
                 {{ this.$route.meta.title }}
               </div>
             </el-col>
@@ -18,23 +19,27 @@
       </el-container>
     </el-container>
   </el-container>
+</el-config-provider>
 </template>
 
 <script>
 import aside2 from "./views/aside2.vue";
+import { ElConfigProvider } from 'element-plus'
+import zhCn from 'element-plus/lib/locale/lang/zh-cn'
 
 export default {
   name: "App",
   components: {
     aside2,
+    [ElConfigProvider.name]: ElConfigProvider
   },
   data() {
-    return {};
+    return {
+      locale: zhCn
+    };
   },
   methods: {
-    goBack() {
-      this.$router.back()
-    },
+    goBack() { this.$router.back()},
   },
 };
 </script>
@@ -77,10 +82,5 @@ export default {
 .row-bg {
   padding: 10px 0;
   background-color: #f9fafc;
-}
-.title{
-  display:flex;
-  align-items: center;
-  justify-content: center;
 }
 </style>
