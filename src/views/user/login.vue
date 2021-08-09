@@ -32,7 +32,6 @@
 
 <script>
 import {userLogin} from './api';
-import { ElMessage } from 'element-plus';
 export default {
   data() {
     return {
@@ -72,8 +71,8 @@ export default {
       console.log
       this.$refs[formName].validate((valid) => {
         if (!valid) {
-          ElMessage({
-            message: "注册失败,请填写用户名密码",
+          this.$message({
+            message: "输入不正确, 请填写用户名密码",
             type: "warning",
           });
           return false;
@@ -107,7 +106,11 @@ export default {
               type: "success",
               duration: 1000
             });
-            if(this.$route.query.redirect){
+            if(resp.data.complete === false){
+              this.$router.push({
+                path: "/user/complete"
+              });
+            }else if(this.$route.query.redirect){
               this.$router.push({
                 path: this.$route.query.redirect
               });
