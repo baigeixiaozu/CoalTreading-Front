@@ -230,8 +230,10 @@ export default {
       //保存草稿
       const q = this.$route.query;
       if (q.id) {
+        // 编辑
         this.editData(q.id, false);
       } else {
+        // 新增
         this.publishData(false);
       }
     },
@@ -241,8 +243,10 @@ export default {
         if (valid) {
           //提交
           if (q.id) {
+            // 编辑
             this.editData(q.id, true);
           } else {
+            // 新增
             this.publishData(true);
           }
         } else {
@@ -258,6 +262,7 @@ export default {
     resetForm(formName) {
       this.$refs[formName].resetFields();
     },
+    // 新增
     publishData(publish = false) {
       requestPublish({
         publish: publish,
@@ -283,6 +288,7 @@ export default {
           }
         });
     },
+    //编辑
     editData(id, publish = false) {
       requestEdit({
         id: id,
@@ -308,6 +314,7 @@ export default {
           }
         });
     },
+    // 加载
     loadDetail(id){
       loadDetail(id).then(res=>{
         this.salelistForm = res.data.detail;
@@ -318,6 +325,7 @@ export default {
             message: err.error,
             type: "error"
           })
+          this.$router.back()
         }
       })
     }
