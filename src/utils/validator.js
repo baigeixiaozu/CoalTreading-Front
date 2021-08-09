@@ -66,7 +66,7 @@ export function validateIdNo(rule, value, callback) {
 }
 /* 是否邮箱*/
 export function validateEMail(rule, value, callback) {
-  console.log(rule, value, callback)
+  // console.log(rule, value, callback)
   const reg = /^([a-zA-Z0-9]+[-_\.]?)+@[a-zA-Z0-9]+\.[a-z]+$/;
   if (value == "" || value == undefined || value == null) {
     callback();

@@ -339,7 +339,7 @@
           style="width: 90%"
         ></el-input>
       </el-form-item>
-      <el-form-item label="汇款单位名称" prop="comName2">
+      <el-form-item label="汇款单位名称" prop="comName">
         <el-input
           v-model="financeInfo.comName"
           placeholder="请输入......"
@@ -355,7 +355,7 @@
       </el-form-item>
       <el-form-item label="银行账号" prop="bankAcc">
         <el-input
-          v-model="financeInfo.bankAcc"
+          v-model.number="financeInfo.bankAcc"
           placeholder="请输入......"
           style="width: 90%"
         ></el-input>
@@ -574,7 +574,7 @@ export default {
             trigger: "change",
           },
         ],
-        comName2: [
+        comName: [
           {
             required: true,
             message: "输入不能为空",
@@ -599,7 +599,13 @@ export default {
     };
   },
   mounted() {
+    
+  },
+  created(){
     this.getData();
+    // const data = JSON.parse(`{"comName":"公司名","legalName":"法人代表","nick":"","legalId":6546416741,"comAddr":"公司地址","comContact":13615996870,"comZip":351168,"businessLicenseId":"73873879","manageLicenseId":"736987639786","fax":"8796896+86","registeredCapital":"8968","oibCode":"34637863","trCert":"7387863","coalStoreSite":"煤炭存放地点","coalQuantity":"","coalQuality":"高高高","coalTransport":"水水水","comIntro":"简介简介简介简介","email":"jiyecafe@gmail.com","legalIdFile":"","businessLicenseFile":"","manageLicenseFile":"","oibCodeFile":"","trCertFile":"","userType":"供应商","number":999,"financeInfo":{"email":"dfgdg@fsdf.cdfb","comName":"汇款单位名称","bankName":"开户银行","bankAcc":6354169419674,"blance":"","freeze":"","aoPermitFile":""}}`);
+    // this.comInfo = data;
+    // this.financeInfo = data.financeInfo
   },
   methods: {
     handleRemove(file, fileList) {
@@ -638,12 +644,13 @@ export default {
       });
     },
     submitForm() {
-      this.$refs["form"].validate((valid) => {
+      this.$refs["comInfo"].validate((valid) => {
         if (valid) {
           console.log("数据通过验证1");
           this.$refs["financeInfo"].validate((valid) => {
             if (valid) {
               console.log("数据通过验证2");
+              this.postData()
             } else {
               this.$message({
                 message: "数据填写不完整",
@@ -666,14 +673,26 @@ export default {
       this.$refs["financeInfo"].resetFields();
     },
     postData: function () {
-      const data = Object.create(this.form);
+      const data = JSON.parse(JSON.stringify(this.comInfo));
       data.financeInfo = this.financeInfo;
+      console.log(JSON.stringify(data))
       userComplete(data)
         .then((res) => {
           console.log(res);
+          this.$message({
+            message:"提交成功",
+            type: "success"
+          })
         })
         .catch((err) => {
           console.log(err);
+          if(err.error)
+          {
+            this.$message({
+              message: err.error,
+              type: "error"
+            })
+          }
         });
     },
     // 获取用户数据（TODO: 是否获取公司等数据？）
