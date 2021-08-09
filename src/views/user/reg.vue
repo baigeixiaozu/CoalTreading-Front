@@ -58,22 +58,21 @@
         </el-select>
       </el-form-item>
       <p>
-        完成此注册，即表明您同意了我们的<a href="#"> 使用条款和隐私策略 </a>
+        <el-form-item prop="check">
+          <el-radio-group v-model="ruleForm.check">
+            <el-radio label="同意"
+              ><a href="#"> 使用条款和隐私策略 </a></el-radio
+            >
+          </el-radio-group>
+        </el-form-item>
       </p>
       <p class="txt">
-        <a href="#"><span></span>已有账号登录</a>
+        <a href="#/user/login"><span></span>已有账号登录</a>
       </p>
       <!--<a href="#" class="off"><img src="img/temp/off.png"></a>-->
-      <el-form-item prop="check">
-        <el-radio-group v-model="ruleForm.check">
-          <el-radio label="同意"></el-radio>
-        </el-radio-group>
-      </el-form-item>
       <el-form-item>
-        <el-button type="primary" @click="submitForm('ruleForm')"
-          >提交</el-button
-        >
-        <el-button @click="resetForm('ruleForm')">重置</el-button>
+        <el-button type="primary" @click="submitForm('ruleForm')">提交</el-button>
+        <el-button type="text" @click="resetForm('ruleForm')">重置</el-button>
       </el-form-item>
     </el-form>
   </div>
