@@ -96,17 +96,18 @@ const routes = [
     component: () => import("../views/trade/listed/salelisted.vue"),
     meta: { title: "挂牌" }
   },
+  // test fail?
   {
     path: "/trade/A/:mode",
     name: "GP1",
-    component: () => import("../views/trade/A.vue"),
-    meta: { title: "挂牌1" }
+    component: () => import("../views/trade/test/A.vue"),
+    meta: { title: "挂牌/摘牌" }
   },
   {
     path: "/trade/B/:mode",
     name: "GP2",
-    component: () => import("../views/trade/B.vue"),
-    meta: { title: "挂牌" }
+    component: () => import("../views/trade/test/B.vue"),
+    meta: { title: "挂牌/摘牌" }
   },
   // 交易路由END
 ];

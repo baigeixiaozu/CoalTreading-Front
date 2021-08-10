@@ -114,7 +114,7 @@
 </template>
 
 <script>
-import { requestPublish, requestEdit, loadMyDetail } from "./api";
+import { requestPublish, requestEdit, loadMyDetail } from "../api";
 export default {
   data() {
     return {
