@@ -102,7 +102,7 @@
         </el-col>
       </el-row>
       <el-form-item>
-        <el-button type="primary" @click="submitForm('ruleForm')"
+        <el-button type="primary" @click="submitForm('salelistForm')"
           >提交</el-button
         >
         <el-button @click="Save('salelistForm')">保存草稿</el-button>

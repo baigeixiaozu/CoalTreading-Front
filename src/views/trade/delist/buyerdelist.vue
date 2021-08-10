@@ -93,10 +93,12 @@
 </template>
 
 <script>
+import {getPublicReqDetail, doDelist} from '../api'
 export default {
   data() {
     return {
       labelPosition: "right",
+      reqId: null,
       form: {
         supplyQuantity: "", //供应量 number
         calorificValue: "", //热值 number
@@ -113,24 +115,39 @@ export default {
     };
   },
   mounted() {},
+  created(){
+    const q = this.$route.query;
+    if(!q.id){
+      this.$message({
+        message: "参数为空",
+        type: "warning"
+      })
+      // this.$router.back();
+      return;
+    }
+    this.reqId = q.id;
+    this.loadData(q.id);
+  },
   methods: {
     submitForm() {
-      this.$refs['form'].validate((valid) => {
-        if (valid) {
-          this.postData();
-        } else {
-          this.$message({
-            message: "提交失败",
-            type: "warning",
-          });
-          return false;
-        }
-      });
+      this.doDelist(this.reqId);
     },
 
-    resetForm(formName) {
-      this.$refs[formName].resetFields();
+    loadData(id){
+      getPublicReqDetail(id).then(res=>{
+        console.log(res)
+        this.form = res.data.detail;
+      })
     },
+    doDelist(id){
+      doDelist(id).then(res=>{
+        console.log(res)
+        this.$message({
+          message: "摘牌成功",
+          type: "success"
+        })
+      })
+    }
   },
 };
 </script>
