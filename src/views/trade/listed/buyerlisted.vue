@@ -15,7 +15,6 @@
           <el-form-item label="申请单位" prop="baseData.supplyQuantity">
             <el-input
               v-model.number="buyPubData.baseData.supplyQuantity"
-              
               :disabled="true"
             ></el-input>
           </el-form-item>
@@ -24,49 +23,41 @@
           <el-form-item label="单据编号" prop="baseData.calorificValue">
             <el-input
               v-model.number="buyPubData.baseData.calorificValue"
-              
               :disabled="true"
             ></el-input>
           </el-form-item>
         </el-col>
         <el-col :span="8">
           <el-form-item label="申请人" prop="baseData.applicant">
-            <el-input
-              v-model="buyPubData.baseData.applicant"
-              
-            ></el-input>
+            <el-input v-model="buyPubData.baseData.applicant"></el-input>
           </el-form-item>
         </el-col>
       </el-row>
       <el-row>
         <el-col :span="8">
           <el-form-item label="发资人" prop="baseData.signer">
-            <el-input
-              v-model="buyPubData.baseData.signer"
-              
-            ></el-input>
+            <el-input v-model="buyPubData.baseData.signer"></el-input>
           </el-form-item>
         </el-col>
         <el-col :span="8">
           <el-form-item prop="baseData.reqDate" label="申请日期">
-            <el-input
-              v-model="buyPubData.baseData.reqDate"
-              
-            ></el-input>
+            <el-date-picker v-model="buyPubData.baseData.reqDate" :default-value="new Date()" :readonly="true" ></el-date-picker>
           </el-form-item>
         </el-col>
       </el-row>
       <el-row>
         <el-col :span="8">
-          <el-form-item prop="baseData.deliveryStartTime" label="交货日期" style="display:flex;">
+          <el-form-item
+            prop="baseData.deliveryTime"
+            label="交货日期"
+            style="display: flex"
+          >
             <el-date-picker
-              v-model="buyPubData.baseData.deliveryStartTime"
+              v-model="buyPubData.baseData.deliveryTime"
               type="daterange"
               start-placeholder="开始日期"
               end-placeholder="结束日期"
               range-separator="至"
-              format="yyyy 年 MM 月 dd 日"
-              value-format="yyyy-MM-dd"
             >
             </el-date-picker>
           </el-form-item>
@@ -79,7 +70,6 @@
             <el-select
               v-model="buyPubData.baseData.acceptanceMethod"
               placeholder="请选择..."
-              
             >
               <el-option label="到厂验收" value="到厂验收"></el-option>
               <el-option
@@ -99,7 +89,6 @@
             <el-select
               v-model="buyPubData.baseData.coalType"
               placeholder="请选择..."
-              
             >
               <el-option label="烟煤" value="烟煤"></el-option>
               <el-option label="无烟煤" value="无烟煤"></el-option>
@@ -114,7 +103,6 @@
           <el-form-item prop="baseData.buyQuantity" label="采购数量">
             <el-input
               v-model.number="buyPubData.baseData.buyQuantity"
-              
             ></el-input>
           </el-form-item>
         </el-col>
@@ -122,7 +110,6 @@
           <el-form-item prop="baseData.transportMode" label="运输方式">
             <el-select
               v-model="buyPubData.baseData.transportMode"
-              
               placeholder="请选择..."
             >
               <el-option label="火车" value="火车"></el-option>
@@ -135,17 +122,13 @@
       <el-row>
         <el-col :span="12">
           <el-form-item prop="baseData.deliveryLocation" label="交货地点">
-            <el-input
-              v-model="buyPubData.baseData.deliveryLocation"
-              
-            ></el-input>
+            <el-input v-model="buyPubData.baseData.deliveryLocation"></el-input>
           </el-form-item>
         </el-col>
         <el-col :span="12">
           <el-form-item prop="baseData.settlementMethod" label="结算方式">
             <el-select
               v-model="buyPubData.baseData.settlementMethod"
-              
               placeholder="请选择..."
             >
               <el-option label="一票结算" value="一票结算"></el-option>
@@ -170,18 +153,12 @@
       <el-row>
         <el-col :span="12">
           <el-form-item prop="baseData.deposit1" label="报价保证金缴纳">
-            <el-input
-              v-model.number="buyPubData.baseData.deposit1"
-              
-            ></el-input>
+            <el-input v-model.number="buyPubData.baseData.deposit1"></el-input>
           </el-form-item>
         </el-col>
         <el-col :span="12">
           <el-form-item prop="baseData.deposit2" label="履约保证金缴纳">
-            <el-input
-              v-model.number="buyPubData.baseData.deposit2"
-              
-            ></el-input>
+            <el-input v-model.number="buyPubData.baseData.deposit2"></el-input>
           </el-form-item>
         </el-col>
       </el-row>
@@ -193,138 +170,137 @@
           <el-form-item label="收到基低位发热量" prop="coalQuality.lowHeat">
             <el-input
               v-model.number="buyPubData.coalQuality.lowHeat"
-              
             ></el-input>
           </el-form-item>
         </el-col>
         <el-col :span="8">
           <el-form-item prop="coalQuality.sdjql" label="收到基全硫">
-            <el-input
-              v-model.number="buyPubData.coalQuality.sdjql"
-              
-            ></el-input>
+            <el-input v-model.number="buyPubData.coalQuality.sdjql"></el-input>
           </el-form-item>
         </el-col>
         <el-col :span="8">
           <el-form-item prop="coalQuality.qsf" label="全水分">
-            <el-input
-              v-model.number="buyPubData.coalQuality.qsf"
-            ></el-input>
+            <el-input v-model.number="buyPubData.coalQuality.qsf"></el-input>
           </el-form-item>
         </el-col>
       </el-row>
       <el-row>
         <el-col :span="8">
           <el-form-item label="收到基灰分" prop="coalQuality.sdjhf">
+            <el-input v-model.number="buyPubData.coalQuality.sdjhf"></el-input>
+          </el-form-item>
+        </el-col>
+        <el-col :span="15" style="display: flex">
+          <el-form-item
+            prop="coalQuality.sdjhff1"
+            label="收到基挥发分"
+            style="display: flex"
+            label-width="145px"
+          >
             <el-input
-              v-model.number="buyPubData.coalQuality.sdjhf"
-              
+              v-model.number="buyPubData.coalQuality.sdjhff1"
+            ></el-input>
+          </el-form-item>
+          <el-form-item
+            prop="coalQuality.sdjhff2"
+            label="(%)至"
+            style="display: flex"
+            label-width="60px"
+          >
+            <el-input
+              v-model.number="buyPubData.coalQuality.sdjhff2"
             ></el-input>
           </el-form-item>
         </el-col>
-        <el-col :span="11">
-          <el-form-item prop="coalQuality.sdjhff1" label="收到基挥发分"  style="display: flex;">
-            
-            <div style="display: flex;">
-            <el-input
-              v-model="buyPubData.coalQuality.sdjhff1"
-            ></el-input>
-            (%)至
-            <el-input
-              v-model="buyPubData.coalQuality.sdjhff2"
-            ></el-input>
-            (%)</div>
-          </el-form-item>
-        </el-col>
+        <span style="display: flex; align-items: center; margin-bottom: 22px">
+          (%)
+        </span>
       </el-row>
       <hr />
       <el-row>
         <el-col :span="12">
           <el-form-item label="空干基水分" prop="coalQuality.kgjsf">
-            <el-input
-              v-model="buyPubData.coalQuality.kgjsf"
-              
-            ></el-input>
+            <el-input v-model.number="buyPubData.coalQuality.kgjsf"></el-input>
           </el-form-item>
         </el-col>
         <el-col :span="12">
           <el-form-item label="空干基全硫" prop="coalQuality.kgjql">
-            <el-input
-              v-model="buyPubData.coalQuality.kgjql"
-              
-            ></el-input>
+            <el-input v-model.number="buyPubData.coalQuality.kgjql"></el-input>
           </el-form-item>
         </el-col>
-        <el-col :span="12">
+        <el-col :span="12" style="display: flex">
           <el-form-item prop="coalQuality.kgjhff1" label="空干基挥发分">
-            
-            <div style="display: flex;">
             <el-input
-              v-model="buyPubData.coalQuality.kgjhff1"
+              v-model.number="buyPubData.coalQuality.kgjhff1"
             ></el-input>
-            (%)至
+          </el-form-item>
+          <el-form-item
+            prop="coalQuality.kgjhff2"
+            label="(%)至"
+            style="display: flex"
+            label-width="60px"
+          >
             <el-input
-              v-model="buyPubData.coalQuality.kgjhff2"
+              v-model.number="buyPubData.coalQuality.kgjhff2"
             ></el-input>
-            (%)</div>
           </el-form-item>
         </el-col>
+        <span style="display: flex; align-items: center; margin-bottom: 22px">
+          (%)
+        </span>
       </el-row>
       <hr />
       <el-row>
         <el-col :span="12">
           <el-form-item prop="coalQuality.highHeat" label="干基高位发热量">
             <el-input
-              v-model="buyPubData.coalQuality.highHeat"
+              v-model.number="buyPubData.coalQuality.highHeat"
             ></el-input>
           </el-form-item>
         </el-col>
         <el-col :span="12">
           <el-form-item prop="coalQuality.gjql" label="干基全硫">
-            <el-input
-              v-model="buyPubData.coalQuality.gjql"
-              
-            ></el-input>
+            <el-input v-model.number="buyPubData.coalQuality.gjql"></el-input>
           </el-form-item>
         </el-col>
-        <el-col :span="12">
+        <el-col :span="12" style="display: flex">
           <el-form-item label="干燥无灰基挥发分" prop="coalQuality.gzwhjhff1">
-            <div style="display: flex;">
             <el-input
               v-model.number="buyPubData.coalQuality.gzwhjhff1"
             ></el-input>
-            (%)至
+          </el-form-item>
+          <el-form-item
+            prop="coalQuality.gzwhjhff2"
+            label="(%)至"
+            style="display: flex"
+            label-width="60px"
+          >
             <el-input
               v-model.number="buyPubData.coalQuality.gzwhjhff2"
             ></el-input>
-            (%)</div>
           </el-form-item>
         </el-col>
+        <span style="display: flex; align-items: center; margin-bottom: 22px">
+          (%)
+        </span>
       </el-row>
       <hr />
       <el-row>
         <el-col :span="8">
           <el-form-item label="粒度" prop="coalQuality.granularity">
             <el-input
-              v-model="buyPubData.coalQuality.granularity"
-              
+              v-model.number="buyPubData.coalQuality.granularity"
             ></el-input>
           </el-form-item>
         </el-col>
         <el-col :span="8">
           <el-form-item prop="coalQuality.hrd" label="灰熔点≥">
-            <el-input
-              v-model="buyPubData.coalQuality.hrd"
-              
-            ></el-input>
+            <el-input v-model.number="buyPubData.coalQuality.hrd"></el-input>
           </el-form-item>
         </el-col>
         <el-col :span="8">
           <el-form-item prop="coalQuality.hskmxs" label="哈式可磨细数≥">
-            <el-input
-              v-model="buyPubData.coalQuality.hskmxs"
-              
-            ></el-input>
+            <el-input v-model.number="buyPubData.coalQuality.hskmxs"></el-input>
           </el-form-item>
         </el-col>
       </el-row>
@@ -340,7 +316,7 @@
         <el-button type="primary" @click="submitForm('buyPubData')"
           >提交</el-button
         >
-        <el-button @click="submitForm('buyPubData')">保存</el-button>
+        <el-button @click="save">保存</el-button>
         <el-button @click="resetForm('buyPubData')">重置</el-button>
       </el-form-item>
     </el-form>
@@ -348,16 +324,18 @@
 </template>
 
 <script>
+import { requestPublish, requestEdit, loadMyDetail } from "../api";
 export default {
   data() {
     return {
       labelPosition: "right",
+      isNew: true,
+      publish: false,
       buyPubData: {
-        value1: "",
         baseData: {
           applicant: "",
           signer: "",
-          reqDate: "",
+          reqDate: null,
           deliveryStartTime: "",
           deliveryEndTime: "",
           coalType: "",
@@ -367,8 +345,8 @@ export default {
           settlementMethod: "",
           acceptanceMethod: "",
           paymentMethod: "",
-          deposit1: 0,
-          deposit2: 0,
+          deposit1: null,
+          deposit2: null,
         },
         coalQuality: {
           lowHeat: null,
@@ -392,49 +370,42 @@ export default {
         },
       },
       rules: {
-        'baseData.applicant': [
+        "baseData.applicant": [
           {
             required: true,
             message: "不能为空",
             trigger: "blur",
           },
         ],
-        'baseData.signer': [
+        "baseData.signer": [
           {
             required: true,
             message: "不能为空",
             trigger: "blur",
           },
         ],
-        'baseData.reqDate': [
+        "baseData.reqDate": [
           {
             required: true,
             message: "不能为空",
             trigger: "blur",
           },
         ],
-        'baseData.deliveryStartTime': [
+        "baseData.deliveryTime": [
           {
             required: true,
             message: "不能为空",
             trigger: "blur",
           },
         ],
-        'baseData.deliveryEndTime': [
+        "baseData.coalType": [
           {
             required: true,
             message: "不能为空",
             trigger: "blur",
           },
         ],
-        'baseData.coalType': [
-          {
-            required: true,
-            message: "不能为空",
-            trigger: "blur",
-          },
-        ],
-        'baseData.buyQuantity': [
+        "baseData.buyQuantity": [
           {
             type: "number",
             required: true,
@@ -442,42 +413,42 @@ export default {
             trigger: "blur",
           },
         ],
-        'baseData.transportMode': [
+        "baseData.transportMode": [
           {
             required: true,
             message: "不能为空",
             trigger: "blur",
           },
         ],
-        'baseData.deliveryLocation': [
+        "baseData.deliveryLocation": [
           {
             required: true,
             message: "不能为空",
             trigger: "blur",
           },
         ],
-        'baseData.settlementMethod': [
+        "baseData.settlementMethod": [
           {
             required: true,
             message: "不能为空",
             trigger: "blur",
           },
         ],
-        'baseData.acceptanceMethod': [
+        "baseData.acceptanceMethod": [
           {
             required: true,
             message: "不能为空",
             trigger: "blur",
           },
         ],
-        'baseData.paymentMethod': [
+        "baseData.paymentMethod": [
           {
             required: true,
             message: "不能为空",
             trigger: "blur",
           },
         ],
-        'baseData.deposit1': [
+        "baseData.deposit1": [
           {
             type: "number",
             required: true,
@@ -485,7 +456,7 @@ export default {
             trigger: "blur",
           },
         ],
-        'baseData.deposit2': [
+        "baseData.deposit2": [
           {
             type: "number",
             required: true,
@@ -494,7 +465,7 @@ export default {
           },
         ],
 
-        'coalQuality.lowHeat': [
+        "coalQuality.lowHeat": [
           {
             type: "number",
             required: true,
@@ -502,7 +473,7 @@ export default {
             trigger: "blur",
           },
         ],
-        'coalQuality.sdjql': [
+        "coalQuality.sdjql": [
           {
             type: "number",
             required: true,
@@ -510,7 +481,7 @@ export default {
             trigger: "blur",
           },
         ],
-        'coalQuality.qsf': [
+        "coalQuality.qsf": [
           {
             type: "number",
             required: true,
@@ -518,7 +489,30 @@ export default {
             trigger: "blur",
           },
         ],
-        'coalQuality.sdjhf': [
+        "coalQuality.sdjhff1": [
+          {
+            type: "number",
+            required: true,
+            message: "不能为空，且只能为数字",
+            trigger: "change",
+          },
+          {
+            type: "number",
+            max: 100,
+            min: 0,
+            message: "超出范围",
+            trigger: "change"
+          }
+        ],
+        "coalQuality.sdjhff2": [
+          {
+            type: "number",
+            required: true,
+            message: "不能为空，且只能为数字",
+            trigger: "change",
+          },
+        ],
+        "coalQuality.kgjsf": [
           {
             type: "number",
             required: true,
@@ -526,7 +520,7 @@ export default {
             trigger: "blur",
           },
         ],
-        'coalQuality.sdjhff1': [
+        "coalQuality.kgjql": [
           {
             type: "number",
             required: true,
@@ -534,7 +528,7 @@ export default {
             trigger: "blur",
           },
         ],
-        'coalQuality.sdjhff2': [
+        "coalQuality.kgjhff1": [
           {
             type: "number",
             required: true,
@@ -542,7 +536,7 @@ export default {
             trigger: "blur",
           },
         ],
-        'coalQuality.kgjsf': [
+        "coalQuality.kgjhff2": [
           {
             type: "number",
             required: true,
@@ -550,7 +544,7 @@ export default {
             trigger: "blur",
           },
         ],
-        'coalQuality.kgjql': [
+        "coalQuality.highHeat": [
           {
             type: "number",
             required: true,
@@ -558,7 +552,7 @@ export default {
             trigger: "blur",
           },
         ],
-        'coalQuality.kgjhff1': [
+        "coalQuality.gjql": [
           {
             type: "number",
             required: true,
@@ -566,7 +560,7 @@ export default {
             trigger: "blur",
           },
         ],
-        'coalQuality.kgjhff2': [
+        "coalQuality.gzwhjhff1": [
           {
             type: "number",
             required: true,
@@ -574,7 +568,7 @@ export default {
             trigger: "blur",
           },
         ],
-        'coalQuality.highHeat': [
+        "coalQuality.gzwhjhff2": [
           {
             type: "number",
             required: true,
@@ -582,7 +576,7 @@ export default {
             trigger: "blur",
           },
         ],
-        'coalQuality.gjql': [
+        "coalQuality.granularity": [
           {
             type: "number",
             required: true,
@@ -590,7 +584,7 @@ export default {
             trigger: "blur",
           },
         ],
-        'coalQuality.gzwhjhff1': [
+        "coalQuality.hrd": [
           {
             type: "number",
             required: true,
@@ -598,7 +592,7 @@ export default {
             trigger: "blur",
           },
         ],
-        'coalQuality.gzwhjhff2': [
+        "coalQuality.hskmxs": [
           {
             type: "number",
             required: true,
@@ -606,31 +600,7 @@ export default {
             trigger: "blur",
           },
         ],
-        'coalQuality.granularity': [
-          {
-            type: "number",
-            required: true,
-            message: "不能为空，且只能为数字",
-            trigger: "blur",
-          },
-        ],
-        'coalQuality.hrd': [
-          {
-            type: "number",
-            required: true,
-            message: "不能为空，且只能为数字",
-            trigger: "blur",
-          },
-        ],
-        'coalQuality.hskmxs': [
-          {
-            type: "number",
-            required: true,
-            message: "不能为空，且只能为数字",
-            trigger: "blur",
-          },
-        ],
-        'coalQuality.remark': [
+        "coalQuality.remark": [
           {
             required: true,
             message: "不能为空",
@@ -640,12 +610,137 @@ export default {
       },
     };
   },
-  methods:{
-    submitForm(){
-      console.log(this.buyPubData);
+  created() {
+    this.buyPubData = JSON.parse(
+      `{"baseData":{"applicant":"nurt","signer":"fy","reqDate":null,"deliveryStartTime":["2021-08-03T16:00:00.000Z","2021-08-18T16:00:00.000Z"],"deliveryEndTime":"","coalType":"无烟煤","buyQuantity":2375,"transportMode":"火车","deliveryLocation":"73","settlementMethod":"二票结算","acceptanceMethod":"到厂第三方验收","paymentMethod":"8738","deposit1":3783,"deposit2":73873,"deliveryTime":["2021-08-11T16:00:00.000Z","2021-08-20T16:00:00.000Z"]},"coalQuality":{"lowHeat":38738,"sdjql":7387,"qsf":7387387,"sdjhf":378373,"sdjhff1":73,"sdjhff2":378,"kgjsf":73,"kgjql":783,"kgjhff1":387,"kgjhff2":383,"highHeat":783,"gjql":83,"gzwhjhff1":837,"gzwhjhff2":8383,"granularity":73,"hrd":152,"remark":"738","hskmxs":83}}`
+    );
+    if(this.buyPubData.baseData.reqDate===null){
+      this.buyPubData.baseData.reqDate = new Date();
     }
-  }
-}
+    const q = this.$route.query;
+    if (q.id) {
+      // 获取详细信息
+      this.isNew = false;
+      this.loadDetail(q.id);
+    }
+  },
+  methods: {
+    save() {
+      // 重置请求时间
+      this.buyPubData.baseData.reqDate = new Date();
+      console.log(JSON.stringify(this.buyPubData));
+      this.$refs["buyPubData"].validate((valid) => {
+        if (valid) {
+          //保存草稿
+          const q = this.$route.query;
+          if (q.id) {
+            // 编辑
+            this.editData(q.id, false);
+          } else {
+            // 新增
+            this.publishData(false);
+          }
+        } else {
+          this.$message({
+            message: "请检查数据合法性",
+            type: "warning",
+          });
+        }
+      });
+    },
+    submitForm() {
+      const q = this.$route.query;
+      // 重置请求时间
+      this.buyPubData.baseData.reqDate = new Date();
+      this.$refs["buyPubData"].validate((valid) => {
+        if (valid) {
+          //提交
+          if (q.id) {
+            // 编辑
+            this.editData(q.id, true);
+          } else {
+            // 新增
+            this.publishData(true);
+          }
+        } else {
+          this.$message({
+            message: "数据格式有误，请检查！",
+            type: "warning",
+          });
+          return false;
+        }
+      });
+    }, // 新增
+    publishData(publish = false) {
+      requestPublish({
+        publish: publish,
+        buyPubData: this.buyPubData,
+      })
+        .then((res) => {
+          console.log(res);
+          this.$message({
+            message: "提交成功",
+            type: "success",
+          });
+          if (this.isNew) {
+            this.$router.push("/trade/listed/buyerlisted?id=" + res.data.reqId);
+          }
+        })
+        .catch((err) => {
+          console.log(err);
+          if (err.error) {
+            this.$message({
+              message: err.error,
+              type: "error",
+            });
+          }
+        });
+    },
+    //编辑
+    editData(id, publish = false) {
+      requestEdit({
+        id: id,
+        publish: publish,
+        buyPubData: this.buyPubData,
+      })
+        .then((res) => {
+          this.$message({
+            message: "提交成功",
+            type: "success",
+          });
+          if (this.isNew) {
+            this.$router.push("/trade/listed/buyerlisted?id=" + res.data.reqId);
+          }
+        })
+        .catch((err) => {
+          console.log(err);
+          if (err.error) {
+            this.$message({
+              message: err.error,
+              type: "error",
+            });
+          }
+        });
+    },
+    // 加载
+    loadDetail(id) {
+      loadMyDetail(id)
+        .then((res) => {
+          this.buyPubData = res.data.detail;
+        })
+        .catch((err) => {
+          console.log(err);
+          if (err.error) {
+            this.$message({
+              message: err.error,
+              type: "error",
+            });
+            this.$router.back();
+          }
+        });
+    },
+  },
+};
 </script>
 
 
