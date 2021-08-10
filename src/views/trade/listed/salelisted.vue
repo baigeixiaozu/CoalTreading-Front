@@ -2,7 +2,7 @@
   <!--
   卖方挂牌
   -->
-  <div class="reg1">
+  <div class="">
     <el-form
       :label-position="labelPosition"
       :model="salelistForm"

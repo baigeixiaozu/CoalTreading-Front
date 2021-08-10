@@ -8,10 +8,11 @@
       ref="buyPubData"
       label-width="140px"
       class="demo-buyPubData"
+      :rules="rules"
     >
       <el-row>
         <el-col :span="8">
-          <el-form-item label="申请单位" prop="supplyQuantity">
+          <el-form-item label="申请单位" prop="baseData.supplyQuantity">
             <el-input
               v-model.number="buyPubData.baseData.supplyQuantity"
               
@@ -20,7 +21,7 @@
           </el-form-item>
         </el-col>
         <el-col :span="8">
-          <el-form-item label="单据编号" prop="calorificValue">
+          <el-form-item label="单据编号" prop="baseData.calorificValue">
             <el-input
               v-model.number="buyPubData.baseData.calorificValue"
               
@@ -29,7 +30,7 @@
           </el-form-item>
         </el-col>
         <el-col :span="8">
-          <el-form-item label="申请人" prop="applicant">
+          <el-form-item label="申请人" prop="baseData.applicant">
             <el-input
               v-model="buyPubData.baseData.applicant"
               
@@ -39,7 +40,7 @@
       </el-row>
       <el-row>
         <el-col :span="8">
-          <el-form-item label="发资人" prop="signer">
+          <el-form-item label="发资人" prop="baseData.signer">
             <el-input
               v-model="buyPubData.baseData.signer"
               
@@ -47,7 +48,7 @@
           </el-form-item>
         </el-col>
         <el-col :span="8">
-          <el-form-item prop="reqDate" label="申请日期">
+          <el-form-item prop="baseData.reqDate" label="申请日期">
             <el-input
               v-model="buyPubData.baseData.reqDate"
               
@@ -57,7 +58,7 @@
       </el-row>
       <el-row>
         <el-col :span="8">
-          <el-form-item prop="deliveryStartTime" label="交货日期" style="display:flex;">
+          <el-form-item prop="baseData.deliveryStartTime" label="交货日期" style="display:flex;">
             <el-date-picker
               v-model="buyPubData.baseData.deliveryStartTime"
               type="daterange"
@@ -74,7 +75,7 @@
 
       <el-row>
         <el-col :span="12">
-          <el-form-item prop="acceptanceMethod" label="验收方式">
+          <el-form-item prop="baseData.acceptanceMethod" label="验收方式">
             <el-select
               v-model="buyPubData.baseData.acceptanceMethod"
               placeholder="请选择..."
@@ -94,7 +95,7 @@
         </el-col>
 
         <el-col :span="12">
-          <el-form-item prop="coalType" label="煤种">
+          <el-form-item prop="baseData.coalType" label="煤种">
             <el-select
               v-model="buyPubData.baseData.coalType"
               placeholder="请选择..."
@@ -110,15 +111,15 @@
       </el-row>
       <el-row>
         <el-col :span="12">
-          <el-form-item prop="buyQuantity" label="采购数量">
+          <el-form-item prop="baseData.buyQuantity" label="采购数量">
             <el-input
-              v-model="buyPubData.baseData.buyQuantity"
+              v-model.number="buyPubData.baseData.buyQuantity"
               
             ></el-input>
           </el-form-item>
         </el-col>
         <el-col :span="12">
-          <el-form-item prop="transportMode" label="运输方式">
+          <el-form-item prop="baseData.transportMode" label="运输方式">
             <el-select
               v-model="buyPubData.baseData.transportMode"
               
@@ -133,7 +134,7 @@
       </el-row>
       <el-row>
         <el-col :span="12">
-          <el-form-item prop="deliveryLocation" label="交货地点">
+          <el-form-item prop="baseData.deliveryLocation" label="交货地点">
             <el-input
               v-model="buyPubData.baseData.deliveryLocation"
               
@@ -141,7 +142,7 @@
           </el-form-item>
         </el-col>
         <el-col :span="12">
-          <el-form-item prop="settlementMethod" label="结算方式">
+          <el-form-item prop="baseData.settlementMethod" label="结算方式">
             <el-select
               v-model="buyPubData.baseData.settlementMethod"
               
@@ -157,7 +158,7 @@
       </el-row>
       <el-row>
         <el-col>
-          <el-form-item prop="paymentMethod" label="结算付款方式">
+          <el-form-item prop="baseData.paymentMethod" label="结算付款方式">
             <el-input
               v-model="buyPubData.baseData.paymentMethod"
               type="textarea"
@@ -168,17 +169,17 @@
       </el-row>
       <el-row>
         <el-col :span="12">
-          <el-form-item prop="deposit1" label="报价保证金缴纳">
+          <el-form-item prop="baseData.deposit1" label="报价保证金缴纳">
             <el-input
-              v-model="buyPubData.baseData.deposit1"
+              v-model.number="buyPubData.baseData.deposit1"
               
             ></el-input>
           </el-form-item>
         </el-col>
         <el-col :span="12">
-          <el-form-item prop="deposit2" label="履约保证金缴纳">
+          <el-form-item prop="baseData.deposit2" label="履约保证金缴纳">
             <el-input
-              v-model="buyPubData.baseData.deposit2"
+              v-model.number="buyPubData.baseData.deposit2"
               
             ></el-input>
           </el-form-item>
@@ -189,41 +190,40 @@
 
       <el-row>
         <el-col :span="8">
-          <el-form-item label="收到基低位发热量" prop="lowHeat">
+          <el-form-item label="收到基低位发热量" prop="coalQuality.lowHeat">
             <el-input
-              v-model="buyPubData.coalQuality.lowHeat"
+              v-model.number="buyPubData.coalQuality.lowHeat"
               
             ></el-input>
           </el-form-item>
         </el-col>
         <el-col :span="8">
-          <el-form-item prop="sdjql" label="收到基全硫">
+          <el-form-item prop="coalQuality.sdjql" label="收到基全硫">
             <el-input
-              v-model="buyPubData.coalQuality.sdjql"
+              v-model.number="buyPubData.coalQuality.sdjql"
               
             ></el-input>
           </el-form-item>
         </el-col>
         <el-col :span="8">
-          <el-form-item prop="qsf" label="全水分">
+          <el-form-item prop="coalQuality.qsf" label="全水分">
             <el-input
-              v-model="buyPubData.coalQuality.qsf"
-              
+              v-model.number="buyPubData.coalQuality.qsf"
             ></el-input>
           </el-form-item>
         </el-col>
       </el-row>
       <el-row>
         <el-col :span="8">
-          <el-form-item label="收到基灰分" prop="sdjhf">
+          <el-form-item label="收到基灰分" prop="coalQuality.sdjhf">
             <el-input
-              v-model="buyPubData.coalQuality.sdjhf"
+              v-model.number="buyPubData.coalQuality.sdjhf"
               
             ></el-input>
           </el-form-item>
         </el-col>
-        <el-col :span="8">
-          <el-form-item prop="sdjhff1" label="收到基挥发分"  style="display: flex;">
+        <el-col :span="11">
+          <el-form-item prop="coalQuality.sdjhff1" label="收到基挥发分"  style="display: flex;">
             
             <div style="display: flex;">
             <el-input
@@ -239,24 +239,24 @@
       </el-row>
       <hr />
       <el-row>
-        <el-col :span="8">
-          <el-form-item label="空干基水分" prop="kgjsf">
+        <el-col :span="12">
+          <el-form-item label="空干基水分" prop="coalQuality.kgjsf">
             <el-input
               v-model="buyPubData.coalQuality.kgjsf"
               
             ></el-input>
           </el-form-item>
         </el-col>
-        <el-col :span="8">
-          <el-form-item label="空干基全硫" prop="kgjql">
+        <el-col :span="12">
+          <el-form-item label="空干基全硫" prop="coalQuality.kgjql">
             <el-input
               v-model="buyPubData.coalQuality.kgjql"
               
             ></el-input>
           </el-form-item>
         </el-col>
-        <el-col :span="8">
-          <el-form-item prop="kgjhff1" label="空干基挥发分">
+        <el-col :span="12">
+          <el-form-item prop="coalQuality.kgjhff1" label="空干基挥发分">
             
             <div style="display: flex;">
             <el-input
@@ -272,31 +272,30 @@
       </el-row>
       <hr />
       <el-row>
-        <el-col :span="8">
-          <el-form-item prop="highHeat" label="干基高位发热量">
+        <el-col :span="12">
+          <el-form-item prop="coalQuality.highHeat" label="干基高位发热量">
             <el-input
               v-model="buyPubData.coalQuality.highHeat"
-              
             ></el-input>
           </el-form-item>
         </el-col>
-        <el-col :span="8">
-          <el-form-item prop="gjql" label="干基全硫">
+        <el-col :span="12">
+          <el-form-item prop="coalQuality.gjql" label="干基全硫">
             <el-input
               v-model="buyPubData.coalQuality.gjql"
               
             ></el-input>
           </el-form-item>
         </el-col>
-        <el-col :span="8">
-          <el-form-item label="干燥无灰基挥发分起" prop="gzwhjhff1">
+        <el-col :span="12">
+          <el-form-item label="干燥无灰基挥发分" prop="coalQuality.gzwhjhff1">
             <div style="display: flex;">
             <el-input
-              v-model="buyPubData.coalQuality.gzwhjhff1"
+              v-model.number="buyPubData.coalQuality.gzwhjhff1"
             ></el-input>
             (%)至
             <el-input
-              v-model="buyPubData.coalQuality.gzwhjhff2"
+              v-model.number="buyPubData.coalQuality.gzwhjhff2"
             ></el-input>
             (%)</div>
           </el-form-item>
@@ -305,7 +304,7 @@
       <hr />
       <el-row>
         <el-col :span="8">
-          <el-form-item label="粒度" prop="granularity">
+          <el-form-item label="粒度" prop="coalQuality.granularity">
             <el-input
               v-model="buyPubData.coalQuality.granularity"
               
@@ -313,7 +312,7 @@
           </el-form-item>
         </el-col>
         <el-col :span="8">
-          <el-form-item prop="hrd" label="灰熔点≥">
+          <el-form-item prop="coalQuality.hrd" label="灰熔点≥">
             <el-input
               v-model="buyPubData.coalQuality.hrd"
               
@@ -321,7 +320,7 @@
           </el-form-item>
         </el-col>
         <el-col :span="8">
-          <el-form-item prop="hskmxs" label="哈式可磨细数≥">
+          <el-form-item prop="coalQuality.hskmxs" label="哈式可磨细数≥">
             <el-input
               v-model="buyPubData.coalQuality.hskmxs"
               
@@ -330,7 +329,7 @@
         </el-col>
       </el-row>
       <hr />
-      <el-form-item prop="remark" label="备注">
+      <el-form-item prop="coalQuality.remark" label="备注">
         <el-input
           v-model="buyPubData.coalQuality.remark"
           type="textarea"
@@ -368,13 +367,13 @@ export default {
           settlementMethod: "",
           acceptanceMethod: "",
           paymentMethod: "",
-          deposit1: "",
-          deposit2: "",
+          deposit1: 0,
+          deposit2: 0,
         },
         coalQuality: {
-          lowHeat: "",
-          sdjql: "",
-          qsf: "",
+          lowHeat: null,
+          sdjql: null,
+          qsf: null,
           sdjhf: "",
           sdjhff1: "",
           sdjhff2: "",
@@ -393,49 +392,49 @@ export default {
         },
       },
       rules: {
-        applicant: [
+        'baseData.applicant': [
           {
             required: true,
-            message: "不能为空，且只能为数字",
+            message: "不能为空",
             trigger: "blur",
           },
         ],
-        signer: [
+        'baseData.signer': [
           {
             required: true,
-            message: "不能为空，且只能为数字",
+            message: "不能为空",
             trigger: "blur",
           },
         ],
-        reqDate: [
+        'baseData.reqDate': [
           {
             required: true,
-            message: "不能为空，且只能为数字",
+            message: "不能为空",
             trigger: "blur",
           },
         ],
-        deliveryStartTime: [
+        'baseData.deliveryStartTime': [
           {
             required: true,
-            message: "不能为空，且只能为数字",
+            message: "不能为空",
             trigger: "blur",
           },
         ],
-        deliveryEndTime: [
+        'baseData.deliveryEndTime': [
           {
             required: true,
-            message: "不能为空，且只能为数字",
+            message: "不能为空",
             trigger: "blur",
           },
         ],
-        coalType: [
+        'baseData.coalType': [
           {
             required: true,
-            message: "不能为空，且只能为数字",
+            message: "不能为空",
             trigger: "blur",
           },
         ],
-        buyQuantity: [
+        'baseData.buyQuantity': [
           {
             type: "number",
             required: true,
@@ -443,59 +442,59 @@ export default {
             trigger: "blur",
           },
         ],
-        transportMode: [
+        'baseData.transportMode': [
           {
+            required: true,
+            message: "不能为空",
+            trigger: "blur",
+          },
+        ],
+        'baseData.deliveryLocation': [
+          {
+            required: true,
+            message: "不能为空",
+            trigger: "blur",
+          },
+        ],
+        'baseData.settlementMethod': [
+          {
+            required: true,
+            message: "不能为空",
+            trigger: "blur",
+          },
+        ],
+        'baseData.acceptanceMethod': [
+          {
+            required: true,
+            message: "不能为空",
+            trigger: "blur",
+          },
+        ],
+        'baseData.paymentMethod': [
+          {
+            required: true,
+            message: "不能为空",
+            trigger: "blur",
+          },
+        ],
+        'baseData.deposit1': [
+          {
+            type: "number",
             required: true,
             message: "不能为空，且只能为数字",
             trigger: "blur",
           },
         ],
-        deliveryLocation: [
+        'baseData.deposit2': [
           {
-            required: true,
-            message: "不能为空，且只能为数字",
-            trigger: "blur",
-          },
-        ],
-        settlementMethod: [
-          {
-            required: true,
-            message: "不能为空，且只能为数字",
-            trigger: "blur",
-          },
-        ],
-        acceptanceMethod: [
-          {
-            required: true,
-            message: "不能为空，且只能为数字",
-            trigger: "blur",
-          },
-        ],
-        paymentMethod: [
-          {
-            required: true,
-            message: "不能为空，且只能为数字",
-            trigger: "blur",
-          },
-        ],
-        deposit1: [
-          {
-            type: "integer",
-            required: true,
-            message: "不能为空，且只能为数字",
-            trigger: "blur",
-          },
-        ],
-        deposit2: [
-          {
-            type: "integer",
+            type: "number",
             required: true,
             message: "不能为空，且只能为数字",
             trigger: "blur",
           },
         ],
 
-        lowHeat: [
+        'coalQuality.lowHeat': [
           {
             type: "number",
             required: true,
@@ -503,7 +502,7 @@ export default {
             trigger: "blur",
           },
         ],
-        sdjql: [
+        'coalQuality.sdjql': [
           {
             type: "number",
             required: true,
@@ -511,7 +510,7 @@ export default {
             trigger: "blur",
           },
         ],
-        qsf: [
+        'coalQuality.qsf': [
           {
             type: "number",
             required: true,
@@ -519,7 +518,7 @@ export default {
             trigger: "blur",
           },
         ],
-        sdjhf: [
+        'coalQuality.sdjhf': [
           {
             type: "number",
             required: true,
@@ -527,7 +526,7 @@ export default {
             trigger: "blur",
           },
         ],
-        sdjhff1: [
+        'coalQuality.sdjhff1': [
           {
             type: "number",
             required: true,
@@ -535,7 +534,7 @@ export default {
             trigger: "blur",
           },
         ],
-        sdjhff2: [
+        'coalQuality.sdjhff2': [
           {
             type: "number",
             required: true,
@@ -543,7 +542,7 @@ export default {
             trigger: "blur",
           },
         ],
-        kgjsf: [
+        'coalQuality.kgjsf': [
           {
             type: "number",
             required: true,
@@ -551,7 +550,7 @@ export default {
             trigger: "blur",
           },
         ],
-        kgjql: [
+        'coalQuality.kgjql': [
           {
             type: "number",
             required: true,
@@ -559,7 +558,7 @@ export default {
             trigger: "blur",
           },
         ],
-        kgjhff1: [
+        'coalQuality.kgjhff1': [
           {
             type: "number",
             required: true,
@@ -567,7 +566,7 @@ export default {
             trigger: "blur",
           },
         ],
-        kgjhff2: [
+        'coalQuality.kgjhff2': [
           {
             type: "number",
             required: true,
@@ -575,7 +574,7 @@ export default {
             trigger: "blur",
           },
         ],
-        highHeat: [
+        'coalQuality.highHeat': [
           {
             type: "number",
             required: true,
@@ -583,7 +582,7 @@ export default {
             trigger: "blur",
           },
         ],
-        gjql: [
+        'coalQuality.gjql': [
           {
             type: "number",
             required: true,
@@ -591,7 +590,7 @@ export default {
             trigger: "blur",
           },
         ],
-        gzwhjhff1: [
+        'coalQuality.gzwhjhff1': [
           {
             type: "number",
             required: true,
@@ -599,7 +598,7 @@ export default {
             trigger: "blur",
           },
         ],
-        gzwhjhff2: [
+        'coalQuality.gzwhjhff2': [
           {
             type: "number",
             required: true,
@@ -607,7 +606,7 @@ export default {
             trigger: "blur",
           },
         ],
-        granularity: [
+        'coalQuality.granularity': [
           {
             type: "number",
             required: true,
@@ -615,7 +614,7 @@ export default {
             trigger: "blur",
           },
         ],
-        hrd: [
+        'coalQuality.hrd': [
           {
             type: "number",
             required: true,
@@ -623,18 +622,18 @@ export default {
             trigger: "blur",
           },
         ],
-        remark: [
+        'coalQuality.hskmxs': [
           {
+            type: "number",
             required: true,
             message: "不能为空，且只能为数字",
             trigger: "blur",
           },
         ],
-        hskmxs: [
+        'coalQuality.remark': [
           {
-            type: "number",
             required: true,
-            message: "不能为空，且只能为数字",
+            message: "不能为空",
             trigger: "blur",
           },
         ],
