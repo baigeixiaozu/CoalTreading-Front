@@ -67,6 +67,13 @@ _axios.interceptors.response.use(
         type: "error"
       });
       return Promise.reject(error);
+    }else if(error.message.includes("timeout")){
+      ElMessage({
+        message: '响应超时',
+        center: true,
+        type: "error"
+      });
+      return Promise.reject(error);
     }
 
     // 网络正常，但请求失败

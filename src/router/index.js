@@ -12,6 +12,11 @@ const routes = [
     meta: { title: "资讯中心" }
   },
   {
+    path: "/news/list2",
+    component: () => import("../views/news/list2.vue"),
+    meta: { title: "资讯列表" }
+  },
+  {
     path: "/news/search",
     component: () => import("../views/news/search.vue"),
     meta: { title: "搜索资讯" }
