@@ -18,7 +18,7 @@
     >
       <template v-for="menuGroup in menuList" :key="menuGroup.index">
         <el-submenu
-          v-if="menuGroup.roles.includes('ALL') || menuGroup.roles.includes(currentRole)"
+          v-if="menuGroup.roles.includes('ALL') || menuGroup.roles.includes(this.$store.state.role)"
           :index="menuGroup.index"
         >
           <template #title>
@@ -27,7 +27,7 @@
           </template>
           <el-menu-item-group>
             <template v-for="subMenu in menuGroup.child" :key="subMenu.index">
-              <el-menu-item v-if="subMenu.roles.includes('ALL') || subMenu.roles.includes(currentRole)" :index="subMenu.index"
+              <el-menu-item v-if="subMenu.roles.includes('ALL') || subMenu.roles.includes(this.$store.state.role)" :index="subMenu.index"
                 ><i :class="subMenu.icon"> </i>{{ subMenu.name }}
               </el-menu-item>
             </template>
@@ -43,7 +43,6 @@ export default {
   data() {
     return {
       isCollapse: false,
-      currentRole: this.$store.state.role,
       menuList: [
         {
           index: "1",

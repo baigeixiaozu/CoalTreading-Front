@@ -67,8 +67,6 @@ export default {
       });
     },
     submitForm(formName) {
-      console.log(formName);
-      console.log
       this.$refs[formName].validate((valid) => {
         if (!valid) {
           this.$message({
