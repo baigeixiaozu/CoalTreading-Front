@@ -1,7 +1,7 @@
 <template>
   <div>
     <el-container>
-      <el-header>{{ title }}</el-header>
+      <el-header><h3>{{ title }}</h3></el-header>
       <el-main>{{content}}</el-main>
     </el-container>
   </div>
@@ -17,7 +17,7 @@ export default {
     };
   },
   created(){
-    loadNewsDetail(202).then(res=>{
+    loadNewsDetail(this.$route.query.id).then(res=>{
       console.log(res)
       this.title = res.data.title;
       this.content = res.data.content;

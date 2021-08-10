@@ -12,7 +12,7 @@ import store from '../store'
 
 let config = {
   baseURL: process.env.VUE_APP_BASE_URL || "http://127.0.0.1:8080",
-  timeout: 60 * 1000, // Timeout
+  timeout: 5 * 1000, // Timeout
   withCredentials: false // Check cross-site Access-Control
 };
 
@@ -52,9 +52,27 @@ _axios.interceptors.response.use(
   },
   (error) => {
     // Do something with response error
-    console.log("response error",error.response);
-    console.log("网络错误", error);
+    console.log("请求出现异常 - ", error);
+    console.log("错误对象类型 - ", Object.prototype.toString.call(error))
+    console.log("error.name", error.name)
+    console.log("error.message", error.message);
+    console.log("error.code", error.code);
+    console.log("error.status", error.status);
+    
+    // 网络异常
+    if(error.message === "Network Error"){
+      ElMessage({
+        message: '网络错误！',
+        center: true,
+        type: "error"
+      });
+      return Promise.reject(error);
+    }
+
+    // 网络正常，但请求失败
     const resp = error.response;
+    const data = resp.data || null;
+    console.log(resp)
     if (resp && resp.status) {
       switch (resp.status) {
         // 401: 未登录，或者登录过期
@@ -65,12 +83,6 @@ _axios.interceptors.response.use(
             message: '未登录',
             center: true
           });
-          console.log("401")
-          // Toast({
-          //   message: "登录过期，请重新登录",
-          //   duration: 1000,
-          //   forbidClick: true
-          // });
           // 清除token
           localStorage.removeItem("token");
           // store.commit("loginSuccess", null);
@@ -86,6 +98,10 @@ _axios.interceptors.response.use(
         // 对用户进行提示
         // 跳转登录页面
         case 403:
+          ElMessage({
+            message: '你没有权限访问该页面',
+            center: true
+          });
           // 跳转登录页面，并将要浏览的页面fullPath传过去，登录成功后跳转需要访问的页面
           setTimeout(() => {
             router.replace({
@@ -99,29 +115,35 @@ _axios.interceptors.response.use(
 
         // 404请求不存在
         case 404:
-          console.log("404")
-          // Toast({
-          //   message: "网络请求不存在",
-          //   duration: 1500,
-          //   forbidClick: true
-          // });
+          ElMessage({
+            message: '接口不存在！',
+            center: true
+          });
           break;
         // 其他错误，直接抛出错误提示
         default:
-          ElMessage({
-            message: '网络错误！',
-            center: true,
-            type: "error"
-          });
+          if(data.error){
+            ElMessage({
+              message: data.error,
+              center: true,
+              type: "error"
+            });
+          }else{
+            ElMessage({
+              message: '请求发生异常1！',
+              center: true,
+              type: "error"
+            });
+          }
       }
     }else{
-      console.log("网络请求 - ", error);
       ElMessage({
-        message: '网络错误！',
+        message: '请求发生异常2！',
         center: true,
         type: "error"
       });
     }
+    console.log(" ==== axios尝试处理异常结束 ==== ")
     return Promise.reject(error);
   }
 );

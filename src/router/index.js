@@ -19,7 +19,7 @@ const routes = [
   {
     path: "/news/audit",
     component: () => import("../views/news/audit.vue"),
-    meta: { title: "审核界面" }
+    meta: { title: "资讯审核" }
   },
   {
     path: "/news/detail",
@@ -58,6 +58,46 @@ const routes = [
     meta: { title: "新增用户" }
   },
   // 用户路由END
+  // 交易路由START
+  {
+    path: "/trade/ListedInfo",
+    name: "ListedInfo",
+    component: () => import("../views/trade/ListedInfo.vue"),
+    meta: { title: "挂牌列表" }
+  },
+  {
+    path: "/trade/DelistInfo",
+    name: "DelistInfo",
+    component: () => import("../views/trade/DelistInfo.vue"),
+    meta: { title: "摘牌列表" }
+  },
+
+  {
+    path: "/trade/delist/buyerdelist",
+    name: "buyerdelist",
+    component: () => import("../views/trade/delist/buyerdelist.vue"),
+    meta: { title: "摘牌" }
+  },
+  {
+    path: "/trade/delist/sellerdelist",
+    name: "sellerdelist",
+    component: () => import("../views/trade/delist/sellerdelist.vue"),
+    meta: { title: "摘牌" }
+  },
+  
+  {
+    path: "/trade/listed/buyerlisted",
+    name: "buyerlisted",
+    component: () => import("../views/trade/listed/buyerlisted.vue"),
+    meta: { title: "挂牌" }
+  },
+  {
+    path: "/trade/listed/salelisted",
+    name: "DelistInfo",
+    component: () => import("../views/trade/listed/salelisted.vue"),
+    meta: { title: "挂牌" }
+  },
+  // 交易路由END
 ];
 
 const router = createRouter({
