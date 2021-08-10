@@ -5,18 +5,17 @@
   <div class="reg1">
       <el-form
         :label-position="labelPosition"
-        :model="salelistForm"
+        :model="form"
         status-icon
-        :rules="rules"
-        ref="salelistForm"
+        ref="form"
         label-width="150px"
-        class="demo-salelistForm"
+        class="demo-form"
       >
       <el-row>
         <el-col :span="12">
           <el-form-item label="供应量(万吨)" prop="supplyQuantity">
             <el-input
-              v-model.number="salelistForm.supplyQuantity"
+              v-model.number="form.supplyQuantity"
               style="width:25%"
               :disabled="true"
             ></el-input>
@@ -25,7 +24,7 @@
         <el-col :span="12">
           <el-form-item label="热值(Kcal/kg)>" prop="calorificValue">
           <el-input
-            v-model.number="salelistForm.calorificValue"
+            v-model.number="form.calorificValue"
             style="width:25%"
             :disabled="true"
           ></el-input>
@@ -37,7 +36,7 @@
         <el-col :span="12">
           <el-form-item label="原煤单价(元/吨)" prop="unitPrice">
             <el-input
-              v-model.number="salelistForm.unitPrice"
+              v-model.number="form.unitPrice"
               style="width:25%"
               :disabled="true"
             ></el-input>
@@ -45,7 +44,7 @@
         </el-col>
          <el-col :span="12">
           <el-form-item prop="transportPrice" label="运费单价(元/吨)">
-            <el-input v-model.number="salelistForm.transportPrice"
+            <el-input v-model.number="form.transportPrice"
             style="width:25%"
             :disabled="true"
            ></el-input>
@@ -56,7 +55,7 @@
         <el-col :span="12">
           <el-form-item label="全硫(%)<" prop="ts">
             <el-input
-              v-model.number="salelistForm.ts"
+              v-model.number="form.ts"
               style="width:25%"
               :disabled="true"
             ></el-input>
@@ -64,7 +63,7 @@
         </el-col>
         <el-col :span="12">
           <el-form-item prop="location" label="产地">
-            <el-input v-model="salelistForm.location"
+            <el-input v-model="form.location"
             style="width:25%"
             :disabled="true"></el-input>
           </el-form-item>
@@ -75,7 +74,7 @@
         <el-col :span="12">
           <el-form-item label="挥发分(%)<" prop="vc">
             <el-input
-              v-model.number="salelistForm.vc"
+              v-model.number="form.vc"
               style="width:25%"
               :disabled="true">
             </el-input>
@@ -84,7 +83,7 @@
 
         <el-col :span="12">
           <el-form-item prop="sendLocal" label="发站(发货港口)">
-            <el-input v-model="salelistForm.sendLocal"
+            <el-input v-model="form.sendLocal"
             style="width:25%"
             :disabled="true"></el-input>
           </el-form-item>
@@ -94,7 +93,7 @@
       <el-row>
         <el-col :span="12">
           <el-form-item prop="kgjhf" label="空干基灰分(%)<">
-            <el-input v-model.number="salelistForm.kgjhf"
+            <el-input v-model.number="form.kgjhf"
             style="width:25%"
             :disabled="true"
             ></el-input>
@@ -102,7 +101,7 @@
         </el-col>
         <el-col :span="12">
           <el-form-item prop="ms" label="全水分(%)<">
-            <el-input v-model.number="salelistForm.ms"
+            <el-input v-model.number="form.ms"
             style="width:25%"
             :disabled="true"
             ></el-input>
@@ -110,9 +109,9 @@
         </el-col>
       </el-row>
         <el-form-item>
-          <el-button type="primary" @click="submitForm('salelistForm')">摘牌</el-button>
+          <el-button type="primary" @click="submitForm('form')">摘牌</el-button>
          
-          <el-button @click="resetForm('salelistForm')">返回</el-button>
+          <el-button @click="resetForm('form')">返回</el-button>
         </el-form-item>
       </el-form>
     </div>
