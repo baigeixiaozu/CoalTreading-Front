@@ -1,6 +1,6 @@
 import request from '../../utils/axios';
 
-export const getNewsList = (page = 1, limit = 20)=>{
+export const getNewsList = (page,limit)=>{
     console.log(page, limit);
     return request.get("/news/show", {
         params:{
@@ -12,4 +12,7 @@ export const getNewsList = (page = 1, limit = 20)=>{
 
 export const loadNewsDetail = (id)=>{
     return request.get("/news/detail/" + id)
+}
+export const searchtitle = (title)=>{
+    return request.get("/news/more/" + title)
 }

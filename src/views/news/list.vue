@@ -1,112 +1,115 @@
 <template>
-  <el-row :gutter="20">
-    <el-col :span="12">
-      <div class="grid-content">
-        <div class="block">
-          <span class="demonstration">Click 指示器触发</span>
+  <div class="news-list">
+    <el-row>
+      <el-col class="grid-content bg-purple-dark title">综合新闻</el-col>
+    </el-row>
+    <el-row>
+      <el-col :span="6">
+        <el-input
+         placeholder="搜索更多"
+          v-model="input"
+         clearable>
+       </el-input>
+      </el-col>
+      <el-col :span="1">
+         <el-button icon="el-icon-search" @click="search(input)"></el-button>
+      </el-col>
+    </el-row>
 
-          <el-carousel trigger="click" height="560px">
-            <el-carousel-item v-for="item in picitem" :key="item">
-              <img :src="item.image" alt="" />
-            </el-carousel-item>
-          </el-carousel>
-        </div>
-      </div>
-    </el-col>
-
-    <el-col :span="12">
-      <el-card height="300px" shadow="hover">
-        <el-row>
-          <el-col class="grid-content bg-purple-dark">综合新闻</el-col>
-        </el-row>
-        <el-row>
-          <el-col :span="6">
-            <search></search>
-          </el-col>
-          <el-col :span="1">
-            <el-button icon="el-icon-search"></el-button>
-          </el-col>
-        </el-row>
-
-        <el-scrollbar height="400px">
-          <p
-            class="item"
-            v-for="item in tableData.slice(
-              (currentPage - 1) * pagesize,
-              currentPage * pagesize
-            )"
-            :key="item"
-            @click="getExactly(item.id)"
-          >
-            {{ item.title }}
-          </p>
-        </el-scrollbar>
-        <el-pagination
-          @size-change="handleSizeChange"
-          @current-change="handleCurrentChange"
-          :current-page="currentPage"
-          :page-sizes="[5, 10, 20, 40]"
-          :page-size="pagesize"
-          layout="total, sizes, prev, pager, next, jumper"
-          :total="tableData.length"
-          :background="true"
-        >
-        </el-pagination>
-      </el-card>
-    </el-col>
-    <el-col>
-      <img src="../../assets/coaldata.png" />
-    </el-col>
-  </el-row>
+    <el-row
+      v-for="item in tableData"
+      :key="item.id"
+      @click="getExactly(item.id)"
+      class="news-item"
+    >
+      <div class="item">{{ item.title }}</div>
+      <span>{{ item.date }}</span>
+    </el-row>
+    <el-pagination
+      @size-change="handleSizeChange"
+      @current-change="handleCurrentChange"
+      :current-page="currentPage"
+      :page-sizes="[5, 10, 20, 40]"
+      :page-size="pagesize"
+      layout="total, sizes, prev, pager, next, jumper"
+      :total="totalItems"
+      :page-count="totalPages"
+      :background="true"
+    >
+    </el-pagination>
+  </div>
 </template>
 
 <script>
 import { getNewsList } from "./api";
-import search from "./search.vue";
+import {searchtitle} from "./api";
 export default {
   data() {
     return {
+      input:'',
       currentPage: 1, //初始页
-      pagesize: 15, //    每页的数据
+      pagesize: 20, //    每页的数据
+      totalPages: 1,
+      totalItems: 0,
       tableData: [],
-
-      picitem: [
-        { image: require("../../assets/coal2.png") },
-
-        { image: require("../../assets/coal.jpg") },
-        { image: require("../../assets/coal3.jpg") },
-      ],
     };
   },
   methods: {
     getExactly(id) {
       this.$router.push({ path: "/news/detail", query: { id: id } });
     },
+    search(input){
+      var that = this;
+   searchtitle(input).then(res=>{
+        console.log(res)
+        that.tableData = res.data;
+        that.currentPage = 1;
+        that.totalItems = res.data.length;
+        that.input='';
+      }
+    ).catch(err=>{
+      console.log(err)
+      if(err.error){
+        this.$message({
+          message: err.error,
+          type:"error"
+        })
+        this.$router.back()
+      }
+    }) 
+    },
     handleSizeChange: function (size) {
-      this.pagesize = size;
       console.log(this.pagesize); //每页下拉显示数据
+      this.pagesize = size;
+      this.loadNews(this.currentPage, size);
     },
     handleCurrentChange: function (currentPage) {
       this.currentPage = currentPage;
-      console.log(this.currentPage); //点击第几页
+      this.loadNews(this.currentPage, this.pagesize);
+    },
+    loadNews(page, limit) {
+      getNewsList(page, limit).then(
+        (res) => {
+          const data = res.data;
+          this.tableData = data.records;
+          this.pagesize = this.totalItems = data.size;
+          this.totalPages = data.pages;
+        },
+        function (error) {}
+      );
     },
   },
   created() {
-    getNewsList().then(
-      (res) => {
-        const data = res.data;
-        this.tableData = data.records;
-      },
-      function (error) {}
-    );
+    this.loadNews(1,20);
   },
 
-  components: {
-    search,
-  },
 };
 </script>
 <style lang="scss" scoped>
+
+.news-item {
+  justify-content: space-between;
+}
 .el-carousel__item h3 {
   color: #475669;
   font-size: 14px;

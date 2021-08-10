@@ -2,6 +2,10 @@ import { createRouter, createWebHashHistory } from "vue-router";
 
 const routes = [
   {
+    path:"/",
+    redirect:"/news/list"
+  },
+  {
     path: "/news/edit",
     component: () => import("../views/news/edit.vue"),
     meta: { title: "编辑资讯" }
@@ -10,16 +14,6 @@ const routes = [
     path: "/news/list",
     component: () => import("../views/news/list.vue"),
     meta: { title: "资讯中心" }
-  },
-  {
-    path: "/news/list2",
-    component: () => import("../views/news/list2.vue"),
-    meta: { title: "资讯列表" }
-  },
-  {
-    path: "/news/search",
-    component: () => import("../views/news/search.vue"),
-    meta: { title: "搜索资讯" }
   },
   {
     path: "/news/audit",
