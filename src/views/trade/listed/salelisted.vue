@@ -113,7 +113,7 @@
 </template>
 
 <script>
-import { requestPublish, requestEdit, loadDetail } from "../api";
+import { requestPublish, requestEdit, loadMyDetail } from "../api";
 export default {
   data() {
     return {
@@ -325,7 +325,7 @@ export default {
     },
     // 加载
     loadDetail(id) {
-      loadDetail(id)
+      loadMyDetail(id)
         .then((res) => {
           this.salelistForm = res.data.detail;
         })

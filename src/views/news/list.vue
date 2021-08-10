@@ -60,7 +60,6 @@
 
 <script>
 import {getNewsList} from './api';
-import {loadNewsDetail} from './api';
 import search from "./search.vue";
 export default {
   
