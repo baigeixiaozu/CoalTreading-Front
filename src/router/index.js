@@ -102,6 +102,18 @@ const routes = [
     component: () => import("../views/trade/listed/salelisted.vue"),
     meta: { title: "挂牌" }
   },
+  {
+    path: "/trade/A/:mode",
+    name: "GP1",
+    component: () => import("../views/trade/A.vue"),
+    meta: { title: "挂牌1" }
+  },
+  {
+    path: "/trade/B/:mode",
+    name: "GP2",
+    component: () => import("../views/trade/B.vue"),
+    meta: { title: "挂牌" }
+  },
   // 交易路由END
 ];
 

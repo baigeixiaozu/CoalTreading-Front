@@ -1,5 +1,5 @@
 <template>
-  <!-- 买方挂牌 -->
+  <!-- 买方挂牌/卖方摘牌 -->
   <div class="baseData">
     <el-form
       :label-position="labelPosition"
@@ -9,6 +9,7 @@
       label-width="140px"
       class="demo-buyPubData"
       :rules="rules"
+      :disabled="mode === 'zp'"
     >
       <el-row>
         <el-col :span="8">
@@ -324,11 +325,12 @@
 </template>
 
 <script>
-import { requestPublish, requestEdit, loadMyDetail } from "../api";
+import { requestPublish, requestEdit, loadMyDetail } from "./api";
 export default {
   data() {
     return {
       labelPosition: "right",
+      mode: this.$route.params.mode,
       isNew: true,
       publish: false,
       buyPubData: {
@@ -611,6 +613,8 @@ export default {
     };
   },
   created() {
+    console.log(this.$router.meta)
+    this.$route.meta.title = 123
     this.buyPubData = JSON.parse(
       `{"baseData":{"applicant":"nurt","signer":"fy","reqDate":null,"deliveryStartTime":["2021-08-03T16:00:00.000Z","2021-08-18T16:00:00.000Z"],"deliveryEndTime":"","coalType":"无烟煤","buyQuantity":2375,"transportMode":"火车","deliveryLocation":"73","settlementMethod":"二票结算","acceptanceMethod":"到厂第三方验收","paymentMethod":"8738","deposit1":3783,"deposit2":73873,"deliveryTime":["2021-08-11T16:00:00.000Z","2021-08-20T16:00:00.000Z"]},"coalQuality":{"lowHeat":38738,"sdjql":7387,"qsf":7387387,"sdjhf":378373,"sdjhff1":73,"sdjhff2":378,"kgjsf":73,"kgjql":783,"kgjhff1":387,"kgjhff2":383,"highHeat":783,"gjql":83,"gzwhjhff1":837,"gzwhjhff2":8383,"granularity":73,"hrd":152,"remark":"738","hskmxs":83}}`
     );

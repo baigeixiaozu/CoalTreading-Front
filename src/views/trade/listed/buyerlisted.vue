@@ -9,6 +9,7 @@
       label-width="140px"
       class="demo-buyPubData"
       :rules="rules"
+      :disabled="mode === 'zp'"
     >
       <el-row>
         <el-col :span="8">
@@ -329,6 +330,7 @@ export default {
   data() {
     return {
       labelPosition: "right",
+      mode: this.$route.params.mode,
       isNew: true,
       publish: false,
       buyPubData: {
