@@ -17,7 +17,7 @@
           <el-form-item label="供应量(万吨)" prop="supplyQuantity">
             <el-input
               v-model.number="salelistForm.supplyQuantity"
-              style="width: 25%"
+              class="input-item"
             ></el-input>
           </el-form-item>
         </el-col>
@@ -25,7 +25,7 @@
           <el-form-item label="热值(Kcal/kg)>" prop="calorificValue">
             <el-input
               v-model.number="salelistForm.calorificValue"
-              style="width: 25%"
+              class="input-item"
             ></el-input>
           </el-form-item>
         </el-col>
@@ -35,7 +35,7 @@
           <el-form-item label="原煤单价(元/吨)" prop="unitPrice">
             <el-input
               v-model.number="salelistForm.unitPrice"
-              style="width: 25%"
+              class="input-item"
             ></el-input>
           </el-form-item>
         </el-col>
@@ -43,7 +43,7 @@
           <el-form-item prop="transportPrice" label="运费单价(元/吨)">
             <el-input
               v-model.number="salelistForm.transportPrice"
-              style="width: 25%"
+              class="input-item"
             ></el-input>
           </el-form-item>
         </el-col>
@@ -53,7 +53,7 @@
           <el-form-item label="全硫(%)<" prop="ts">
             <el-input
               v-model.number="salelistForm.ts"
-              style="width: 25%"
+              class="input-item"
             ></el-input>
           </el-form-item>
         </el-col>
@@ -61,7 +61,7 @@
           <el-form-item prop="location" label="产地">
             <el-input
               v-model="salelistForm.location"
-              style="width: 25%"
+              class="input-item"
             ></el-input>
           </el-form-item>
         </el-col>
@@ -69,7 +69,7 @@
       <el-row>
         <el-col :span="12">
           <el-form-item label="挥发分(%)<" prop="vc">
-            <el-input v-model.number="salelistForm.vc" style="width: 25%">
+            <el-input v-model.number="salelistForm.vc" class="input-item">
             </el-input>
           </el-form-item>
         </el-col>
@@ -78,7 +78,7 @@
           <el-form-item prop="sendLocal" label="发站(发货港口)">
             <el-input
               v-model="salelistForm.sendLocal"
-              style="width: 25%"
+              class="input-item"
             ></el-input>
           </el-form-item>
         </el-col>
@@ -88,7 +88,7 @@
           <el-form-item prop="kgjhf" label="空干基灰分(%)<">
             <el-input
               v-model.number="salelistForm.kgjhf"
-              style="width: 25%"
+              class="input-item"
             ></el-input>
           </el-form-item>
         </el-col>
@@ -96,7 +96,7 @@
           <el-form-item prop="ms" label="全水分(%)<">
             <el-input
               v-model.number="salelistForm.ms"
-              style="width: 25%"
+              class="input-item"
             ></el-input>
           </el-form-item>
         </el-col>
@@ -105,7 +105,7 @@
         <el-button type="primary" @click="submitForm('ruleForm')"
           >提交</el-button
         >
-        <el-button @click="Save('ruleForm')">保存草稿</el-button>
+        <el-button @click="Save('salelistForm')">保存草稿</el-button>
         <el-button @click="resetForm('salelistForm')">重置</el-button>
       </el-form-item>
     </el-form>
@@ -227,15 +227,24 @@ export default {
   },
   methods: {
     Save(formName) {
-      //保存草稿
-      const q = this.$route.query;
-      if (q.id) {
-        // 编辑
-        this.editData(q.id, false);
-      } else {
-        // 新增
-        this.publishData(false);
-      }
+      this.$refs[formName].validate((valid) => {
+        if (valid) {
+          //保存草稿
+          const q = this.$route.query;
+          if (q.id) {
+            // 编辑
+            this.editData(q.id, false);
+          } else {
+            // 新增
+            this.publishData(false);
+          }
+        } else {
+          this.$message({
+            message: "请检查数据合法性",
+            type: "warning",
+          });
+        }
+      });
     },
     submitForm(formName) {
       const q = this.$route.query;
@@ -274,8 +283,8 @@ export default {
             message: "提交成功",
             type: "success",
           });
-          if(this.isNew){
-            this.$router.push("/trade/listed/salelisted?id=" + res.data.reqId)
+          if (this.isNew) {
+            this.$router.push("/trade/listed/salelisted?id=" + res.data.reqId);
           }
         })
         .catch((err) => {
@@ -300,8 +309,8 @@ export default {
             message: "提交成功",
             type: "success",
           });
-          if(this.isNew){
-            this.$router.push("/trade/listed/salelisted?id=" + res.data.reqId)
+          if (this.isNew) {
+            this.$router.push("/trade/listed/salelisted?id=" + res.data.reqId);
           }
         })
         .catch((err) => {
@@ -315,23 +324,29 @@ export default {
         });
     },
     // 加载
-    loadDetail(id){
-      loadDetail(id).then(res=>{
-        this.salelistForm = res.data.detail;
-      }).catch(err=>{
-        console.log(err)
-        if(err.error){
-          this.$message({
-            message: err.error,
-            type: "error"
-          })
-          this.$router.back()
-        }
-      })
-    }
+    loadDetail(id) {
+      loadDetail(id)
+        .then((res) => {
+          this.salelistForm = res.data.detail;
+        })
+        .catch((err) => {
+          console.log(err);
+          if (err.error) {
+            this.$message({
+              message: err.error,
+              type: "error",
+            });
+            this.$router.back();
+          }
+        });
+    },
   },
 };
 </script>
 
 <style>
+.input-item {
+  width: 40%;
+  float: left;
+}
 </style>

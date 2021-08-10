@@ -52,6 +52,7 @@ _axios.interceptors.response.use(
   },
   (error) => {
     // Do something with response error
+    console.log("请求出现异常 - ", error);
     console.log("错误对象类型 - ", Object.prototype.toString.call(error))
     console.log("error.name", error.name)
     console.log("error.message", error.message);
@@ -71,7 +72,6 @@ _axios.interceptors.response.use(
     // 网络正常，但请求失败
     const resp = error.response;
     const data = resp.data || null;
-    console.log("请求异常 - ", error);
     console.log(resp)
     if (resp && resp.status) {
       switch (resp.status) {
@@ -143,7 +143,7 @@ _axios.interceptors.response.use(
         type: "error"
       });
     }
-    console.log("axios尝试处理异常结束")
+    console.log(" ==== axios尝试处理异常结束 ==== ")
     return Promise.reject(error);
   }
 );
