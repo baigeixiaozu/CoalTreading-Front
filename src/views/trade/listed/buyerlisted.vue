@@ -1,20 +1,20 @@
 <template>
-  <!-- 卖方摘牌 -->
+  <!-- 买方挂牌 -->
   <div class="baseData">
     <el-form
       :label-position="labelPosition"
       :model="buyPubData"
       status-icon
       ref="buyPubData"
-      label-width="150px"
+      label-width="140px"
       class="demo-buyPubData"
     >
       <el-row>
         <el-col :span="8">
           <el-form-item label="申请单位" prop="supplyQuantity">
             <el-input
-              v-model.number="buyPubData.buylistForm.supplyQuantity"
-              style="width: 20%"
+              v-model.number="buyPubData.baseData.supplyQuantity"
+              
               :disabled="true"
             ></el-input>
           </el-form-item>
@@ -22,8 +22,8 @@
         <el-col :span="8">
           <el-form-item label="单据编号" prop="calorificValue">
             <el-input
-              v-model.number="buyPubData.buylistForm.calorificValue"
-              style="width: 20%"
+              v-model.number="buyPubData.baseData.calorificValue"
+              
               :disabled="true"
             ></el-input>
           </el-form-item>
@@ -31,8 +31,8 @@
         <el-col :span="8">
           <el-form-item label="申请人" prop="applicant">
             <el-input
-              v-model="buyPubData.buylistForm.applicant"
-              style="width: 20%"
+              v-model="buyPubData.baseData.applicant"
+              
             ></el-input>
           </el-form-item>
         </el-col>
@@ -41,34 +41,29 @@
         <el-col :span="8">
           <el-form-item label="发资人" prop="signer">
             <el-input
-              v-model="buyPubData.buylistForm.signer"
-              style="width: 20%"
+              v-model="buyPubData.baseData.signer"
+              
             ></el-input>
           </el-form-item>
         </el-col>
         <el-col :span="8">
           <el-form-item prop="reqDate" label="申请日期">
             <el-input
-              v-model="buyPubData.buylistForm.reqDate"
-              style="width: 20%"
+              v-model="buyPubData.baseData.reqDate"
+              
             ></el-input>
           </el-form-item>
         </el-col>
+      </el-row>
+      <el-row>
         <el-col :span="8">
-          <el-form-item prop="deliveryStartTime" label="交货日期">
+          <el-form-item prop="deliveryStartTime" label="交货日期" style="display:flex;">
             <el-date-picker
-              v-model="buyPubData.buylistForm.deliveryStartTime"
-              type="date"
-              placeholder="选择日期"
-              format="yyyy 年 MM 月 dd 日"
-              value-format="yyyy-MM-dd"
-            >
-            </el-date-picker>
-            至
-            <el-date-picker
-              v-model="buyPubData.buylistForm.deliveryEndTime"
-              type="date"
-              placeholder="选择日期"
+              v-model="buyPubData.baseData.deliveryStartTime"
+              type="daterange"
+              start-placeholder="开始日期"
+              end-placeholder="结束日期"
+              range-separator="至"
               format="yyyy 年 MM 月 dd 日"
               value-format="yyyy-MM-dd"
             >
@@ -81,9 +76,9 @@
         <el-col :span="12">
           <el-form-item prop="acceptanceMethod" label="验收方式">
             <el-select
-              v-model="buyPubData.buylistForm.acceptanceMethod"
+              v-model="buyPubData.baseData.acceptanceMethod"
               placeholder="请选择..."
-              style="width: 20%"
+              
             >
               <el-option label="到厂验收" value="到厂验收"></el-option>
               <el-option
@@ -101,9 +96,9 @@
         <el-col :span="12">
           <el-form-item prop="coalType" label="煤种">
             <el-select
-              v-model="buyPubData.buylistForm.coalType"
+              v-model="buyPubData.baseData.coalType"
               placeholder="请选择..."
-              style="width: 20%"
+              
             >
               <el-option label="烟煤" value="烟煤"></el-option>
               <el-option label="无烟煤" value="无烟煤"></el-option>
@@ -117,16 +112,16 @@
         <el-col :span="12">
           <el-form-item prop="buyQuantity" label="采购数量">
             <el-input
-              v-model="buyPubData.buylistForm.buyQuantity"
-              style="width: 20%"
+              v-model="buyPubData.baseData.buyQuantity"
+              
             ></el-input>
           </el-form-item>
         </el-col>
         <el-col :span="12">
           <el-form-item prop="transportMode" label="运输方式">
             <el-select
-              v-model="buyPubData.buylistForm.transportMode"
-              style="width: 20%"
+              v-model="buyPubData.baseData.transportMode"
+              
               placeholder="请选择..."
             >
               <el-option label="火车" value="火车"></el-option>
@@ -140,16 +135,16 @@
         <el-col :span="12">
           <el-form-item prop="deliveryLocation" label="交货地点">
             <el-input
-              v-model="buyPubData.buylistForm.deliveryLocation"
-              style="width: 20%"
+              v-model="buyPubData.baseData.deliveryLocation"
+              
             ></el-input>
           </el-form-item>
         </el-col>
         <el-col :span="12">
           <el-form-item prop="settlementMethod" label="结算方式">
             <el-select
-              v-model="buyPubData.buylistForm.settlementMethod"
-              style="width: 20%"
+              v-model="buyPubData.baseData.settlementMethod"
+              
               placeholder="请选择..."
             >
               <el-option label="一票结算" value="一票结算"></el-option>
@@ -164,7 +159,7 @@
         <el-col>
           <el-form-item prop="paymentMethod" label="结算付款方式">
             <el-input
-              v-model="buyPubData.buylistForm.paymentMethod"
+              v-model="buyPubData.baseData.paymentMethod"
               type="textarea"
               :rows="2"
             ></el-input>
@@ -175,16 +170,16 @@
         <el-col :span="12">
           <el-form-item prop="deposit1" label="报价保证金缴纳">
             <el-input
-              v-model="buyPubData.buylistForm.deposit1"
-              style="width: 20%"
+              v-model="buyPubData.baseData.deposit1"
+              
             ></el-input>
           </el-form-item>
         </el-col>
         <el-col :span="12">
           <el-form-item prop="deposit2" label="履约保证金缴纳">
             <el-input
-              v-model="buyPubData.buylistForm.deposit2"
-              style="width: 20%"
+              v-model="buyPubData.baseData.deposit2"
+              
             ></el-input>
           </el-form-item>
         </el-col>
@@ -196,24 +191,24 @@
         <el-col :span="8">
           <el-form-item label="收到基低位发热量" prop="lowHeat">
             <el-input
-              v-model="buyPubData.coalForm.lowHeat"
-              style="width: 20%"
+              v-model="buyPubData.coalQuality.lowHeat"
+              
             ></el-input>
           </el-form-item>
         </el-col>
         <el-col :span="8">
           <el-form-item prop="sdjql" label="收到基全硫">
             <el-input
-              v-model="buyPubData.coalForm.sdjql"
-              style="width: 20%"
+              v-model="buyPubData.coalQuality.sdjql"
+              
             ></el-input>
           </el-form-item>
         </el-col>
         <el-col :span="8">
           <el-form-item prop="qsf" label="全水分">
             <el-input
-              v-model="buyPubData.coalForm.qsf"
-              style="width: 20%"
+              v-model="buyPubData.coalQuality.qsf"
+              
             ></el-input>
           </el-form-item>
         </el-col>
@@ -222,23 +217,23 @@
         <el-col :span="8">
           <el-form-item label="收到基灰分" prop="sdjhf">
             <el-input
-              v-model="buyPubData.coalForm.sdjhf"
-              style="width: 20%"
+              v-model="buyPubData.coalQuality.sdjhf"
+              
             ></el-input>
           </el-form-item>
         </el-col>
         <el-col :span="8">
-          <el-form-item prop="sdjhff1" label="收到基挥发分">
+          <el-form-item prop="sdjhff1" label="收到基挥发分"  style="display: flex;">
+            
+            <div style="display: flex;">
             <el-input
-              v-model="buyPubData.coalForm.sdjhff1"
-              style="width: 8%"
+              v-model="buyPubData.coalQuality.sdjhff1"
             ></el-input>
             (%)至
             <el-input
-              v-model="buyPubData.coalForm.sdjhff2"
-              style="width: 8%"
+              v-model="buyPubData.coalQuality.sdjhff2"
             ></el-input>
-            (%)
+            (%)</div>
           </el-form-item>
         </el-col>
       </el-row>
@@ -247,64 +242,63 @@
         <el-col :span="8">
           <el-form-item label="空干基水分" prop="kgjsf">
             <el-input
-              v-model="buyPubData.coalForm.kgjsf"
-              style="width: 20%"
+              v-model="buyPubData.coalQuality.kgjsf"
+              
             ></el-input>
-          </el-form-item>
-        </el-col>
-        <el-col :span="8">
-          <el-form-item prop="kgjhff1" label="空干基挥发分起">
-            <el-input
-              v-model="buyPubData.coalForm.kgjhff1"
-              style="width: 8%"
-            ></el-input>
-            (%)至
-            <el-input
-              v-model="buyPubData.coalForm.kgjhff2"
-              style="width: 8%"
-            ></el-input>
-            (%)
           </el-form-item>
         </el-col>
         <el-col :span="8">
           <el-form-item label="空干基全硫" prop="kgjql">
             <el-input
-              v-model="buyPubData.coalForm.kgjql"
-              style="width: 20%"
+              v-model="buyPubData.coalQuality.kgjql"
+              
             ></el-input>
           </el-form-item>
         </el-col>
+        <el-col :span="8">
+          <el-form-item prop="kgjhff1" label="空干基挥发分">
+            
+            <div style="display: flex;">
+            <el-input
+              v-model="buyPubData.coalQuality.kgjhff1"
+            ></el-input>
+            (%)至
+            <el-input
+              v-model="buyPubData.coalQuality.kgjhff2"
+            ></el-input>
+            (%)</div>
+          </el-form-item>
+        </el-col>
       </el-row>
+      <hr />
       <el-row>
-        <hr />
         <el-col :span="8">
           <el-form-item prop="highHeat" label="干基高位发热量">
             <el-input
-              v-model="buyPubData.coalForm.highHeat"
-              style="width: 20%"
+              v-model="buyPubData.coalQuality.highHeat"
+              
             ></el-input>
           </el-form-item>
         </el-col>
         <el-col :span="8">
           <el-form-item prop="gjql" label="干基全硫">
             <el-input
-              v-model="buyPubData.coalForm.gjql"
-              style="width: 20%"
+              v-model="buyPubData.coalQuality.gjql"
+              
             ></el-input>
           </el-form-item>
         </el-col>
         <el-col :span="8">
           <el-form-item label="干燥无灰基挥发分起" prop="gzwhjhff1">
+            <div style="display: flex;">
             <el-input
-              v-model="buyPubData.coalForm.gzwhjhff1"
-              style="width: 8%"
+              v-model="buyPubData.coalQuality.gzwhjhff1"
             ></el-input>
             (%)至
             <el-input
-              v-model="buyPubData.coalForm.gzwhjhff2"
-              style="width: 8%"
+              v-model="buyPubData.coalQuality.gzwhjhff2"
             ></el-input>
-            (%)
+            (%)</div>
           </el-form-item>
         </el-col>
       </el-row>
@@ -313,24 +307,24 @@
         <el-col :span="8">
           <el-form-item label="粒度" prop="granularity">
             <el-input
-              v-model="buyPubData.coalForm.granularity"
-              style="width: 20%"
+              v-model="buyPubData.coalQuality.granularity"
+              
             ></el-input>
           </el-form-item>
         </el-col>
         <el-col :span="8">
-          <el-form-item prop="hrd" label="灰熔点">
+          <el-form-item prop="hrd" label="灰熔点≥">
             <el-input
-              v-model="buyPubData.coalForm.hrd"
-              style="width: 20%"
+              v-model="buyPubData.coalQuality.hrd"
+              
             ></el-input>
           </el-form-item>
         </el-col>
         <el-col :span="8">
-          <el-form-item prop="hskmxs" label="哈式可磨细数">
+          <el-form-item prop="hskmxs" label="哈式可磨细数≥">
             <el-input
-              v-model="buyPubData.coalForm.hskmxs"
-              style="width: 20%"
+              v-model="buyPubData.coalQuality.hskmxs"
+              
             ></el-input>
           </el-form-item>
         </el-col>
@@ -338,7 +332,7 @@
       <hr />
       <el-form-item prop="remark" label="备注">
         <el-input
-          v-model="buyPubData.coalForm.remark"
+          v-model="buyPubData.coalQuality.remark"
           type="textarea"
           :rows="2"
         ></el-input>
@@ -347,7 +341,7 @@
         <el-button type="primary" @click="submitForm('buyPubData')"
           >提交</el-button
         >
-        <el-button @click="resetForm('buyPubData')">保存</el-button>
+        <el-button @click="submitForm('buyPubData')">保存</el-button>
         <el-button @click="resetForm('buyPubData')">重置</el-button>
       </el-form-item>
     </el-form>
@@ -361,7 +355,7 @@ export default {
       labelPosition: "right",
       buyPubData: {
         value1: "",
-        buylistForm: {
+        baseData: {
           applicant: "",
           signer: "",
           reqDate: "",
@@ -377,7 +371,7 @@ export default {
           deposit1: "",
           deposit2: "",
         },
-        coalForm: {
+        coalQuality: {
           lowHeat: "",
           sdjql: "",
           qsf: "",
@@ -398,7 +392,6 @@ export default {
           hskmxs: "",
         },
       },
-
       rules: {
         applicant: [
           {
@@ -648,10 +641,12 @@ export default {
       },
     };
   },
-  methods(){
-
+  methods:{
+    submitForm(){
+      console.log(this.buyPubData);
+    }
   }
-};
+}
 </script>
 
 
