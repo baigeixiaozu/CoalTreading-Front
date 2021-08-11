@@ -53,6 +53,13 @@ export const doDelist = (id)=>{
         }
     })
 }
+// 用户摘牌列表
+export const loadDelistList = (page=1, limit=10)=>{
+    return request.get("/delist/my/list", {
+        page,
+        limit
+    })
+}
 
 //获取用户财务信息
 export const getMargininfo = ()=>{
