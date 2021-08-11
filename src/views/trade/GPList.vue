@@ -10,6 +10,16 @@
         </h2></el-header
       >
       <el-main>
+        <router-link
+          :to="
+            '/trade/' +
+            (this.$store.state.role === 'USER_BUY' ? 'A' : 'B') +
+            '/gp'
+          "
+          ><el-button v-if="mode === 'my'" type="primary">
+            新建挂牌
+          </el-button></router-link
+        >
         <template v-for="item in list" :key="item.id">
           <router-link
             :to="
