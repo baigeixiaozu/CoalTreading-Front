@@ -10,18 +10,27 @@
         </h2></el-header
       >
       <el-main>
-        <template v-for="item in  list" :key="item.id">
-          <el-row><el-col :span="5">{{item.id}}</el-col><el-col :span="10">{{item.created_time}}</el-col></el-row>
+        <template v-for="item in list" :key="item.id">
+          <router-link
+            :to="
+              '/trade/' + (item.type === '1' ? 'B' : 'A') + '/zp?id=' + item.id
+            "
+            ><el-row
+              ><el-col :span="5" class="gp-list-item">{{ item.id }}</el-col
+              ><el-col :span="10" class="gp-list-item">{{
+                item.created_time
+              }}</el-col></el-row
+            ></router-link
+          >
         </template>
         <el-pagination
           background
           layout="total, sizes, prev, pager, next, jumper"
-          :current-page="currentPage"
-          @current-change="handleCurrentChange"
-          :page-sizes="[10,15,20]"
-          @size-change="handleSizeChange"
+          v-model:currentPage="currentPage"
+          :page-sizes="[10, 15, 20]"
+          v-model:pageSize="pageSize"
           :page-count="totalPages"
-          :total="1"
+          :total="list.length"
         ></el-pagination>
       </el-main>
       <el-footer></el-footer>
@@ -38,14 +47,16 @@ export default {
       totalPages: 1,
       pageSize: 10,
       mode: this.$route.params.mode,
-      list: []
+      list: [],
     };
   },
-  watch:{
-    currentPage(oldValue, newValue){
-      console.log(oldValue, newValue)
-    }
-
+  watch: {
+    currentPage(newValue, oldValue) {
+      this.loadList(newValue, this.pageSize);
+    },
+    pageSize(newValue, oldValue) {
+      this.loadList(this.currentPage, newValue);
+    },
   },
   created() {
     this.loadList();
@@ -55,15 +66,7 @@ export default {
     this.loadList();
   },
   methods: {
-    handleSizeChange(size){
-      this.pageSize = size;
-      this.loadList(this.currentPage, size);
-    },
-    handleCurrentChange(current){
-      this.currentPage = current;
-      this.loadList(current, this.pageSize)
-    },
-    loadList(page=1, limit=10) {
+    loadList(page = 1, limit = 10) {
       const loadFunc = {
         public: this.getPublicList,
         my: this.getMyList,
@@ -74,12 +77,14 @@ export default {
       loadPublicReqList(page, limit).then((res) => {
         console.log(res);
         this.list = res.data.rows;
+        this.totalPages = res.data.pages;
       });
     },
     getMyList(page, limit) {
       loadMyReqList(page, limit).then((res) => {
         console.log(res);
         this.list = res.data.rows;
+        this.totalPages = res.data.pages;
       });
     },
   },
@@ -87,4 +92,8 @@ export default {
 </script>
 
 <style>
+.gp-list-item {
+  color: black;
+  margin: 1rem;
+}
 </style>

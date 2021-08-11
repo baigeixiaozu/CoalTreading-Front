@@ -111,7 +111,7 @@
         <el-button @click="resetForm('salelistForm')">重置</el-button>
       </el-form-item>
     </el-form>
-    <div v-if="mode === 'zp'">
+    <div v-if="mode === 'zp' && this.$store.state.role === 'USER_BUY'">
       <el-button type="primary" @click="zpAction">摘牌</el-button>
       <el-button @click="this.$router.back()">返回</el-button>
     </div>
@@ -359,7 +359,7 @@ export default {
     loadZPDetail(id) {
       getPublicReqDetail(id).then((res) => {
         console.log(res);
-        this.form = res.data.detail;
+        this.salelistForm = res.data.detail;
       });
     },
     doDelist(id) {

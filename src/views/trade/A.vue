@@ -328,7 +328,7 @@
         <el-button @click="resetForm('buyPubData')">重置</el-button>
       </el-form-item>
     </el-form>
-    <div v-if="mode === 'zp'">
+    <div v-if="mode === 'zp' && this.$store.state.role === 'USER_SALE'">
       <el-button type="primary" @click="zpAction">摘牌</el-button>
       <el-button @click="this.$router.back()">返回</el-button>
     </div>
@@ -631,9 +631,9 @@ export default {
   },
   created() {
     const mode = this.$route.params.mode;
-    this.buyPubData = JSON.parse(
-      `{"baseData":{"applicant":"nurt","signer":"fy","reqDate":null,"deliveryStartTime":["2021-08-03T16:00:00.000Z","2021-08-18T16:00:00.000Z"],"deliveryEndTime":"","coalType":"无烟煤","buyQuantity":2375,"transportMode":"火车","deliveryLocation":"73","settlementMethod":"二票结算","acceptanceMethod":"到厂第三方验收","paymentMethod":"8738","deposit1":3783,"deposit2":73873,"deliveryTime":["2021-08-11T16:00:00.000Z","2021-08-20T16:00:00.000Z"]},"coalQuality":{"lowHeat":38738,"sdjql":7387,"qsf":7387387,"sdjhf":378373,"sdjhff1":73,"sdjhff2":378,"kgjsf":73,"kgjql":783,"kgjhff1":387,"kgjhff2":383,"highHeat":783,"gjql":83,"gzwhjhff1":837,"gzwhjhff2":8383,"granularity":73,"hrd":152,"remark":"738","hskmxs":83}}`
-    );
+    // this.buyPubData = JSON.parse(
+    //   `{"baseData":{"applicant":"nurt","signer":"fy","reqDate":null,"deliveryStartTime":["2021-08-03T16:00:00.000Z","2021-08-18T16:00:00.000Z"],"deliveryEndTime":"","coalType":"无烟煤","buyQuantity":2375,"transportMode":"火车","deliveryLocation":"73","settlementMethod":"二票结算","acceptanceMethod":"到厂第三方验收","paymentMethod":"8738","deposit1":3783,"deposit2":73873,"deliveryTime":["2021-08-11T16:00:00.000Z","2021-08-20T16:00:00.000Z"]},"coalQuality":{"lowHeat":38738,"sdjql":7387,"qsf":7387387,"sdjhf":378373,"sdjhff1":73,"sdjhff2":378,"kgjsf":73,"kgjql":783,"kgjhff1":387,"kgjhff2":383,"highHeat":783,"gjql":83,"gzwhjhff1":837,"gzwhjhff2":8383,"granularity":73,"hrd":152,"remark":"738","hskmxs":83}}`
+    // );
     if (this.buyPubData.baseData.reqDate === null) {
       this.buyPubData.baseData.reqDate = new Date();
     }
@@ -765,7 +765,7 @@ export default {
     loadZPDetail(id) {
       getPublicReqDetail(id).then((res) => {
         console.log(res);
-        this.form = res.data.detail;
+        this.buyPubData = res.data.detail;
       });
     },
     doDelist(id) {
