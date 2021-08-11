@@ -71,6 +71,12 @@ const routes = [
     meta: { title: "我的摘牌列表" }
   },
   {
+    path: "/trade/margin",
+    name: "margin",
+    component: () => import("../views/trade/margin.vue"),
+    meta: { title: "支付保证金" }
+  },
+  {
     path: "/trade/A/:mode",
     name: "GP1",
     component: () => import("../views/trade/A.vue"),
