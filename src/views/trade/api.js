@@ -11,12 +11,12 @@ export const requestEdit = (data)=>{
 }
 
 // 获取自己的指定挂牌信息[草稿|审核|未审核。。。]
-export const loadMyDetail = (id)=>{
+export const loadMyReqDetail = (id)=>{
     return request.get("/request/my/detail/" + id)
 }
 
 // 获取自己的挂牌列表
-export const loadMyList = (page, limit)=>{
+export const loadMyReqList = (page, limit)=>{
     const data = {};
     if(page)data.page = page;
     if(limit)data.limit = limit;

@@ -122,7 +122,7 @@
 import {
   requestPublish,
   requestEdit,
-  loadMyDetail,
+  loadMyReqDetail,
   getPublicReqDetail,
   doDelist,
 } from "./api";
@@ -336,7 +336,7 @@ export default {
     },
     // 加载挂牌信息
     loadGPDetail(id) {
-      loadMyDetail(id)
+      loadMyReqDetail(id)
         .then((res) => {
           this.salelistForm = res.data.detail;
         })

@@ -339,7 +339,7 @@
 import {
   requestPublish,
   requestEdit,
-  loadMyDetail,
+  loadMyReqDetail,
   getPublicReqDetail,
   doDelist,
 } from "./api";
@@ -742,7 +742,7 @@ export default {
     },
     // 加载
     loadGPDetail(id) {
-      loadMyDetail(id)
+      loadMyReqDetail(id)
         .then((res) => {
           this.buyPubData = res.data.detail;
         })
