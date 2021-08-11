@@ -638,6 +638,7 @@ export default {
       this.buyPubData.baseData.reqDate = new Date();
     }
     const q = this.$route.query;
+    this.id = q.id;
     if (mode === "zp") {
       // 摘牌
       this.loadZPDetail(q.id);
@@ -692,7 +693,8 @@ export default {
           return false;
         }
       });
-    }, // 新增
+    }, 
+    // 新增
     publishData(publish = false) {
       requestPublish({
         publish: publish,
@@ -760,7 +762,7 @@ export default {
 
     // 摘牌
     zpAction() {
-      this.loadZPDetail(this.id);
+      this.doDelist(this.id);
     },
     loadZPDetail(id) {
       getPublicReqDetail(id).then((res) => {

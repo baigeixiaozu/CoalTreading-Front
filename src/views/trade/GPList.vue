@@ -62,6 +62,7 @@ export default {
     this.loadList();
   },
   updated() {
+    this.list = [];
     this.mode = this.$route.params.mode;
     this.loadList();
   },

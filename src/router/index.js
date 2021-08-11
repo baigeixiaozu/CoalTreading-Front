@@ -59,12 +59,6 @@ const routes = [
   // 用户路由END
   // 交易路由START
   {
-    path: "/trade/PublicGPList",
-    name: "PublicGPList",
-    component: () => import("../views/trade/PublicGPList.vue"),
-    meta: { title: "公共挂牌列表" }
-  },
-  {
     path: "/trade/GPList/:mode",
     name: "GPList",
     component: () => import("../views/trade/GPList.vue"),
