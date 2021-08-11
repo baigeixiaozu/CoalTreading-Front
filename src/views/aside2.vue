@@ -16,7 +16,7 @@
       :collapse="isCollapse"
       router
     >
-      <template v-for="menuGroup in menuList" :key="menuGroup.index">
+      <div v-for="menuGroup in menuList" :key="menuGroup.index">
         <el-submenu
           v-if="menuGroup.roles.includes('ALL') || menuGroup.roles.includes(this.$store.state.role)"
           :index="menuGroup.index"
@@ -26,14 +26,14 @@
             <span>{{ menuGroup.name }}</span>
           </template>
           <el-menu-item-group>
-            <template v-for="subMenu in menuGroup.child" :key="subMenu.index">
+            <div v-for="subMenu in menuGroup.child" :key="subMenu.index">
               <el-menu-item v-if="subMenu.roles.includes('ALL') || subMenu.roles.includes(this.$store.state.role)" :index="subMenu.index"
                 ><i :class="subMenu.icon"> </i>{{ subMenu.name }}
               </el-menu-item>
-            </template>
+            </div>
           </el-menu-item-group>
         </el-submenu>
-      </template>
+      </div>
     </el-menu>
   </div>
 </template>
