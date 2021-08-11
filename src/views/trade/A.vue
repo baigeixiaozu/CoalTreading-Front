@@ -16,17 +16,17 @@
     >
       <el-row>
         <el-col :span="8">
-          <el-form-item label="申请单位" prop="baseData.supplyQuantity">
+          <el-form-item label="申请单位" prop="baseData.requestCompany">
             <el-input
-              v-model.number="buyPubData.baseData.supplyQuantity"
+              v-model.number="buyPubData.baseData.requestCompany"
               :disabled="true"
             ></el-input>
           </el-form-item>
         </el-col>
         <el-col :span="8">
-          <el-form-item label="单据编号" prop="baseData.calorificValue">
+          <el-form-item label="单据编号" prop="baseData.requestNum">
             <el-input
-              v-model.number="buyPubData.baseData.calorificValue"
+              v-model.number="buyPubData.baseData.requestNum"
               :disabled="true"
             ></el-input>
           </el-form-item>
@@ -342,6 +342,7 @@ import {
   loadMyReqDetail,
   getPublicReqDetail,
   doDelist,
+  getComName
 } from "./api";
 export default {
   data() {
@@ -352,6 +353,8 @@ export default {
       publish: false,
       buyPubData: {
         baseData: {
+          requestCompany: '',
+          requestNum: '',
           applicant: "",
           signer: "",
           reqDate: null,
@@ -645,6 +648,12 @@ export default {
     } else if (q.id) {
       // 获取挂牌详细信息
       this.loadGPDetail(q.id);
+    }else{
+      // TODO: 获取公司名，计算单据编号
+      getComName().then(res=>{
+        this.buyPubData.baseData.requestCompany = res.data;
+        this.buyPubData.baseData.requestNum = res.data + new Date().getTime();
+      })
     }
   },
   methods: {
