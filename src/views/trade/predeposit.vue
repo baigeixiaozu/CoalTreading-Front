@@ -110,10 +110,13 @@
         }
       }
     },
+    mounted() {
+      this.getdata()
+    },
     methods:{
       submit(FormName){
         //post 提交信息
-        
+
       },
       getdata(){
         //获取信息
