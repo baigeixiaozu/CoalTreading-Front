@@ -298,7 +298,7 @@ export default {
             message: "提交成功",
             type: "success",
           });
-          this.$router.push("/trade/listed/salelisted?id=" + res.data.reqId);
+          this.$router.push(`${this.$router.currentRoute.value}?id=${res.data.reqId}`);
         })
         .catch((err) => {
           console.log(err);
