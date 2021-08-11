@@ -77,6 +77,12 @@ const routes = [
     meta: { title: "支付保证金" }
   },
   {
+    path: "/trade/predeposit",
+    name: "predeposit",
+    component: () => import("../views/trade/predeposit.vue"),
+    meta: { title: "资金预存" }
+  },
+  {
     path: "/trade/A/:mode",
     name: "GP1",
     component: () => import("../views/trade/A.vue"),
