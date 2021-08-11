@@ -67,6 +67,7 @@ export const getMargininfo = ()=>{
     return request.get("/payment/show")
 }
 //用户进行支付保证金操作
+
 export const postMargininfo = (data)=>{
-    return request.post("/payment/number",data)
+    return request.post("/payment/number", data)
 }
