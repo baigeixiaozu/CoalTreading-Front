@@ -13,53 +13,67 @@
     </el-form-item>
     <el-form-item>
       <el-button @click="save">保存</el-button>
-      <el-button type="primary" @click="onSubmit">上传</el-button>
+      <el-button type="primary" @click="onSubmit">发布</el-button>
       <el-button type="primary" @click="clear">清除</el-button>
     </el-form-item>
   </el-form>
 </template>
 
 <script>
-import { submit } from "./api";
+import { submit,loadNewsDetail } from "./api";
 export default {
   data() {
     return {
+      id: null,
       form: {
         title: "",
-        content: ""
+        content: "",
       },
     };
   },
-  
+  created(){
+    const q = this.$route.query;
+    if(q.id){
+      this.id = q.id;
+      this.loadNewsDetail(q.id);
+    }
+  },
   methods: {
-    postarticle(form,way){
-      var article = form;
-       console.log(article);
-     submit(article,way).then(res=>{
-      console.log(res)
-    }).catch(err=>{
-      console.log(err)
-      if(err.error){
-        this.$message({
-          message: err.error,
-          type:"error"
+    postarticle(form, way) {
+      let article = form;
+      console.log(article);
+      submit(article, way)
+        .then((res) => {
+          console.log(res);
         })
-        this.$router.back()
-      }
-    })
+        .catch((err) => {
+          console.log(err);
+          if (err.error) {
+            this.$message({
+              message: err.error,
+              type: "error",
+            });
+            this.$router.back();
+          }
+        });
     },
     onSubmit() {
-       this.postarticle(this.form,"publish/")
-       this.clear()
+      this.postarticle(this.form, "publish/");
+      this.clear();
     },
     clear() {
       this.form.title = "";
       this.form.content = "";
     },
     save() {
-      this.postarticle(this.form,"draft/")
+      this.postarticle(this.form, "draft/");
+    },
+    loadNewsDetail(id){
+      loadNewsDetail(id).then(res=>{
+        console.log(res);
+        this.form = res.data;
+      })
     }
-    
   },
 };
 </script>

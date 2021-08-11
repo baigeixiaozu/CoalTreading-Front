@@ -109,10 +109,10 @@ export default {
           roles: ['ALL'],
           child: [
             {
-              index: "/audit",
-              name: "审核中心",
+              index: "/news/audit",
+              name: "新闻审核",
               icon: "",
-              roles: [],
+              roles: ['ALL'],
             },
           ],
         },
