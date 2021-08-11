@@ -4,7 +4,7 @@
     <el-header><img src="./assets/logo1.png" /></el-header>
     <el-container>
       <el-container>
-        <el-aside width="220px"><aside2></aside2></el-aside>
+        <el-aside width="220px"><Aside></Aside></el-aside>
         <el-main>
           <el-row>
             <el-page-header @back="goBack" content="详情页面"> </el-page-header>
@@ -23,14 +23,14 @@
 </template>
 
 <script>
-import aside2 from "./views/aside2.vue";
+import Aside from "./views/Aside.vue";
 import { ElConfigProvider } from 'element-plus'
 import zhCn from 'element-plus/lib/locale/lang/zh-cn'
 
 export default {
   name: "App",
   components: {
-    aside2,
+    Aside,
     [ElConfigProvider.name]: ElConfigProvider
   },
   data() {
