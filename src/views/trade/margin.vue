@@ -132,22 +132,22 @@
         //this.margin.margin=this.margin.number*100000
       },
       getdata: function() {
+
         getMargininfo().then(repos => {
-            console.log(repos)
-           /* this.form.email = repos.data.email;
-            this.form.nick = repos.data.nick;
-            this.form.login=repos.data.login;
-            this.form.pass =repos.data.pass; */
+           this.margin.com_name=repos.data.comName,
+          this.margin.freeze=repos.data.freeze
           })
           .catch(function(err) {
             console.log(err);
           });
+
+
       }
 
 
 
 
-      
+
 
     }
   }
