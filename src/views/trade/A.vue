@@ -1,5 +1,8 @@
 <template>
-  <!-- 买方挂牌/卖方摘牌 -->
+  <!-- 
+    买方挂牌/卖方摘牌
+    调用 --- /trade/A/[zp|gp]?id=[req_id]
+     -->
   <div class="baseData">
     <el-form
       :label-position="labelPosition"

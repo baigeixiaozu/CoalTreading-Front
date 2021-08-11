@@ -70,33 +70,6 @@ const routes = [
     component: () => import("../views/trade/DelistInfo.vue"),
     meta: { title: "摘牌列表" }
   },
-
-  // {
-  //   path: "/trade/delist/buyerdelist",
-  //   name: "buyerdelist",
-  //   component: () => import("../views/trade/delist/buyerdelist.vue"),
-  //   meta: { title: "摘牌" }
-  // },
-  // {
-  //   path: "/trade/delist/sellerdelist",
-  //   name: "sellerdelist",
-  //   component: () => import("../views/trade/delist/sellerdelist.vue"),
-  //   meta: { title: "摘牌" }
-  // },
-  
-  // {
-  //   path: "/trade/listed/buyerlisted",
-  //   name: "buyerlisted",
-  //   component: () => import("../views/trade/listed/buyerlisted.vue"),
-  //   meta: { title: "挂牌" }
-  // },
-  // {
-  //   path: "/trade/listed/salelisted",
-  //   name: "DelistInfo",
-  //   component: () => import("../views/trade/listed/salelisted.vue"),
-  //   meta: { title: "挂牌" }
-  // },
-  // test fail?
   {
     path: "/trade/A/:mode",
     name: "GP1",

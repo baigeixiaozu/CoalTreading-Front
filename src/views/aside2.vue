@@ -71,6 +71,12 @@ export default {
           roles: ['ALL'],
           child: [
             {
+              index: "/user/info",
+              name: "个人信息",
+              icon: "el-icon-s-open",
+              roles: ['ALL'],
+            },
+            {
               index: "/user/login",
               name: "登录",
               icon: "el-icon-s-open",

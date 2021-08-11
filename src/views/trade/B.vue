@@ -1,6 +1,7 @@
 <template>
   <!--
-  卖方挂牌
+    卖方挂牌/买方摘牌
+    调用 --- /trade/B/[zp|gp]?id=[req_id]
   -->
   <div class="">
     <el-form
