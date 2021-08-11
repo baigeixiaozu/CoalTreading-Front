@@ -55,7 +55,7 @@ export const doDelist = (id)=>{
 }
 
 //获取用户财务信息
-export const getMargininfo = {
+export const getMargininfo = ()=>{
     return request.get("/payment/show",{
       data:data
     })
