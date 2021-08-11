@@ -660,7 +660,7 @@ export default {
     save() {
       // 重置请求时间
       this.buyPubData.baseData.reqDate = new Date();
-      console.log(JSON.stringify(this.buyPubData));
+      // console.log(JSON.stringify(this.buyPubData));
       this.$refs["buyPubData"].validate((valid) => {
         if (valid) {
           //保存草稿
@@ -715,7 +715,7 @@ export default {
             message: "提交成功",
             type: "success",
           });
-          this.$router.push("/trade/listed/buyerlisted?id=" + res.data.reqId);
+          this.$router.push(`${this.$router.currentRoute.value}?id=${res.data.reqId}`);
         })
         .catch((err) => {
           console.log(err);

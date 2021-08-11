@@ -20,10 +20,10 @@
             新建挂牌
           </el-button></router-link
         >
-        <template v-for="item in list" :key="item.id">
+        <div v-for="item in list" :key="item.id">
           <router-link
             :to="
-              '/trade/' + (item.type === '1' ? 'B' : 'A') + '/zp?id=' + item.id
+              `/trade/${item.type === '1' ? 'B' : 'A'}/${mode==='my'?'gp':zp}?id=${item.id}`
             "
             ><el-row
               ><el-col :span="5" class="gp-list-item">{{ item.id }}</el-col
@@ -32,7 +32,7 @@
               }}</el-col></el-row
             ></router-link
           >
-        </template>
+        </div>
         <el-pagination
           background
           layout="total, sizes, prev, pager, next, jumper"
