@@ -66,12 +66,10 @@ export const loadDelistList = (page=1, limit=10)=>{
 }
 
 //获取用户财务信息
-export const getMargininfo = ()=>{
-    return request.get("/payment/show",{
-      data:data
-    })
-}
 
+export const getMargininfo = ()=>{
+    return request.get("/payment/show")
+}
 //用户进行支付保证金操作
 export const postMargininfo = (data)=>{
     return request.post("/payment/number",data)
