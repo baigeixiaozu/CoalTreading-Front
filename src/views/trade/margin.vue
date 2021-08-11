@@ -27,11 +27,11 @@
             ></el-input>
           </el-form-item>
         </el-col>
-        
+
 
       </el-row>
       <span>报价保证金收取标准为<b style="color: #ca1302">10</b>元/吨</span>
-      
+
       <hr /><h2>保证金账户信息</h2>
       <el-row>
         <el-col :span="12">
@@ -121,25 +121,33 @@
         }
       }
     },
+    mounted() {
+
+      this.getdata();
+
+    },
     methods:{
       submit(FormName){
         //post 提交信息
         //this.margin.margin=this.margin.number*100000
       },
-      getdata(){
-        //获取信息
-         getMargininfo(){
-           
-         }.then((res) => {
-          this.margin = res.data.data;
-        })
-        .catch((err) => {
-          console.log(err);
-          
-          }
-        });
-
+      getdata: function() {
+        getMargininfo().then(repos => {
+            console.log(repos)
+           /* this.form.email = repos.data.email;
+            this.form.nick = repos.data.nick;
+            this.form.login=repos.data.login;
+            this.form.pass =repos.data.pass; */
+          })
+          .catch(function(err) {
+            console.log(err);
+          });
       }
+
+
+
+
+      
 
     }
   }
