@@ -20,55 +20,46 @@
 </template>
 
 <script>
-import axios from "axios";
+import { submit } from "./api";
 export default {
   data() {
     return {
       form: {
         title: "",
-        content: "",
-        status: 0,
+        content: ""
       },
     };
   },
-  created: () => {},
+  
   methods: {
+    postarticle(form,way){
+      var article = form;
+       console.log(article);
+     submit(article,way).then(res=>{
+      console.log(res)
+    }).catch(err=>{
+      console.log(err)
+      if(err.error){
+        this.$message({
+          message: err.error,
+          type:"error"
+        })
+        this.$router.back()
+      }
+    })
+    },
     onSubmit() {
-      this.form.status = 1;
-      console.log(JSON.stringify(this.form));
-
-      axios
-        .post(
-          "https://yapi.jysafe.cn/mock/12/news/publish",
-          JSON.stringify(this.form)
-        )
-        .then(
-          function (response) {
-            console.log(response);
-          },
-          function (error) {}
-        );
+       this.postarticle(this.form,"publish/")
+       this.clear()
     },
     clear() {
       this.form.title = "";
       this.form.content = "";
     },
     save() {
-      this.form.status = 2;
-      console.log(JSON.stringify(this.form));
-
-      axios
-        .post(
-          "https://yapi.jysafe.cn/mock/12/news/publish",
-          JSON.stringify(this.form)
-        )
-        .then(
-          function (response) {
-            console.log(response);
-          },
-          function (error) {}
-        );
-    },
+      this.postarticle(this.form,"draft/")
+    }
+    
   },
 };
 </script>
