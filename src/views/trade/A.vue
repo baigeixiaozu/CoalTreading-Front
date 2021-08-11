@@ -755,6 +755,7 @@ export default {
     loadGPDetail(id) {
       loadMyReqDetail(id)
         .then((res) => {
+          res.data.detail.baseData.reqDate = new Date(res.data.detail.baseData.reqDate);
           this.buyPubData = res.data.detail;
         })
         .catch((err) => {
@@ -776,6 +777,7 @@ export default {
     loadZPDetail(id) {
       getPublicReqDetail(id).then((res) => {
         console.log(res);
+        res.data.detail.baseData.reqDate = new Date(res.data.detail.baseData.reqDate);
         this.buyPubData = res.data.detail;
       });
     },

@@ -23,7 +23,7 @@
         <div v-for="item in list" :key="item.id">
           <router-link
             :to="
-              `/trade/${item.type === '1' ? 'B' : 'A'}/${mode==='my'?'gp':zp}?id=${item.id}`
+              `/trade/${item.type === '1' ? 'B' : 'A'}/${mode==='my'?'gp':'zp'}?id=${item.id}`
             "
             ><el-row
               ><el-col :span="5" class="gp-list-item">{{ item.id }}</el-col
