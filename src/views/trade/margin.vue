@@ -127,27 +127,25 @@
     methods:{
       submit(){
         //post 提交信息
-          postMargininfo({
-            number: this.margin.number,
-          })
-            .then((res) => {
-              console.log(res);
-              this.$message({
-                message: "提交成功",
-                type: "success",
-              });
-              //this.$router.push("/trade/listed/buyerlisted?id=" + res.data.reqId);
-            })
-            .catch((err) => {
-              console.log(err);
+          this.postMargininfo(
+              {number: this.margin.number},
+              request.id)
+                .then((res) => {
+                  console.log(res);
+                  this.$message({
+                    message: "提交成功",
+                    type: "success",
+                  });
+                })
+                .catch((err) => {
+                  console.log(err);
+                    this.$message({
+                      message: err.data.error,
+                      type: "error",
+                    });
 
-                this.$message({
-                  message: err.data.error,
-                  type: "error",
                 });
-
-            });
-      },
+                },
       getdata: function() {
         getMargininfo().then(repos => {
            this.margin.com_name=repos.data.comName,
