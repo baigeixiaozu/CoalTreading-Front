@@ -84,7 +84,7 @@
         </el-col>
       </el-row>
         <el-form-item>
-          <el-button type="primary" @click="submitForm('margin')">确认缴纳</el-button>
+          <el-button type="primary" @click="submit()">确认缴纳</el-button>
 
           <el-button @click="resetForm('margin')">返回</el-button>
         </el-form-item>
@@ -122,33 +122,45 @@
       }
     },
     mounted() {
-
       this.getdata();
-
     },
     methods:{
-      submit(FormName){
+      submit(){
         //post 提交信息
-        //this.margin.margin=this.margin.number*100000
+          postMargininfo({
+            number: this.margin.number,
+          })
+            .then((res) => {
+              console.log(res);
+              this.$message({
+                message: "提交成功",
+                type: "success",
+              });
+              //this.$router.push("/trade/listed/buyerlisted?id=" + res.data.reqId);
+            })
+            .catch((err) => {
+              console.log(err);
+
+                this.$message({
+                  message: err.data.error,
+                  type: "error",
+                });
+
+            });
       },
       getdata: function() {
-
         getMargininfo().then(repos => {
            this.margin.com_name=repos.data.comName,
-          this.margin.freeze=repos.data.freeze
+          this.margin.freeze=repos.data.freeze,
+          this.margin.balance=repos.data.balance,
+          this.margin.unfreeze=repos.data.balance-repos.data.freeze,
+          this.margin.performance=0;
+          //docnumber:
           })
           .catch(function(err) {
             console.log(err);
           });
-
-
       }
-
-
-
-
-
-
     }
   }
 </script>
