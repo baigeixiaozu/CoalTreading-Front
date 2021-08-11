@@ -16,3 +16,10 @@ export const loadNewsDetail = (id)=>{
 export const searchtitle = (title)=>{
     return request.get("/news/more/" + title)
 }
+export const submit = (article,way)=>{
+    return request.post("/news/" + way ,{
+         title:article.title,
+         content:article.content  
+    })
+}
+
