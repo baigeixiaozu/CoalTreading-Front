@@ -36,6 +36,10 @@ export const getUserInfo = ()=>{
     return request.get("/user/info")
 }
 
+export const getFullUserInfo = ()=>{
+    return request.get("/user/fullInfo")
+}
+
 export const genNewUser = (data)=>{
     return request.post("/user/new", data)
 }

@@ -16,7 +16,6 @@
             <el-input
               v-model="comInfo.comName"
               placeholder="请输入公司名称"
-              
             ></el-input>
           </el-form-item>
         </el-col>
@@ -34,7 +33,6 @@
             <el-input
               v-model="comInfo.legalName"
               placeholder="请输入法人代表"
-              
             ></el-input>
           </el-form-item>
         </el-col>
@@ -43,7 +41,6 @@
             <el-input
               v-model.number="comInfo.legalId"
               placeholder="请输入法人身份证"
-              
             ></el-input>
           </el-form-item>
         </el-col>
@@ -54,7 +51,6 @@
             <el-input
               v-model="comInfo.comAddr"
               placeholder="请输入注册地区"
-              
             ></el-input>
           </el-form-item>
         </el-col>
@@ -70,17 +66,12 @@
             <el-input
               v-model.number="comInfo.comContact"
               placeholder="请输入联系电话"
-              
             ></el-input>
           </el-form-item>
         </el-col>
         <el-col :span="12">
           <el-form-item label="传真" prop="fax">
-            <el-input
-              v-model="comInfo.fax"
-              placeholder="请输入传真"
-              
-            ></el-input>
+            <el-input v-model="comInfo.fax" placeholder="请输入传真"></el-input>
           </el-form-item>
         </el-col>
       </el-row>
@@ -90,7 +81,6 @@
             <el-input
               v-model.number="comInfo.comZip"
               placeholder="请输入邮政编码"
-              
             ></el-input>
           </el-form-item>
         </el-col>
@@ -99,7 +89,6 @@
             <el-input
               v-model="comInfo.registeredCapital"
               placeholder="请输入注册资金"
-              
             ></el-input>
           </el-form-item>
         </el-col>
@@ -110,7 +99,6 @@
             <el-input
               v-model="comInfo.businessLicenseId"
               placeholder="请输入营业执照号"
-              
             ></el-input>
           </el-form-item>
         </el-col>
@@ -119,7 +107,6 @@
             <el-input
               v-model="comInfo.oibCode"
               placeholder="请输入组织机构代码"
-              
             ></el-input>
           </el-form-item>
         </el-col>
@@ -130,7 +117,6 @@
             <el-input
               v-model="comInfo.manageLicenseId"
               placeholder="请输入经营许可证编号"
-              
             ></el-input>
           </el-form-item>
         </el-col>
@@ -139,7 +125,6 @@
             <el-input
               v-model="comInfo.trCert"
               placeholder="请输入税务登记证编号"
-              
             ></el-input>
           </el-form-item>
         </el-col>
@@ -150,7 +135,6 @@
             <el-input
               v-model="comInfo.coalStoreSite"
               placeholder="请输入煤炭存放地点"
-              
             ></el-input>
           </el-form-item>
         </el-col>
@@ -159,7 +143,6 @@
             <el-input
               v-model.number="comInfo.number"
               placeholder="请输入煤炭数量"
-              
             ></el-input>
           </el-form-item>
         </el-col>
@@ -170,7 +153,6 @@
             <el-input
               v-model="comInfo.coalQuality"
               placeholder="请输入内容"
-              
             ></el-input>
           </el-form-item>
         </el-col>
@@ -179,7 +161,6 @@
             <el-input
               v-model="comInfo.coalTransport"
               placeholder="请输入内容"
-              
             ></el-input>
           </el-form-item>
         </el-col>
@@ -340,28 +321,24 @@
         <el-input
           v-model="financeInfo.email"
           placeholder="请输入......"
-          
         ></el-input>
       </el-form-item>
       <el-form-item label="汇款单位名称" prop="comName">
         <el-input
           v-model="financeInfo.comName"
           placeholder="请输入......"
-          
         ></el-input>
       </el-form-item>
       <el-form-item label="开户银行" prop="bankName">
         <el-input
           v-model="financeInfo.bankName"
           placeholder="请输入......"
-          
         ></el-input>
       </el-form-item>
       <el-form-item label="银行账号" prop="bankAcc">
         <el-input
           v-model.number="financeInfo.bankAcc"
           placeholder="请输入......"
-          
         ></el-input>
       </el-form-item>
       <!-- <el-form-item label="账户余额" prop="blance">
@@ -399,7 +376,7 @@
 </template>
 
 <script>
-import { getUserInfo, userComplete } from "./api";
+import { getUserInfo, userComplete, getFullUserInfo } from "./api";
 import { validateEMail } from "./../../utils/validator.js";
 export default {
   data() {
@@ -557,7 +534,7 @@ export default {
         ],
       },
       financeInfo: {
-        email: '',
+        email: "",
         comName: "",
         bankName: "",
         bankAcc: "",
@@ -602,10 +579,8 @@ export default {
       },
     };
   },
-  mounted() {
-    
-  },
-  created(){
+  mounted() {},
+  created() {
     this.getData();
     // const data = JSON.parse(`{"comName":"公司名","legalName":"法人代表","nick":"","legalId":6546416741,"comAddr":"公司地址","comContact":13615996870,"comZip":351168,"businessLicenseId":"73873879","manageLicenseId":"736987639786","fax":"8796896+86","registeredCapital":"8968","oibCode":"34637863","trCert":"7387863","coalStoreSite":"煤炭存放地点","coalQuantity":"","coalQuality":"高高高","coalTransport":"水水水","comIntro":"简介简介简介简介","email":"jiyecafe@gmail.com","legalIdFile":"","businessLicenseFile":"","manageLicenseFile":"","oibCodeFile":"","trCertFile":"","userType":"供应商","number":999,"financeInfo":{"email":"dfgdg@fsdf.cdfb","comName":"汇款单位名称","bankName":"开户银行","bankAcc":6354169419674,"blance":"","freeze":"","aoPermitFile":""}}`);
     // this.comInfo = data;
@@ -654,7 +629,7 @@ export default {
           this.$refs["financeInfo"].validate((valid) => {
             if (valid) {
               console.log("数据通过验证2");
-              this.postData()
+              this.postData();
             } else {
               this.$message({
                 message: "数据填写不完整",
@@ -679,23 +654,22 @@ export default {
     postData: function () {
       const data = JSON.parse(JSON.stringify(this.comInfo));
       data.financeInfo = this.financeInfo;
-      console.log(JSON.stringify(data))
+      console.log(JSON.stringify(data));
       userComplete(data)
         .then((res) => {
           console.log(res);
           this.$message({
-            message:"提交成功",
-            type: "success"
-          })
+            message: "提交成功",
+            type: "success",
+          });
         })
         .catch((err) => {
           console.log(err);
-          if(err.error)
-          {
+          if (err.error) {
             this.$message({
               message: err.error,
-              type: "error"
-            })
+              type: "error",
+            });
           }
         });
     },
@@ -710,6 +684,11 @@ export default {
         .catch(function (err) {
           console.log(err);
         });
+      getFullUserInfo().then((res) => {
+        console.log(res);
+        if (res.data.comInfo) this.comInfo = res.data.comInfo;
+        if (res.data.financeInfo) this.financeInfo = res.data.financeInfo;
+      });
     },
   },
 };
