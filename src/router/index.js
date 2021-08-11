@@ -70,44 +70,33 @@ const routes = [
     component: () => import("../views/trade/DelistInfo.vue"),
     meta: { title: "摘牌列表" }
   },
-
-  {
-    path: "/trade/delist/buyerdelist",
-    name: "buyerdelist",
-    component: () => import("../views/trade/delist/buyerdelist.vue"),
-    meta: { title: "摘牌" }
-  },
-  {
-    path: "/trade/delist/sellerdelist",
-    name: "sellerdelist",
-    component: () => import("../views/trade/delist/sellerdelist.vue"),
-    meta: { title: "摘牌" }
-  },
-  
-  {
-    path: "/trade/listed/buyerlisted",
-    name: "buyerlisted",
-    component: () => import("../views/trade/listed/buyerlisted.vue"),
-    meta: { title: "挂牌" }
-  },
-  {
-    path: "/trade/listed/salelisted",
-    name: "DelistInfo",
-    component: () => import("../views/trade/listed/salelisted.vue"),
-    meta: { title: "挂牌" }
-  },
-  // test fail?
   {
     path: "/trade/A/:mode",
     name: "GP1",
-    component: () => import("../views/trade/test/A.vue"),
-    meta: { title: "挂牌/摘牌" }
+    component: () => import("../views/trade/A.vue"),
+    // meta: { title: "挂牌/摘牌" },
+    beforeEnter:(to, from, next)=>{
+      if(to.params.mode === 'zp'){
+        to.meta.title = '卖方摘牌'
+      }else{
+        to.meta.title = '买方挂牌'
+      }
+      next()
+    }
   },
   {
     path: "/trade/B/:mode",
     name: "GP2",
-    component: () => import("../views/trade/test/B.vue"),
-    meta: { title: "挂牌/摘牌" }
+    component: () => import("../views/trade/B.vue"),
+    // meta: { title: "挂牌/摘牌" }
+    beforeEnter:(to, from, next)=>{
+      if(to.params.mode === 'zp'){
+        to.meta.title = '买方摘牌'
+      }else{
+        to.meta.title = '卖方挂牌'
+      }
+      next()
+    }
   },
   // 交易路由END
 ];
@@ -116,5 +105,9 @@ const router = createRouter({
   history: createWebHashHistory(),
   routes
 });
-
+// 全局解析守卫
+// router.beforeResolve((to, from, next) => {
+//   window.document.title = to.meta.title
+//   next()
+// })
 export default router;

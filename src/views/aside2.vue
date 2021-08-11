@@ -71,6 +71,12 @@ export default {
           roles: ['ALL'],
           child: [
             {
+              index: "/user/info",
+              name: "个人信息",
+              icon: "el-icon-s-open",
+              roles: ['ALL'],
+            },
+            {
               index: "/user/login",
               name: "登录",
               icon: "el-icon-s-open",
@@ -135,26 +141,26 @@ export default {
               roles: ["USER_SALE", "USER_BUY"],
             },
             {
-              index: "/trade/listed/buyerlisted",
-              name: "挂牌",
+              index: "/trade/A/gp",
+              name: "买方挂牌",
               icon: "el-icon-s-open",
               roles: ["USER_BUY"],
             },
             {
-              index: "/trade/listed/salelisted",
-              name: "挂牌",
+              index: "/trade/B/gp",
+              name: "卖方挂牌",
               icon: "el-icon-s-open",
               roles: ["USER_SALE"],
             },
             {
-              index: "/trade/delist/buyerdelist",
-              name: "摘牌",
+              index: "/trade/B/zp",
+              name: "买方摘牌",
               icon: "el-icon-s-order",
               roles: ["USER_BUY"],
             },
             {
-              index: "/trade/delist/sellerdelist",
-              name: "摘牌",
+              index: "/trade/A/zp",
+              name: "卖方摘牌",
               icon: "el-icon-s-order",
               roles: ["USER_SALE"],
             },

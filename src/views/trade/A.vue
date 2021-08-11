@@ -1,5 +1,8 @@
 <template>
-  <!-- 买方挂牌 -->
+  <!-- 
+    买方挂牌/卖方摘牌
+    调用 --- /trade/A/[zp|gp]?id=[req_id]
+     -->
   <div class="baseData">
     <el-form
       :label-position="labelPosition"
@@ -42,7 +45,11 @@
         </el-col>
         <el-col :span="8">
           <el-form-item prop="baseData.reqDate" label="申请日期">
-            <el-date-picker v-model="buyPubData.baseData.reqDate" :default-value="new Date()" :readonly="true" ></el-date-picker>
+            <el-date-picker
+              v-model="buyPubData.baseData.reqDate"
+              :default-value="new Date()"
+              :readonly="true"
+            ></el-date-picker>
           </el-form-item>
         </el-col>
       </el-row>
@@ -313,7 +320,7 @@
           :rows="2"
         ></el-input>
       </el-form-item>
-      <el-form-item>
+      <el-form-item v-if="mode !== 'zp'">
         <el-button type="primary" @click="submitForm('buyPubData')"
           >提交</el-button
         >
@@ -321,17 +328,27 @@
         <el-button @click="resetForm('buyPubData')">重置</el-button>
       </el-form-item>
     </el-form>
+    <div v-if="mode === 'zp'">
+      <el-button type="primary" @click="zpAction">摘牌</el-button>
+      <el-button @click="this.$router.back()">返回</el-button>
+    </div>
   </div>
 </template>
 
 <script>
-import { requestPublish, requestEdit, loadMyDetail } from "../api";
+import {
+  requestPublish,
+  requestEdit,
+  loadMyDetail,
+  getPublicReqDetail,
+  doDelist,
+} from "./api";
 export default {
   data() {
     return {
       labelPosition: "right",
       mode: this.$route.params.mode,
-      isNew: true,
+      id: null,
       publish: false,
       buyPubData: {
         baseData: {
@@ -503,8 +520,8 @@ export default {
             max: 100,
             min: 0,
             message: "超出范围",
-            trigger: "change"
-          }
+            trigger: "change",
+          },
         ],
         "coalQuality.sdjhff2": [
           {
@@ -613,17 +630,20 @@ export default {
     };
   },
   created() {
+    const mode = this.$route.params.mode;
     this.buyPubData = JSON.parse(
       `{"baseData":{"applicant":"nurt","signer":"fy","reqDate":null,"deliveryStartTime":["2021-08-03T16:00:00.000Z","2021-08-18T16:00:00.000Z"],"deliveryEndTime":"","coalType":"无烟煤","buyQuantity":2375,"transportMode":"火车","deliveryLocation":"73","settlementMethod":"二票结算","acceptanceMethod":"到厂第三方验收","paymentMethod":"8738","deposit1":3783,"deposit2":73873,"deliveryTime":["2021-08-11T16:00:00.000Z","2021-08-20T16:00:00.000Z"]},"coalQuality":{"lowHeat":38738,"sdjql":7387,"qsf":7387387,"sdjhf":378373,"sdjhff1":73,"sdjhff2":378,"kgjsf":73,"kgjql":783,"kgjhff1":387,"kgjhff2":383,"highHeat":783,"gjql":83,"gzwhjhff1":837,"gzwhjhff2":8383,"granularity":73,"hrd":152,"remark":"738","hskmxs":83}}`
     );
-    if(this.buyPubData.baseData.reqDate===null){
+    if (this.buyPubData.baseData.reqDate === null) {
       this.buyPubData.baseData.reqDate = new Date();
     }
     const q = this.$route.query;
-    if (q.id) {
-      // 获取详细信息
-      this.isNew = false;
-      this.loadDetail(q.id);
+    if (mode === "zp") {
+      // 摘牌
+      this.loadZPDetail(q.id);
+    } else if (q.id) {
+      // 获取挂牌详细信息
+      this.loadGPDetail(q.id);
     }
   },
   methods: {
@@ -684,9 +704,7 @@ export default {
             message: "提交成功",
             type: "success",
           });
-          if (this.isNew) {
-            this.$router.push("/trade/listed/buyerlisted?id=" + res.data.reqId);
-          }
+          this.$router.push("/trade/listed/buyerlisted?id=" + res.data.reqId);
         })
         .catch((err) => {
           console.log(err);
@@ -710,9 +728,7 @@ export default {
             message: "提交成功",
             type: "success",
           });
-          if (this.isNew) {
-            this.$router.push("/trade/listed/buyerlisted?id=" + res.data.reqId);
-          }
+          this.$router.push("/trade/listed/buyerlisted?id=" + res.data.reqId);
         })
         .catch((err) => {
           console.log(err);
@@ -725,7 +741,7 @@ export default {
         });
     },
     // 加载
-    loadDetail(id) {
+    loadGPDetail(id) {
       loadMyDetail(id)
         .then((res) => {
           this.buyPubData = res.data.detail;
@@ -741,12 +757,29 @@ export default {
           }
         });
     },
+
+    // 摘牌
+    zpAction() {
+      this.loadZPDetail(this.id);
+    },
+    loadZPDetail(id) {
+      getPublicReqDetail(id).then((res) => {
+        console.log(res);
+        this.form = res.data.detail;
+      });
+    },
+    doDelist(id) {
+      doDelist(id).then((res) => {
+        console.log(res);
+        this.$message({
+          message: "摘牌成功",
+          type: "success",
+        });
+      });
+    },
   },
 };
 </script>
-
-
-
 
 <style>
 </style>

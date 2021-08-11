@@ -1,6 +1,7 @@
 <template>
   <!--
-  卖方挂牌
+    卖方挂牌/买方摘牌
+    调用 --- /trade/B/[zp|gp]?id=[req_id]
   -->
   <div class="">
     <el-form
@@ -11,6 +12,7 @@
       ref="salelistForm"
       label-width="150px"
       class="demo-salelistForm"
+      :disabled="mode === 'zp'"
     >
       <el-row>
         <el-col :span="12">
@@ -101,7 +103,7 @@
           </el-form-item>
         </el-col>
       </el-row>
-      <el-form-item>
+      <el-form-item v-if="mode !== 'zp'">
         <el-button type="primary" @click="submitForm('salelistForm')"
           >提交</el-button
         >
@@ -109,16 +111,27 @@
         <el-button @click="resetForm('salelistForm')">重置</el-button>
       </el-form-item>
     </el-form>
+    <div v-if="mode === 'zp'">
+      <el-button type="primary" @click="zpAction">摘牌</el-button>
+      <el-button @click="this.$router.back()">返回</el-button>
+    </div>
   </div>
 </template>
 
 <script>
-import { requestPublish, requestEdit, loadMyDetail } from "../api";
+import {
+  requestPublish,
+  requestEdit,
+  loadMyDetail,
+  getPublicReqDetail,
+  doDelist,
+} from "./api";
 export default {
   data() {
     return {
       labelPosition: "right",
-      isNew: true,
+      mode: this.$route.params.mode,
+      id: null,
       publish: false,
       salelistForm: {
         supplyQuantity: "", //供应量 number
@@ -219,15 +232,18 @@ export default {
   },
   created() {
     const q = this.$route.query;
-    if (q.id) {
-      // 获取详细信息
-      this.isNew = false;
-      this.loadDetail(q.id);
+    const mode = this.$route.params.mode;
+    if (mode === "zp") {
+      // 摘牌
+      this.loadZPDetail(q.id);
+    } else if (q.id) {
+      // 获取挂牌详细信息
+      this.loadGPDetail(q.id);
     }
   },
   methods: {
-    Save(formName) {
-      this.$refs[formName].validate((valid) => {
+    Save() {
+      this.$refs["salelistForm"].validate((valid) => {
         if (valid) {
           //保存草稿
           const q = this.$route.query;
@@ -246,9 +262,9 @@ export default {
         }
       });
     },
-    submitForm(formName) {
+    submitForm() {
       const q = this.$route.query;
-      this.$refs[formName].validate((valid) => {
+      this.$refs["salelistForm"].validate((valid) => {
         if (valid) {
           //提交
           if (q.id) {
@@ -267,11 +283,10 @@ export default {
         }
       });
     },
-
-    resetForm(formName) {
-      this.$refs[formName].resetFields();
+    resetForm() {
+      this.$refs["salelistForm"].resetFields();
     },
-    // 新增
+    // 新增挂牌
     publishData(publish = false) {
       requestPublish({
         publish: publish,
@@ -283,9 +298,7 @@ export default {
             message: "提交成功",
             type: "success",
           });
-          if (this.isNew) {
-            this.$router.push("/trade/listed/salelisted?id=" + res.data.reqId);
-          }
+          this.$router.push("/trade/listed/salelisted?id=" + res.data.reqId);
         })
         .catch((err) => {
           console.log(err);
@@ -297,7 +310,7 @@ export default {
           }
         });
     },
-    //编辑
+    // 编辑挂牌
     editData(id, publish = false) {
       requestEdit({
         id: id,
@@ -309,9 +322,7 @@ export default {
             message: "提交成功",
             type: "success",
           });
-          if (this.isNew) {
-            this.$router.push("/trade/listed/salelisted?id=" + res.data.reqId);
-          }
+          this.$router.push("/trade/listed/salelisted?id=" + res.data.reqId);
         })
         .catch((err) => {
           console.log(err);
@@ -323,8 +334,8 @@ export default {
           }
         });
     },
-    // 加载
-    loadDetail(id) {
+    // 加载挂牌信息
+    loadGPDetail(id) {
       loadMyDetail(id)
         .then((res) => {
           this.salelistForm = res.data.detail;
@@ -339,6 +350,26 @@ export default {
             this.$router.back();
           }
         });
+    },
+
+    // 摘牌
+    zpAction(){
+      this.doDelist(this.id);
+    },
+    loadZPDetail(id) {
+      getPublicReqDetail(id).then((res) => {
+        console.log(res);
+        this.form = res.data.detail;
+      });
+    },
+    doDelist(id) {
+      doDelist(id).then((res) => {
+        console.log(res);
+        this.$message({
+          message: "摘牌成功",
+          type: "success",
+        });
+      });
     },
   },
 };
