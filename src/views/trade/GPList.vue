@@ -26,7 +26,7 @@
               `/trade/${item.type === '1' ? 'B' : 'A'}/${mode==='my'?'gp':'zp'}?id=${item.id}`
             "
             ><el-row
-              ><el-col :span="5" class="gp-list-item">{{ item.id }}</el-col
+              ><el-col :span="5" class="gp-list-item">{{ item.request_num }}</el-col
               ><el-col :span="10" class="gp-list-item">{{
                 item.created_time
               }}</el-col></el-row

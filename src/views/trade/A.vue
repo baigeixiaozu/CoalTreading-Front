@@ -715,7 +715,7 @@ export default {
             message: "提交成功",
             type: "success",
           });
-          this.$router.push(`${this.$router.currentRoute.value}?id=${res.data.reqId}`);
+          this.$router.push(`${this.$router.currentRoute.value.fullPath}?id=${res.data.reqId}`);
         })
         .catch((err) => {
           console.log(err);
@@ -739,7 +739,7 @@ export default {
             message: "提交成功",
             type: "success",
           });
-          this.$router.push("/trade/listed/buyerlisted?id=" + res.data.reqId);
+          this.$router.push(`${this.$router.currentRoute.value.fullPath}?id=${res.data.reqId}`);
         })
         .catch((err) => {
           console.log(err);
