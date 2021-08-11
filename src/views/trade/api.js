@@ -1,5 +1,9 @@
 import request from '../../utils/axios';
 
+// 获取公司名
+export const getComName = ()=>{
+    return request.get("/request/getComName")
+}
 // 提交新的挂牌信息[草稿|发布]
 export const requestPublish = (data)=>{
     return request.post("/request/publish", data)
