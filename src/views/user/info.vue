@@ -91,7 +91,6 @@
         });
       },
       getData: function() {
-        console.log(localStorage.token);
         getUserInfo().then(repos => {
             console.log(repos)
             this.form.email = repos.data.email;

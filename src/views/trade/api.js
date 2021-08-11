@@ -26,7 +26,7 @@ export const loadMyList = (page, limit)=>{
 }
 
 // 获取所有的挂牌列表
-export const getPublicReqList = (page, limit, userId = null)=>{
+export const loadPublicReqList = (page, limit, userId = null)=>{
     const data = {};
     if(page)data.page = page;
     if(limit)data.limit = limit;

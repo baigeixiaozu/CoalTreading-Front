@@ -59,16 +59,22 @@ const routes = [
   // 用户路由END
   // 交易路由START
   {
-    path: "/trade/ListedInfo",
-    name: "ListedInfo",
-    component: () => import("../views/trade/ListedInfo.vue"),
+    path: "/trade/PublicGPList",
+    name: "PublicGPList",
+    component: () => import("../views/trade/PublicGPList.vue"),
+    meta: { title: "公共挂牌列表" }
+  },
+  {
+    path: "/trade/GPList/:mode",
+    name: "GPList",
+    component: () => import("../views/trade/GPList.vue"),
     meta: { title: "挂牌列表" }
   },
   {
-    path: "/trade/DelistInfo",
-    name: "DelistInfo",
-    component: () => import("../views/trade/DelistInfo.vue"),
-    meta: { title: "摘牌列表" }
+    path: "/trade/MyZPList",
+    name: "MyZPList",
+    component: () => import("../views/trade/MyZPList.vue"),
+    meta: { title: "我的摘牌列表" }
   },
   {
     path: "/trade/A/:mode",

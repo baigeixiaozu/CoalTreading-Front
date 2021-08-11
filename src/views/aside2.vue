@@ -95,12 +95,6 @@ export default {
               roles: ['USER_SALE', 'USER_BUY'],
             },
             {
-              index: "/user/userinfo",
-              name: "用户信息修改",
-              icon: "el-icon-s-open",
-              roles: ['USER_SALE', 'USER_BUY', 'USER_MONEY'],
-            },
-            {
               index: "/user/new",
               name: "新增用户",
               icon: "el-icon-s-open",
@@ -129,14 +123,20 @@ export default {
           roles: ["USER_SALE", "USER_BUY"],
           child: [
             {
-              index: "/trade/ListedInfo",
-              name: "挂牌列表",
+              index: "/trade/GPList/public",
+              name: "公共挂牌列表",
+              icon: "el-icon-s-open",
+              roles: ["ALL"],
+            },
+            {
+              index: "/trade/GPList/my",
+              name: "我的挂牌列表",
               icon: "el-icon-s-open",
               roles: ["USER_SALE", "USER_BUY"],
             },
             {
-              index: "/trade/DelistInfo",
-              name: "摘牌列表",
+              index: "/trade/MyZPList",
+              name: "我的摘牌列表",
               icon: "el-icon-s-open",
               roles: ["USER_SALE", "USER_BUY"],
             },
