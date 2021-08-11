@@ -92,6 +92,10 @@
 </template>
 
 <script>
+  import {
+    postMargininfo,
+    getMargininfo
+  }from './api';
   export default{
     data(){
       return{
@@ -124,7 +128,16 @@
       },
       getdata(){
         //获取信息
-
+         getMargininfo(){
+           
+         }.then((res) => {
+          this.margin = res.data.data;
+        })
+        .catch((err) => {
+          console.log(err);
+          
+          }
+        });
 
       }
 
