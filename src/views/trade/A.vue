@@ -323,12 +323,16 @@
     </el-form>
     <div v-if="mode !== 'zp'">
       <!-- 挂牌区域 -->
-      <div v-if="zpInfo.status === '0'">
+      <div v-if="gpInfo.status === '0'">
         <el-button type="primary" @click="submitForm('buyPubData')"
           >提交</el-button
         >
         <el-button @click="save">保存</el-button>
         <el-button @click="resetForm('buyPubData')">重置</el-button>
+      </div>
+      <div v-else-if="gpInfo.status === '3'">
+        <!-- 已发布 -->
+        <div>已发布</div>
       </div>
       <div v-else-if="gpInfo.status === '15'">
         <!-- 待交保证金 -->
@@ -843,7 +847,7 @@ export default {
           );
           this.buyPubData = res.data.reqInfo.detail;
           const delistinfo = res.data.delistInfo;
-          this.zpInfo.status = delistinfo.status;
+          this.zpInfo.status = res.data.delistinfo.status;
         })
       }
     },
