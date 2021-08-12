@@ -322,15 +322,34 @@
       </el-form-item>
     </el-form>
     <div v-if="mode !== 'zp'">
-      <el-button type="primary" @click="submitForm('buyPubData')"
-        >提交</el-button
-      >
-      <el-button @click="save">保存</el-button>
-      <el-button @click="resetForm('buyPubData')">重置</el-button>
+      <!-- 挂牌区域 -->
+      <div v-if="zpInfo.status === 0">
+        <el-button type="primary" @click="submitForm('buyPubData')"
+          >提交</el-button
+        >
+        <el-button @click="save">保存</el-button>
+        <el-button @click="resetForm('buyPubData')">重置</el-button>
+      </div>
+      <div v-else-if="zpInfo.status === 15">
+        <!-- 待交保证金 -->
+        <div>待交保证金</div>
+      </div>
     </div>
     <div v-else-if="mode === 'zp' && this.$store.state.role === 'USER_SALE'">
-      <el-button type="primary" @click="zpAction">摘牌</el-button>
-      <el-button @click="this.$router.back()">返回</el-button>
+      <!-- 摘牌区域 -->
+      <div v-if="zpInfo.status === 0">
+        <!-- 未摘牌,默认 -->
+        <el-button type="primary" @click="zpAction">摘牌</el-button>
+        <el-button @click="this.$router.back()">返回</el-button>
+      </div>
+      <div v-else-if="zpInfo.status === 1">
+        <!-- 待交保证金 -->
+        <div>待交保证金</div>
+      </div>
+      <div v-else-if="zpInfo.status === 2">
+        <!-- 摘牌成功 -->
+        <div>摘牌成功</div>
+      </div>
     </div>
   </div>
 </template>
@@ -350,8 +369,6 @@ export default {
     return {
       labelPosition: "right",
       mode: this.$route.params.mode,
-      id: null,
-      zid: null,
       publish: false,
       buyPubData: {
         baseData: {
@@ -632,6 +649,14 @@ export default {
           },
         ],
       },
+      gpInfo: {
+        id: null,
+        status: 0,
+      },
+      zpInfo: {
+        id: null,
+        status: 0,
+      },
     };
   },
   created() {
@@ -643,28 +668,35 @@ export default {
     }
     this.init();
   },
-  updated() {
-  },
+  updated() {},
   methods: {
     init() {
       const mode = this.$route.params.mode;
       const q = this.$route.query;
-      this.id = q.id;
-      this.zid = q.zid;
-      if (mode === "zp" && q.id && !q.zid) {
-        // 第一次摘牌操作
-        this.loadZPDetail1(q.id);
-      } else if (mode === "zp" && !q.id && q.zid) {
-        // 摘牌后续
-        this.loadZPDetail2(q.zid);
-      } else if (q.id) {
-        // 获取挂牌详细信息
-        this.loadGPDetail2(q.id);
+      this.gpInfo.id = q.id;
+      this.zpInfo.id = q.zid;
+      if (mode === "zp") {
+        // 摘牌
+        if (q.id) {
+          // 第一次摘牌操作
+          this.loadZPDetail1(q.id);
+        } else if (q.zid) {
+          // 摘牌后续
+          this.loadZPDetail2(q.zid);
+        }
       } else {
-        getComName().then((res) => {
-          this.buyPubData.baseData.requestCompany = res.data;
-          this.buyPubData.baseData.requestNum = res.data + new Date().getTime();
-        });
+        // 挂牌
+        if (q.id) {
+          // 编辑挂牌信息
+          this.loadGPDetail(q.id);
+        } else {
+          // 新建挂牌信息
+          getComName().then((res) => {
+            this.buyPubData.baseData.requestCompany = res.data;
+            this.buyPubData.baseData.requestNum =
+              res.data + new Date().getTime();
+          });
+        }
       }
     },
     save() {
@@ -784,7 +816,7 @@ export default {
 
     // 摘牌
     zpAction() {
-      this.doDelist(this.id);
+      this.doDelist(this.gpInfo.id);
     },
     loadZPDetail1(id) {
       getPublicReqDetail(id).then((res) => {
@@ -802,7 +834,8 @@ export default {
           res.data.reqInfo.detail.baseData.reqDate
         );
         this.buyPubData = res.data.reqInfo.detail;
-        const delistinfo= res.data.delistInfo;
+        const delistinfo = res.data.delistInfo;
+        this.zpInfo.status = delistinfo.status;
       });
     },
     doDelist(id) {
