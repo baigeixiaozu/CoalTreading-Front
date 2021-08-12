@@ -323,30 +323,30 @@
     </el-form>
     <div v-if="mode !== 'zp'">
       <!-- 挂牌区域 -->
-      <div v-if="zpInfo.status === 0">
+      <div v-if="zpInfo.status === '0'">
         <el-button type="primary" @click="submitForm('buyPubData')"
           >提交</el-button
         >
         <el-button @click="save">保存</el-button>
         <el-button @click="resetForm('buyPubData')">重置</el-button>
       </div>
-      <div v-else-if="zpInfo.status === 15">
+      <div v-else-if="gpInfo.status === '15'">
         <!-- 待交保证金 -->
         <div>待交保证金</div>
       </div>
     </div>
     <div v-else-if="mode === 'zp' && this.$store.state.role === 'USER_SALE'">
       <!-- 摘牌区域 -->
-      <div v-if="zpInfo.status === 0">
+      <div v-if="zpInfo.status === '0'">
         <!-- 未摘牌,默认 -->
         <el-button type="primary" @click="zpAction">摘牌</el-button>
         <el-button @click="this.$router.back()">返回</el-button>
       </div>
-      <div v-else-if="zpInfo.status === 1">
+      <div v-else-if="zpInfo.status === '1'">
         <!-- 待交保证金 -->
         <div>待交保证金</div>
       </div>
-      <div v-else-if="zpInfo.status === 2">
+      <div v-else-if="zpInfo.status === '2'">
         <!-- 摘牌成功 -->
         <div>摘牌成功</div>
       </div>

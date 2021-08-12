@@ -106,21 +106,33 @@
     </el-form>
     <div v-if="mode === 'gp'">
       <!-- 挂牌区域 -->
-      <div v-if="zpInfo.status === 0">
+      <div v-if="zpInfo.status === '0'">
         <el-button type="primary" @click="submitForm('salelistForm')"
           >提交</el-button
         >
         <el-button @click="Save('salelistForm')">保存草稿</el-button>
         <el-button @click="resetForm('salelistForm')">重置</el-button>
       </div>
-      <div v-else-if="zpInfo.status === 15">
+      <div v-else-if="gpInfo.status === '15'">
         <!-- 待交保证金 -->
         <div>待交保证金</div>
       </div>
     </div>
     <div v-else-if="mode === 'zp' && this.$store.state.role === 'USER_BUY'">
-      <el-button type="primary" @click="zpAction">摘牌</el-button>
-      <el-button @click="this.$router.back()">返回</el-button>
+       <!-- 摘牌区域 -->
+      <div v-if="zpInfo.status === '0'">
+        <!-- 未摘牌,默认 -->
+        <el-button type="primary" @click="zpAction">摘牌</el-button>
+        <el-button @click="this.$router.back()">返回</el-button>
+      </div>
+      <div v-else-if="zpInfo.status === '1'">
+        <!-- 待交保证金 -->
+        <div>待交保证金</div>
+      </div>
+      <div v-else-if="zpInfo.status === '2'">
+        <!-- 摘牌成功 -->
+        <div>摘牌成功</div>
+      </div>
     </div>
   </div>
 </template>
@@ -351,7 +363,7 @@ export default {
             message: "提交成功",
             type: "success",
           });
-          this.$router.push(`${this.$route.path}?id=${res.data.reqId}`);
+          
         })
         .catch((err) => {
           console.log(err);
@@ -368,6 +380,7 @@ export default {
       loadMyReqDetail(id)
         .then((res) => {
           this.salelistForm = res.data.detail;
+          this.gpInfo.status = res.data.status
         })
         .catch((err) => {
           console.log(err);
