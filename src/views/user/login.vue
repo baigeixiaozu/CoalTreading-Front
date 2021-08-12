@@ -60,12 +60,6 @@ export default {
     };
   },
   methods: {
-    login() {
-      this.$message({
-        message: "登录成功",
-        type: "success",
-      });
-    },
     submitForm(formName) {
       this.$refs[formName].validate((valid) => {
         if (!valid) {
@@ -97,6 +91,7 @@ export default {
           if (resp.code == 200) {
             this.$store.commit("set_token", resp.data.access_token);
             this.$store.commit("set_role", resp.data.role[0]);
+            this.$store.commit("set_isLogin", true);
             
             // console.log("login test", localStorage.token);
             this.$message({
@@ -109,9 +104,7 @@ export default {
                 path: "/user/complete"
               });
             }else if(this.$route.query.redirect){
-              this.$router.push({
-                path: this.$route.query.redirect
-              });
+              this.$router.push(this.$route.query.redirect);
             }else{
               console.log("跳转至个人信息页")
               this.$router.push({

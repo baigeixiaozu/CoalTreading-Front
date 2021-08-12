@@ -144,7 +144,8 @@ import {
   loadMyReqDetail,
   getPublicReqDetail,
   doDelist,
-  getZPDetail
+  getZPDetail,
+  getZPDetail2
 } from "./api";
 export default {
   data() {

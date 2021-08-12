@@ -16,6 +16,7 @@ export default createStore({
     return {
       token: localStorage.getItem("token") || "",
       role: localStorage.getItem("role") || "",
+      isLogin: localStorage.getItem("isLogin")==='true'?true:false,
     }
   },
   // getters,

@@ -363,6 +363,7 @@ import {
   doDelist,
   getComName,
   getZPDetail,
+  getZPDetail2
 } from "./api";
 export default {
   data() {
@@ -824,13 +825,27 @@ export default {
       this.doDelist(this.gpInfo.id);
     },
     loadZPDetail1(id) {
-      getPublicReqDetail(id).then((res) => {
-        console.log(res);
-        res.data.detail.baseData.reqDate = new Date(
-          res.data.detail.baseData.reqDate
-        );
-        this.buyPubData = res.data.detail;
-      });
+      if(!this.$store.state.isLogin){
+        // 未登录
+        getPublicReqDetail(id).then((res) => {
+          console.log(res);
+          res.data.detail.baseData.reqDate = new Date(
+            res.data.detail.baseData.reqDate
+          );
+          this.buyPubData = res.data.detail;
+        });
+      }else{
+        // 已登录
+        getZPDetail2(this.gpInfo.id).then(res=>{
+          console.log(res);
+          res.data.reqInfo.detail.baseData.reqDate = new Date(
+            res.data.reqInfo.detail.baseData.reqDate
+          );
+          this.buyPubData = res.data.reqInfo.detail;
+          const delistinfo = res.data.delistInfo;
+          this.zpInfo.status = delistinfo.status;
+        })
+      }
     },
     loadZPDetail2(zid) {
       getZPDetail(zid).then((res) => {

@@ -100,6 +100,7 @@ _axios.interceptors.response.use(
           // 清除token
           localStorage.removeItem("token");
           // store.commit("loginSuccess", null);
+          store.commit("set_isLogin", false);
           router.push({
             path: "/user/login",
             query: {
