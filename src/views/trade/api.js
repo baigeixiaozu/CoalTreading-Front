@@ -74,6 +74,15 @@ export const getZPDetail = id => {
     }
   });
 };
+// 用户摘牌详情2
+export const getZPDetail2 = id => {
+  console.log(id);
+  return request.get("/delist/detailInfoForUser2", {
+    params: {
+      reqId: id
+    }
+  });
+};
 
 //获取用户财务信息
 export const getMarginInfo = () => {

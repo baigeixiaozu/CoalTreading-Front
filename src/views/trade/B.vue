@@ -246,11 +246,11 @@ export default {
       },
       gpInfo: {
         id: null,
-        status: 0,
+        status: '0',
       },
       zpInfo: {
         id: null,
-        status: 0
+        status: '0'
       }
     };
   },
@@ -402,10 +402,20 @@ export default {
       this.doDelist(this.gpInfo.id);
     },
     loadZPDetail1(id) {
-      getPublicReqDetail(id).then((res) => {
-        console.log(res);
-        this.salelistForm = res.data.detail;
-      });
+      if(!this.$store.state.isLogin){
+        // 未登录
+        getPublicReqDetail(id).then((res) => {
+          console.log(res);
+          this.salelistForm = res.data.detail;
+        });
+      }else{
+        // 已登录
+        getZPDetail2(this.gpInfo.id).then(res=>{
+          this.salelistForm = res.data.reqInfo.detail;
+          const delistinfo = res.data.delistInfo;
+          this.zpInfo.status = delistinfo.status;
+        })
+      }
     },
     loadZPDetail2(zid) {
       getZPDetail(zid).then((res) => {

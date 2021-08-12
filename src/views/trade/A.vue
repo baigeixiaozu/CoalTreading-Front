@@ -652,11 +652,11 @@ export default {
       },
       gpInfo: {
         id: null,
-        status: 0,
+        status: '0',
       },
       zpInfo: {
         id: null,
-        status: 0,
+        status: '0',
       },
     };
   },
