@@ -118,9 +118,9 @@
         <div>待交保证金</div>
       </div>
     </div>
-    <div v-else-if="this.$store.state.role === 'USER_BUY'">
+    <div v-else-if="this.$store.state.role === 'USER_BUY' || this.$store.state.role === 'USER_MONEY'">
       <!-- 摘牌区域 -->
-      <div v-if="zpInfo.status === '0'">
+      <div v-if="this.$store.state.role === 'USER_BUY' && zpInfo.status === '0'">
         <!-- 未摘牌,默认 -->
         <el-button type="primary" @click="zpAction">摘牌</el-button>
         <el-button @click="this.$router.back()">返回</el-button>
