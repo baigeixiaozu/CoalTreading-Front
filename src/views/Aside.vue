@@ -120,7 +120,7 @@ export default {
           index: "4",
           name: "交易中心",
           icon: "",
-          roles: ["USER_SALE", "USER_BUY"],
+          roles: ["ALL"],
           child: [
             {
               index: "/trade/GPList/public",
@@ -138,7 +138,7 @@ export default {
               index: "/trade/MyZPList",
               name: "我的摘牌列表",
               icon: "el-icon-s-open",
-              roles: ["USER_SALE", "USER_BUY"],
+              roles: ["USER_SALE", "USER_BUY", "USER_MONEY"],
             },
           ],
         },

@@ -106,7 +106,7 @@
     </el-form>
     <div v-if="mode === 'gp'">
       <!-- 挂牌区域 -->
-      <div v-if="zpInfo.status === '0'">
+      <div v-if="gpInfo.status === '0'">
         <el-button type="primary" @click="submitForm('salelistForm')"
           >提交</el-button
         >
@@ -118,7 +118,7 @@
         <div>待交保证金</div>
       </div>
     </div>
-    <div v-else-if="mode === 'zp' && this.$store.state.role === 'USER_BUY'">
+    <div v-else-if="mode === 'zp'">
        <!-- 摘牌区域 -->
       <div v-if="zpInfo.status === '0'">
         <!-- 未摘牌,默认 -->
@@ -414,6 +414,7 @@ export default {
         getZPDetail2(this.gpInfo.id).then(res=>{
           this.salelistForm = res.data.reqInfo.detail;
           const delistinfo = res.data.delistInfo;
+          if(delistinfo)
           this.zpInfo.status = delistinfo.status;
         })
       }

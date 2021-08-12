@@ -339,7 +339,7 @@
         <div>待交保证金</div>
       </div>
     </div>
-    <div v-else-if="mode === 'zp' && this.$store.state.role === 'USER_SALE'">
+    <div v-else-if="mode === 'zp'">
       <!-- 摘牌区域 -->
       <div v-if="zpInfo.status === '0'">
         <!-- 未摘牌,默认 -->

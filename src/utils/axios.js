@@ -114,18 +114,18 @@ _axios.interceptors.response.use(
         // 跳转登录页面
         case 403:
           ElMessage({
-            message: '你没有权限访问该页面',
+            message: '你没有权限执行该操作',
             center: true
           });
           // 跳转登录页面，并将要浏览的页面fullPath传过去，登录成功后跳转需要访问的页面
-          setTimeout(() => {
-            router.replace({
-              path: "/index",
-              query: {
-                redirect: router.currentRoute.fullPath
-              }
-            });
-          }, 1000);
+          // setTimeout(() => {
+          //   router.replace({
+          //     path: "/index",
+          //     query: {
+          //       redirect: router.currentRoute.fullPath
+          //     }
+          //   });
+          // }, 1000);
           break;
 
         // 404请求不存在
