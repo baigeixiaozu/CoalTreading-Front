@@ -38,6 +38,11 @@ const routes = [
     meta: { title: "注册" }
   },
   {
+    path: "/news/audit",
+    component: () => import("../views/news/audit.vue"),
+    meta: { title: "资讯审核" }
+  },
+  {
     path: "/user/info",
     name: "info",
     component: () => import("../views/user/info.vue"),
