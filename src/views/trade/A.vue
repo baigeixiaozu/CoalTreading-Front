@@ -12,7 +12,7 @@
       label-width="140px"
       class="demo-buyPubData"
       :rules="rules"
-      :disabled="mode === 'zp'"
+      :disabled="isFormDisabled"
     >
       <el-row>
         <el-col :span="8">
@@ -369,6 +369,7 @@ export default {
     return {
       labelPosition: "right",
       mode: this.$route.params.mode,
+      isFormDisabled: false,
       publish: false,
       buyPubData: {
         baseData: {
@@ -676,6 +677,7 @@ export default {
       this.gpInfo.id = q.id;
       this.zpInfo.id = q.zid;
       if (mode === "zp") {
+        this.isFormDisabled = true;
         // 摘牌
         if (q.id) {
           // 第一次摘牌操作
@@ -801,6 +803,9 @@ export default {
             res.data.detail.baseData.reqDate
           );
           this.buyPubData = res.data.detail;
+          this.gpInfo.id= res.data.id;
+          this.gpInfo.status = res.data.status;
+          this.isFormDisabled = res.data.status!=='1' && res.data.status!=='7';
         })
         .catch((err) => {
           console.log(err);

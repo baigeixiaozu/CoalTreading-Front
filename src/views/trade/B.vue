@@ -12,7 +12,7 @@
       ref="salelistForm"
       label-width="150px"
       class="demo-salelistForm"
-      :disabled="mode === 'zp'"
+      :disabled="isFormDisabled"
     >
       <el-row>
         <el-col :span="12">
@@ -267,6 +267,7 @@ export default {
       this.gpInfo.id = q.id;
       this.zpInfo.id = q.zid;
       if (mode === "zp") {
+        this.isFormDisabled = true;
         // 摘牌
         if (q.id) {
           // 第一次摘牌操作
@@ -380,7 +381,9 @@ export default {
       loadMyReqDetail(id)
         .then((res) => {
           this.salelistForm = res.data.detail;
-          this.gpInfo.status = res.data.status
+          this.gpInfo.id = res.data.id;
+          this.gpInfo.status = res.data.status;
+          this.isFormDisabled = res.data.status!=='1' && res.data.status!=='7'
         })
         .catch((err) => {
           console.log(err);
