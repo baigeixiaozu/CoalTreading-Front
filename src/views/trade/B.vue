@@ -12,7 +12,7 @@
       ref="salelistForm"
       label-width="150px"
       class="demo-salelistForm"
-      :disabled="mode === 'zp'"
+      :disabled="isFormDisabled"
     >
       <el-row>
         <el-col :span="12">
@@ -103,17 +103,36 @@
           </el-form-item>
         </el-col>
       </el-row>
-      <el-form-item v-if="mode !== 'zp'">
+    </el-form>
+    <div v-if="mode === 'gp'">
+      <!-- 挂牌区域 -->
+      <div v-if="zpInfo.status === '0'">
         <el-button type="primary" @click="submitForm('salelistForm')"
           >提交</el-button
         >
         <el-button @click="Save('salelistForm')">保存草稿</el-button>
         <el-button @click="resetForm('salelistForm')">重置</el-button>
-      </el-form-item>
-    </el-form>
-    <div v-if="mode === 'zp' && this.$store.state.role === 'USER_BUY'">
-      <el-button type="primary" @click="zpAction">摘牌</el-button>
-      <el-button @click="this.$router.back()">返回</el-button>
+      </div>
+      <div v-else-if="gpInfo.status === '15'">
+        <!-- 待交保证金 -->
+        <div>待交保证金</div>
+      </div>
+    </div>
+    <div v-else-if="mode === 'zp' && this.$store.state.role === 'USER_BUY'">
+       <!-- 摘牌区域 -->
+      <div v-if="zpInfo.status === '0'">
+        <!-- 未摘牌,默认 -->
+        <el-button type="primary" @click="zpAction">摘牌</el-button>
+        <el-button @click="this.$router.back()">返回</el-button>
+      </div>
+      <div v-else-if="zpInfo.status === '1'">
+        <!-- 待交保证金 -->
+        <div>待交保证金</div>
+      </div>
+      <div v-else-if="zpInfo.status === '2'">
+        <!-- 摘牌成功 -->
+        <div>摘牌成功</div>
+      </div>
     </div>
   </div>
 </template>
@@ -125,13 +144,13 @@ import {
   loadMyReqDetail,
   getPublicReqDetail,
   doDelist,
+  getZPDetail
 } from "./api";
 export default {
   data() {
     return {
       labelPosition: "right",
       mode: this.$route.params.mode,
-      id: null,
       publish: false,
       salelistForm: {
         supplyQuantity: "", //供应量 number
@@ -225,23 +244,46 @@ export default {
           },
         ], //全水分  number
       },
+      gpInfo: {
+        id: null,
+        status: '0',
+      },
+      zpInfo: {
+        id: null,
+        status: '0'
+      }
     };
   },
   mounted() {
     // console.log(this.$route.query)
   },
   created() {
-    const q = this.$route.query;
-    const mode = this.$route.params.mode;
-    if (mode === "zp") {
-      // 摘牌
-      this.loadZPDetail(q.id);
-    } else if (q.id) {
-      // 获取挂牌详细信息
-      this.loadGPDetail(q.id);
-    }
+    this.init();
   },
   methods: {
+    init(){
+      const mode = this.$route.params.mode;
+      const q = this.$route.query;
+      this.gpInfo.id = q.id;
+      this.zpInfo.id = q.zid;
+      if (mode === "zp") {
+        this.isFormDisabled = true;
+        // 摘牌
+        if (q.id) {
+          // 第一次摘牌操作
+          this.loadZPDetail1(q.id);
+        } else if (q.zid) {
+          // 摘牌后续
+          this.loadZPDetail2(q.zid);
+        }
+      } else{
+         if (q.id) {
+          // 挂牌
+          this.loadGPDetail(q.id);
+        }
+      }
+
+    },
     Save() {
       this.$refs["salelistForm"].validate((valid) => {
         if (valid) {
@@ -298,7 +340,7 @@ export default {
             message: "提交成功",
             type: "success",
           });
-          this.$router.push(`${this.$router.currentRoute.value.fullPath}?id=${res.data.reqId}`);
+          this.$router.push(`${this.$route.path}?id=${res.data.reqId}`);
         })
         .catch((err) => {
           console.log(err);
@@ -322,7 +364,7 @@ export default {
             message: "提交成功",
             type: "success",
           });
-          this.$router.push(`${this.$router.currentRoute.value.fullPath}?id=${res.data.reqId}`);
+          
         })
         .catch((err) => {
           console.log(err);
@@ -339,6 +381,9 @@ export default {
       loadMyReqDetail(id)
         .then((res) => {
           this.salelistForm = res.data.detail;
+          this.gpInfo.id = res.data.id;
+          this.gpInfo.status = res.data.status;
+          this.isFormDisabled = res.data.status!=='1' && res.data.status!=='7'
         })
         .catch((err) => {
           console.log(err);
@@ -354,12 +399,30 @@ export default {
 
     // 摘牌
     zpAction(){
-      this.doDelist(this.id);
+      this.doDelist(this.gpInfo.id);
     },
-    loadZPDetail(id) {
-      getPublicReqDetail(id).then((res) => {
+    loadZPDetail1(id) {
+      if(!this.$store.state.isLogin){
+        // 未登录
+        getPublicReqDetail(id).then((res) => {
+          console.log(res);
+          this.salelistForm = res.data.detail;
+        });
+      }else{
+        // 已登录
+        getZPDetail2(this.gpInfo.id).then(res=>{
+          this.salelistForm = res.data.reqInfo.detail;
+          const delistinfo = res.data.delistInfo;
+          this.zpInfo.status = delistinfo.status;
+        })
+      }
+    },
+    loadZPDetail2(zid) {
+      getZPDetail(zid).then((res) => {
         console.log(res);
-        this.salelistForm = res.data.detail;
+        this.salelistForm = res.data.reqInfo.detail;
+        const delistinfo = res.data.delistInfo;
+        this.zpInfo.status = delistinfo.status;
       });
     },
     doDelist(id) {

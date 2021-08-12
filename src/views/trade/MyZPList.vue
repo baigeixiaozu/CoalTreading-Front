@@ -7,20 +7,20 @@
       <el-header><h2>我的摘牌列表</h2></el-header>
       <el-main>
         <template v-for="item in list" :key="item.id">
-          <router-link
-            :to="
-              '/trade/' +
-              (item.type === '1' ? 'B' : 'A') +
-              '/zp?id=' +
-              item.req_id
-            "
-            ><el-row
-              ><el-col :span="5" class="gp-list-item">{{ item.id }}</el-col
-              ><el-col :span="10" class="gp-list-item">{{
-                item.created_time
-              }}</el-col
-              ><el-col></el-col></el-row
-          ></router-link>
+          <el-row
+            ><el-col :span="5" class="gp-list-item">{{
+              item.request_num ? item.request_num : item.id
+            }}</el-col
+            ><el-col :span="10" class="gp-list-item">{{
+              item.created_time
+            }}</el-col
+            ><el-col :span="6"
+              ><router-link
+                :to="`/trade/${item.type === '1' ? 'B' : 'A'}/zp?zid=${item.id}`"
+                ><el-button>查看</el-button></router-link
+              ></el-col
+            ></el-row
+          >
         </template>
         <el-pagination
           background

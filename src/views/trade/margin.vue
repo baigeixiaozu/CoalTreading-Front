@@ -93,8 +93,8 @@
 
 <script>
   import {
-    postMargininfo,
-    getMargininfo
+    postMarginInfo,
+    getMarginInfo
   }from './api';
   export default{
     data(){
@@ -149,7 +149,7 @@
                 });
                 },
       getdata: function() {
-        getMargininfo().then(repos => {
+        getMarginInfo().then(repos => {
            this.margin.com_name=repos.data.comName,
           this.margin.freeze=repos.data.freeze,
           this.margin.balance=repos.data.balance,
