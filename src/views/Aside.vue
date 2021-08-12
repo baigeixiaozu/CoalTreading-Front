@@ -112,7 +112,7 @@ export default {
               index: "/news/audit",
               name: "新闻审核",
               icon: "",
-              roles: ['ALL'],
+              roles: ['NEWS_AUDITOR'],
             },
           ],
         },

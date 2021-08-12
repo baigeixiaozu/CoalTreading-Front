@@ -21,19 +21,22 @@
           </el-button></router-link
         >
         <div v-for="item in list" :key="item.id">
-          <router-link
-            :to="
-              `/trade/${item.type === '1' ? 'B' : 'A'}/${mode==='my'?'gp':'zp'}?id=${item.id}`
-            "
-            ><el-row
-              ><el-col :span="5" class="gp-list-item">{{ item.request_num }}</el-col
-              ><el-col :span="10" class="gp-list-item">{{
-                item.created_time
-              }}</el-col>
-              <el-col :span="5" class="gp-list-item" v-if="mode==='my'">查看，编辑，删除</el-col>
-              </el-row
-            ></router-link
-          >
+          <el-row
+            ><el-col :span="8" class="gp-list-item">{{
+              item.request_num ? item.request_num : item.id
+            }}</el-col
+            ><el-col :span="5" class="gp-list-item">{{
+              item.created_time
+            }}</el-col>
+            <el-col :span="7" class="gp-list-item" >
+              <router-link
+                :to="`/trade/${item.type === '1' ? 'B' : 'A'}/${
+                  mode === 'my' ? 'gp' : 'zp'
+                }?id=${item.id}`"
+                ><el-button>{{mode === 'my'?"编辑":"查看"}}</el-button></router-link
+              >
+            </el-col>
+          </el-row>
         </div>
         <el-pagination
           background
