@@ -14,7 +14,7 @@
         <el-col :span="12">
           <el-form-item prop="docnumber" label="单据编号">
             <el-input v-model.number="margin.docnumber"
-            style="width:25%"
+            style="width:70%"
             :disabled="true"
             ></el-input>
           </el-form-item>
@@ -22,7 +22,7 @@
         <el-col :span="12">
           <el-form-item prop="com_name" label="申请单位">
             <el-input v-model.number="margin.com_name"
-            style="width:25%"
+            style="width:70%"
             :disabled="true"
             ></el-input>
           </el-form-item>
@@ -128,10 +128,25 @@
       submit(){
         //post 提交信息
         const q = this.$route.query;
+        this.postdata(q.id)
+                },
+      getdata: function() {
+        getMarginInfo().then(repos => {
+           this.margin.com_name=repos.data.comName,
+          this.margin.freeze=repos.data.freeze,
+          this.margin.balance=repos.data.balance,
+          this.margin.unfreeze=repos.data.balance-repos.data.freeze,
+          this.margin.performance=0;
 
-          postMargininfo(
-              {number: this.margin.number},
-              q.id)
+          //docnumber:
+          })
+          .catch(err => {
+            console.log(err);
+          });
+      },
+      postdata(id){
+        const q = this.$route.query;
+          postMarginInfo(id)
                 .then((res) => {
                   console.log(res);
                   this.$message({
@@ -147,20 +162,6 @@
                     });
 
                 });
-                },
-      getdata: function() {
-        getMarginInfo().then(repos => {
-           this.margin.com_name=repos.data.comName,
-          this.margin.freeze=repos.data.freeze,
-          this.margin.balance=repos.data.balance,
-          this.margin.unfreeze=repos.data.balance-repos.data.freeze,
-          this.margin.performance=0;
-         
-          //docnumber:
-          })
-          .catch(function(err) {
-            console.log(err);
-          });
       }
     }
   }
