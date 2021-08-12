@@ -110,10 +110,16 @@ export default {
           child: [
             {
               index: "/news/audit",
-              name: "新闻审核",
+              name: "资讯审核",
               icon: "",
               roles: ['NEWS_AUDITOR'],
             },
+            {
+              index: "/user/audit",
+              name: "注册审核",
+              icon: "",
+              roles: ['USER_REG_AUDITOR'],
+            }
           ],
         },
         {
