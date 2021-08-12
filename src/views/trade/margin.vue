@@ -129,6 +129,7 @@
         //post 提交信息
         const q = this.$route.query;
         this.postdata(q.id)
+       
                 },
       getdata: function() {
         getMarginInfo().then(repos => {
@@ -145,7 +146,7 @@
           });
       },
       postdata(id){
-        const q = this.$route.query;
+
           postMarginInfo(id)
                 .then((res) => {
                   console.log(res);
