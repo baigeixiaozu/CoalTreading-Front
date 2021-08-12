@@ -72,8 +72,8 @@
       </el-form-item>
       <el-form-item prop="file" label="汇款凭证:">
         <el-input v-model="predeposit.file"
-
-        :disabled="true"
+        type="file"
+      
         ></el-input>
       </el-form-item>
         <el-form-item>
@@ -164,7 +164,7 @@
 <style>
 .info{
   width: 500px;
-  
+
   margin:auto;
 
 }
