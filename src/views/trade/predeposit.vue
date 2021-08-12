@@ -10,85 +10,87 @@
         label-width="150px"
         class="demo-predeposit"
       >
-      <span>报价保证金收取标准为<b style="color: #ca1302">10</b>元/吨</span>
-
       <hr /><h2>保证金账户信息</h2>
       <el-row>
         <el-col :span="12">
           <el-form-item prop="balance" label="">
-           账户金额： <b style="color: #ca1302">{{this.predeposit.balance}}   元</b>
+          <b> 账户金额：</b> <b style="color: #ca1302">{{this.predeposit.balance}}   元</b>
           </el-form-item>
         </el-col>
         <el-col :span="12">
           <el-form-item prop="unfreeze" label="">
-            未冻结余额：  <b style="color: #ca1302">{{this.predeposit.unfreeze}}  元</b>
+           <b> 未冻结余额： </b> <b style="color: #ca1302">{{this.predeposit.unfreeze}}  元</b>
           </el-form-item>
         </el-col>
       </el-row>
       <el-row>
         <el-col :span="12">
           <el-form-item prop="freeze" label="">
-            报价冻结金额： <b style="color: #ca1302">{{this.predeposit.freeze}}   元</b>
+           <b> 报价冻结金额：</b> <b style="color: #ca1302">{{this.predeposit.freeze}}   元</b>
           </el-form-item>
         </el-col>
         <el-col :span="12">
           <el-form-item prop="performance" label="">
-            履约冻结金额： <b style="color: #ca1302">{{this.predeposit.performance}}   元</b>
+           <b> 履约冻结金额：</b> <b style="color: #ca1302">{{this.predeposit.performance}}   元</b>
 
           </el-form-item>
         </el-col>
       </el-row>
+       <hr /><h2>收款单信息</h2><hr />
       <el-form-item prop="comname" label="汇款单位名称:">
-        <el-input v-model.number="predeposit.comname"
+        <el-input v-model="predeposit.comname"
         style="width:25%"
         :disabled="true"
         ></el-input>
       </el-form-item>
       <el-form-item prop="bankname" label="开户银行名称:">
-        <el-input v-model.number="predeposit.bankname"
+        <el-input v-model="predeposit.bankname"
         style="width:25%"
         :disabled="true"
         ></el-input>
       </el-form-item>
       <el-form-item prop="bankid" label="银行账号:">
-        <el-input v-model.number="predeposit.bankid"
+        <el-input v-model="predeposit.bankid"
         style="width:25%"
         :disabled="true"
         ></el-input>
       </el-form-item>
-      <h2>收款单信息</h2>
+
       <el-form-item prop="money" label="汇款金额:">
         <el-input v-model.number="predeposit.money"
         style="width:25%"
         ></el-input>元
       </el-form-item>
       <el-form-item prop="time" label="汇款时间:">
-        <el-input v-model.number="predeposit.time"
+        <el-input v-model="predeposit.time"
         style="width:25%"
         :disabled="true"
         ></el-input>
       </el-form-item>
       <el-form-item prop="file" label="汇款凭证:">
-        <el-input v-model.number="predeposit.file"
+        <el-input v-model="predeposit.file"
         style="width:25%"
         :disabled="true"
         ></el-input>
       </el-form-item>
         <el-form-item>
-          <el-button type="primary" @click="submitForm('margin')">确认</el-button>
+          <el-button type="primary" @click="submitForm('predeposit')">确认</el-button>
 
-          <el-button @click="resetForm('margin')">返回</el-button>
+          <el-button @click="resetForm('predeposit')">返回</el-button>
         </el-form-item>
       </el-form>
 </template>
 
 <script>
+  import{
+    postPredepositinfo,
+    getPredepositinfo,
+  }from './api'
   export default{
     data(){
       return{
         labelPosition: "right",
-
-        margin: {
+        predeposit: {
           freeze:'',//报价冻结金额
           balance:'',//账户金额
           unfreeze:'',//未冻结余额
@@ -111,16 +113,43 @@
       }
     },
     mounted() {
+
       this.getdata()
+      //获取时间
+      var date = new Date();
+        var seperator1 = "-";
+        var year = date.getFullYear();
+        var month = date.getMonth() + 1;
+        var strDate = date.getDate();
+        if (month >= 1 && month <= 9) {
+          month = "0" + month;
+        }
+        if (strDate >= 0 && strDate <= 9) {
+          strDate = "0" + strDate;
+        }
+      this.predeposit.time= year + seperator1 + month + seperator1 + strDate;
     },
     methods:{
       submit(FormName){
         //post 提交信息
 
       },
-      getdata(){
-        //获取信息
+      getdata: function() {
+        getPredepositinfo().then(repos => {
+          console.log(repos.data[0])
+           this.predeposit.comname=repos.data[0].comName,
+          this.predeposit.freeze=repos.data[0].freeze,
+          this.predeposit.balance=repos.data[0].balance,
+          this.predeposit.unfreeze=repos.data[0].balance-repos.data[0].freeze,
+          this.predeposit.performance=0,
+          this.predeposit.bankname=repos.data[0].bankName,
+          this.predeposit.bankid=repos.data[0].bankAcc
 
+
+          })
+          .catch(function(err) {
+            console.log(err);
+          });
       }
 
     }
