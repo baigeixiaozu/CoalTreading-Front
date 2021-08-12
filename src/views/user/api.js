@@ -43,3 +43,15 @@ export const getFullUserInfo = ()=>{
 export const genNewUser = (data)=>{
     return request.post("/user/new", data)
 }
+export const getdetail = (id)=>{
+    return request.get("/info/" + id )
+}
+export const getreglist = (page,limit)=>{
+    console.log(page, limit);
+    return request.get("/info/list", {
+        params:{
+            current: page,
+            size: limit
+        }
+    })
+}
