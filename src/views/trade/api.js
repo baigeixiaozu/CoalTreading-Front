@@ -74,6 +74,7 @@ export const getZPDetail = id => {
     }
   });
 };
+
 // 用户摘牌详情2
 export const getZPDetail2 = id => {
   console.log(id);
@@ -90,26 +91,24 @@ export const getMarginInfo = () => {
 };
 
 //用户进行支付保证金操作
+export const postMarginInfo = id => {
+  return request.post("/payment/number/{request_id}", {
+    params: {
+      request_id: id
+    }
+  });
+};
 
-export const postMargininfo = (id)=>{
-    return request.post("/payment/number/{request_id}",{
-      params: {
-        request_id:id
-      }
-
-    })
-
-}
 //获取买方信息
-export const getPredepositinfo = ()=>{
-    return request.get("/fin/info")
-}
-//用户进行支付保证金操作
+export const getPredepositinfo = () => {
+  return request.get("/fin/info");
+};
 
-export const postPredepositinfo = (id)=>{
-    return request.get("/fin/updateQ/{quantity}",{
-      params: {
-          quantity: id
-      },
-    })
-}
+//用户进行支付保证金操作
+export const postPredepositinfo = id => {
+  return request.get("/fin/updateQ/{quantity}", {
+    params: {
+      quantity: id
+    }
+  });
+};
