@@ -118,9 +118,9 @@
         <div>待交保证金</div>
       </div>
     </div>
-    <div v-else-if="this.$store.state.role === 'USER_BUY' || this.$store.state.role === 'USER_MONEY'">
+    <div v-else-if="this.$store.state.role === 'USER_BUY'">
       <!-- 摘牌区域 -->
-      <div v-if="this.$store.state.role === 'USER_BUY' && zpInfo.status === '0'">
+      <div v-if="zpInfo.status === '0'">
         <!-- 未摘牌,默认 -->
         <el-button type="primary" @click="zpAction">摘牌</el-button>
         <el-button @click="this.$router.back()">返回</el-button>
@@ -128,6 +128,23 @@
       <div v-else-if="zpInfo.status === '1'">
         <!-- 待交保证金 -->
         <div>待交保证金</div>
+        <router-link :to="'/trade/margin?gpid=' + this.gpInfo.id"><el-button>去交保证金</el-button></router-link>
+      </div>
+      <div v-else-if="zpInfo.status === '2'">
+        <!-- 摘牌成功 -->
+        <div>摘牌成功</div>
+      </div>
+    </div>
+    <div v-else-if="this.$store.state.role === 'USER_MONEY'">
+      <!-- 摘牌区域 -->
+      <div v-if="zpInfo.status === '0'">
+        <!-- 未摘牌,默认 -->
+        <div>未被交易用户摘牌</div>
+      </div>
+      <div v-else-if="zpInfo.status === '1'">
+        <!-- 待交保证金 -->
+        <div>待交保证金</div>
+        <router-link :to="'/trade/margin?zpid=' + this.zpInfo.id"><el-button>去交保证金</el-button></router-link>
       </div>
       <div v-else-if="zpInfo.status === '2'">
         <!-- 摘牌成功 -->
