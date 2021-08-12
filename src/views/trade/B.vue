@@ -104,7 +104,7 @@
         </el-col>
       </el-row>
     </el-form>
-    <div v-if="mode === 'gp'">
+    <div v-if="this.$store.state.role === 'USER_SALE'">
       <!-- 挂牌区域 -->
       <div v-if="gpInfo.status === '0'">
         <el-button type="primary" @click="submitForm('salelistForm')"
@@ -118,8 +118,8 @@
         <div>待交保证金</div>
       </div>
     </div>
-    <div v-else-if="mode === 'zp'">
-       <!-- 摘牌区域 -->
+    <div v-else-if="this.$store.state.role === 'USER_BUY'">
+      <!-- 摘牌区域 -->
       <div v-if="zpInfo.status === '0'">
         <!-- 未摘牌,默认 -->
         <el-button type="primary" @click="zpAction">摘牌</el-button>
@@ -134,6 +134,11 @@
         <div>摘牌成功</div>
       </div>
     </div>
+    <div v-if="!this.$store.state.isLogin">
+      <!-- 未摘牌,默认 -->
+      <el-button type="primary" @click="zpAction">摘牌</el-button>
+      <el-button @click="this.$router.back()">返回</el-button>
+    </div>
   </div>
 </template>
 
@@ -145,7 +150,7 @@ import {
   getPublicReqDetail,
   doDelist,
   getZPDetail,
-  getZPDetail2
+  getZPDetail2,
 } from "./api";
 export default {
   data() {
@@ -247,12 +252,12 @@ export default {
       },
       gpInfo: {
         id: null,
-        status: '0',
+        status: "0",
       },
       zpInfo: {
         id: null,
-        status: '0'
-      }
+        status: "0",
+      },
     };
   },
   mounted() {
@@ -262,7 +267,7 @@ export default {
     this.init();
   },
   methods: {
-    init(){
+    init() {
       const mode = this.$route.params.mode;
       const q = this.$route.query;
       this.gpInfo.id = q.id;
@@ -277,13 +282,12 @@ export default {
           // 摘牌后续
           this.loadZPDetail2(q.zid);
         }
-      } else{
-         if (q.id) {
+      } else {
+        if (q.id) {
           // 挂牌
           this.loadGPDetail(q.id);
         }
       }
-
     },
     Save() {
       this.$refs["salelistForm"].validate((valid) => {
@@ -365,7 +369,6 @@ export default {
             message: "提交成功",
             type: "success",
           });
-          
         })
         .catch((err) => {
           console.log(err);
@@ -384,7 +387,8 @@ export default {
           this.salelistForm = res.data.detail;
           this.gpInfo.id = res.data.id;
           this.gpInfo.status = res.data.status;
-          this.isFormDisabled = res.data.status!=='1' && res.data.status!=='7'
+          this.isFormDisabled =
+            res.data.status !== "1" && res.data.status !== "7";
         })
         .catch((err) => {
           console.log(err);
@@ -399,24 +403,23 @@ export default {
     },
 
     // 摘牌
-    zpAction(){
+    zpAction() {
       this.doDelist(this.gpInfo.id);
     },
     loadZPDetail1(id) {
-      if(!this.$store.state.isLogin){
+      if (!this.$store.state.isLogin) {
         // 未登录
         getPublicReqDetail(id).then((res) => {
           console.log(res);
           this.salelistForm = res.data.detail;
         });
-      }else{
+      } else {
         // 已登录
-        getZPDetail2(this.gpInfo.id).then(res=>{
+        getZPDetail2(this.gpInfo.id).then((res) => {
           this.salelistForm = res.data.reqInfo.detail;
           const delistinfo = res.data.delistInfo;
-          if(delistinfo)
-          this.zpInfo.status = delistinfo.status;
-        })
+          if (delistinfo) this.zpInfo.status = delistinfo.status;
+        });
       }
     },
     loadZPDetail2(zid) {
