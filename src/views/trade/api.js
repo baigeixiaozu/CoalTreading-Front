@@ -90,24 +90,26 @@ export const getMarginInfo = () => {
 };
 
 //用户进行支付保证金操作
-export const postMarginInfo = (id)=>{
-    return request.post("/payment/number/",{
-      params: id
+
+export const postMargininfo = (id)=>{
+    return request.post("/payment/number/{request_id}",{
+      params: {
+        request_id:id
+      }
 
     })
-}
 
+}
 //获取买方信息
 export const getPredepositinfo = ()=>{
     return request.get("/fin/info")
 }
-
 //用户进行支付保证金操作
-export const postPredepositinfo = (data,id)=>{
-    return request.post("/payment/number/"+id,{
+
+export const postPredepositinfo = (id)=>{
+    return request.get("/fin/updateQ/{quantity}",{
       params: {
-          request_id: id
+          quantity: id
       },
-      data:data
     })
 }
