@@ -1,6 +1,6 @@
 <template>
   <!-- 资金预存界面-->
-
+<div>
 <el-form
         :label-position="labelPosition"
         :model="predeposit"
@@ -10,6 +10,7 @@
         label-width="150px"
         class="demo-predeposit"
       >
+      <div>
       <hr /><h2>保证金账户信息</h2>
       <el-row>
         <el-col :span="12">
@@ -37,39 +38,41 @@
         </el-col>
       </el-row>
        <hr /><h2>收款单信息</h2><hr />
+       </div>
+       <div class="info">
       <el-form-item prop="comname" label="汇款单位名称:">
         <el-input v-model="predeposit.comname"
-        style="width:25%"
+
         :disabled="true"
         ></el-input>
       </el-form-item>
       <el-form-item prop="bankname" label="开户银行名称:">
         <el-input v-model="predeposit.bankname"
-        style="width:25%"
+
         :disabled="true"
         ></el-input>
       </el-form-item>
       <el-form-item prop="bankid" label="银行账号:">
         <el-input v-model="predeposit.bankid"
-        style="width:25%"
+
         :disabled="true"
         ></el-input>
       </el-form-item>
 
       <el-form-item prop="money" label="汇款金额:">
         <el-input v-model.number="predeposit.money"
-        style="width:25%"
+        style="width: 95%"
         ></el-input>元
       </el-form-item>
       <el-form-item prop="time" label="汇款时间:">
         <el-input v-model="predeposit.time"
-        style="width:25%"
+
         :disabled="true"
         ></el-input>
       </el-form-item>
       <el-form-item prop="file" label="汇款凭证:">
         <el-input v-model="predeposit.file"
-        style="width:25%"
+
         :disabled="true"
         ></el-input>
       </el-form-item>
@@ -78,7 +81,9 @@
 
           <el-button @click="resetForm('predeposit')">返回</el-button>
         </el-form-item>
+        </div>
       </el-form>
+      </div>
 </template>
 
 <script>
@@ -157,4 +162,10 @@
 </script>
 
 <style>
+.info{
+  width: 500px;
+  
+  margin:auto;
+
+}
 </style>
