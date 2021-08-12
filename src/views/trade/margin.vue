@@ -127,9 +127,11 @@
     methods:{
       submit(){
         //post 提交信息
-          postMarginInfo(
+        const q = this.$route.query;
+
+          postMargininfo(
               {number: this.margin.number},
-              request.id)
+              q.id)
                 .then((res) => {
                   console.log(res);
                   this.$message({
@@ -140,7 +142,7 @@
                 .catch((err) => {
                   console.log(err);
                     this.$message({
-                      message: err.data.error,
+                      message: err.data,
                       type: "error",
                     });
 
@@ -153,6 +155,7 @@
           this.margin.balance=repos.data.balance,
           this.margin.unfreeze=repos.data.balance-repos.data.freeze,
           this.margin.performance=0;
+         
           //docnumber:
           })
           .catch(function(err) {
