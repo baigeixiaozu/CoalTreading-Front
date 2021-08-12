@@ -320,15 +320,15 @@
           :rows="2"
         ></el-input>
       </el-form-item>
-      <el-form-item v-if="mode !== 'zp'">
-        <el-button type="primary" @click="submitForm('buyPubData')"
-          >提交</el-button
-        >
-        <el-button @click="save">保存</el-button>
-        <el-button @click="resetForm('buyPubData')">重置</el-button>
-      </el-form-item>
     </el-form>
-    <div v-if="mode === 'zp' && this.$store.state.role === 'USER_SALE'">
+    <div v-if="mode !== 'zp'">
+      <el-button type="primary" @click="submitForm('buyPubData')"
+        >提交</el-button
+      >
+      <el-button @click="save">保存</el-button>
+      <el-button @click="resetForm('buyPubData')">重置</el-button>
+    </div>
+    <div v-else-if="mode === 'zp' && this.$store.state.role === 'USER_SALE'">
       <el-button type="primary" @click="zpAction">摘牌</el-button>
       <el-button @click="this.$router.back()">返回</el-button>
     </div>
@@ -342,7 +342,8 @@ import {
   loadMyReqDetail,
   getPublicReqDetail,
   doDelist,
-  getComName
+  getComName,
+  getZPDetail,
 } from "./api";
 export default {
   data() {
@@ -350,11 +351,12 @@ export default {
       labelPosition: "right",
       mode: this.$route.params.mode,
       id: null,
+      zid: null,
       publish: false,
       buyPubData: {
         baseData: {
-          requestCompany: '',
-          requestNum: '',
+          requestCompany: "",
+          requestNum: "",
           applicant: "",
           signer: "",
           reqDate: null,
@@ -633,30 +635,38 @@ export default {
     };
   },
   created() {
-    const mode = this.$route.params.mode;
     // this.buyPubData = JSON.parse(
     //   `{"baseData":{"applicant":"nurt","signer":"fy","reqDate":null,"deliveryStartTime":["2021-08-03T16:00:00.000Z","2021-08-18T16:00:00.000Z"],"deliveryEndTime":"","coalType":"无烟煤","buyQuantity":2375,"transportMode":"火车","deliveryLocation":"73","settlementMethod":"二票结算","acceptanceMethod":"到厂第三方验收","paymentMethod":"8738","deposit1":3783,"deposit2":73873,"deliveryTime":["2021-08-11T16:00:00.000Z","2021-08-20T16:00:00.000Z"]},"coalQuality":{"lowHeat":38738,"sdjql":7387,"qsf":7387387,"sdjhf":378373,"sdjhff1":73,"sdjhff2":378,"kgjsf":73,"kgjql":783,"kgjhff1":387,"kgjhff2":383,"highHeat":783,"gjql":83,"gzwhjhff1":837,"gzwhjhff2":8383,"granularity":73,"hrd":152,"remark":"738","hskmxs":83}}`
     // );
     if (this.buyPubData.baseData.reqDate === null) {
       this.buyPubData.baseData.reqDate = new Date();
     }
-    const q = this.$route.query;
-    this.id = q.id;
-    if (mode === "zp") {
-      // 摘牌
-      this.loadZPDetail(q.id);
-    } else if (q.id) {
-      // 获取挂牌详细信息
-      this.loadGPDetail(q.id);
-    }else{
-      // TODO: 获取公司名，计算单据编号
-      getComName().then(res=>{
-        this.buyPubData.baseData.requestCompany = res.data;
-        this.buyPubData.baseData.requestNum = res.data + new Date().getTime();
-      })
-    }
+    this.init();
+  },
+  updated() {
   },
   methods: {
+    init() {
+      const mode = this.$route.params.mode;
+      const q = this.$route.query;
+      this.id = q.id;
+      this.zid = q.zid;
+      if (mode === "zp" && q.id && !q.zid) {
+        // 第一次摘牌操作
+        this.loadZPDetail1(q.id);
+      } else if (mode === "zp" && !q.id && q.zid) {
+        // 摘牌后续
+        this.loadZPDetail2(q.zid);
+      } else if (q.id) {
+        // 获取挂牌详细信息
+        this.loadGPDetail2(q.id);
+      } else {
+        getComName().then((res) => {
+          this.buyPubData.baseData.requestCompany = res.data;
+          this.buyPubData.baseData.requestNum = res.data + new Date().getTime();
+        });
+      }
+    },
     save() {
       // 重置请求时间
       this.buyPubData.baseData.reqDate = new Date();
@@ -702,7 +712,7 @@ export default {
           return false;
         }
       });
-    }, 
+    },
     // 新增
     publishData(publish = false) {
       requestPublish({
@@ -715,7 +725,7 @@ export default {
             message: "提交成功",
             type: "success",
           });
-          this.$router.push(`${this.$router.currentRoute.value.fullPath}?id=${res.data.reqId}`);
+          this.$router.push(`${this.$route.path}?id=${res.data.reqId}`);
         })
         .catch((err) => {
           console.log(err);
@@ -739,7 +749,7 @@ export default {
             message: "提交成功",
             type: "success",
           });
-          this.$router.push(`${this.$router.currentRoute.value.fullPath}?id=${res.data.reqId}`);
+          this.$router.push(`${this.$route.path}?id=${res.data.reqId}`);
         })
         .catch((err) => {
           console.log(err);
@@ -755,7 +765,9 @@ export default {
     loadGPDetail(id) {
       loadMyReqDetail(id)
         .then((res) => {
-          res.data.detail.baseData.reqDate = new Date(res.data.detail.baseData.reqDate);
+          res.data.detail.baseData.reqDate = new Date(
+            res.data.detail.baseData.reqDate
+          );
           this.buyPubData = res.data.detail;
         })
         .catch((err) => {
@@ -774,11 +786,23 @@ export default {
     zpAction() {
       this.doDelist(this.id);
     },
-    loadZPDetail(id) {
+    loadZPDetail1(id) {
       getPublicReqDetail(id).then((res) => {
         console.log(res);
-        res.data.detail.baseData.reqDate = new Date(res.data.detail.baseData.reqDate);
+        res.data.detail.baseData.reqDate = new Date(
+          res.data.detail.baseData.reqDate
+        );
         this.buyPubData = res.data.detail;
+      });
+    },
+    loadZPDetail2(zid) {
+      getZPDetail(zid).then((res) => {
+        console.log(res);
+        res.data.reqInfo.detail.baseData.reqDate = new Date(
+          res.data.reqInfo.detail.baseData.reqDate
+        );
+        this.buyPubData = res.data.reqInfo.detail;
+        const delistinfo= res.data.delistInfo;
       });
     },
     doDelist(id) {
@@ -788,6 +812,8 @@ export default {
           message: "摘牌成功",
           type: "success",
         });
+
+        this.$router.push(this.$route.path + "?zid=" + res.data.id);
       });
     },
   },

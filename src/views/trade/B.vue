@@ -298,7 +298,7 @@ export default {
             message: "提交成功",
             type: "success",
           });
-          this.$router.push(`${this.$router.currentRoute.value.fullPath}?id=${res.data.reqId}`);
+          this.$router.push(`${this.$route.path}?id=${res.data.reqId}`);
         })
         .catch((err) => {
           console.log(err);
@@ -322,7 +322,7 @@ export default {
             message: "提交成功",
             type: "success",
           });
-          this.$router.push(`${this.$router.currentRoute.value.fullPath}?id=${res.data.reqId}`);
+          this.$router.push(`${this.$route.path}?id=${res.data.reqId}`);
         })
         .catch((err) => {
           console.log(err);
