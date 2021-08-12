@@ -4,7 +4,7 @@
   -->
   <div>
     <el-container>
-      <el-header><h2>我的摘牌列表</h2></el-header>
+      <el-header><h2>本公司摘牌列表</h2></el-header>
       <el-main>
         <template v-for="item in list" :key="item.id">
           <el-row

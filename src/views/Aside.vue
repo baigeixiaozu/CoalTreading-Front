@@ -136,13 +136,13 @@ export default {
             },
             {
               index: "/trade/GPList/my",
-              name: "我的挂牌列表",
+              name: "本公司挂牌列表",
               icon: "el-icon-s-open",
-              roles: ["USER_SALE", "USER_BUY"],
+              roles: ["USER_SALE", "USER_BUY", "USER_MONEY"],
             },
             {
               index: "/trade/MyZPList",
-              name: "我的摘牌列表",
+              name: "本公司摘牌列表",
               icon: "el-icon-s-open",
               roles: ["USER_SALE", "USER_BUY", "USER_MONEY"],
             },

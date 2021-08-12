@@ -77,7 +77,6 @@ export const getZPDetail = id => {
 
 // 用户摘牌详情2
 export const getZPDetail2 = id => {
-  console.log(id);
   return request.get("/delist/detailInfoForUser2", {
     params: {
       reqId: id
@@ -86,8 +85,10 @@ export const getZPDetail2 = id => {
 };
 
 //获取用户财务信息
-export const getMarginInfo = () => {
-  return request.get("/payment/show");
+export const getMarginInfo = (params) => {
+  return request.get("/payment/show", {
+    params
+  });
 };
 
 //用户进行支付保证金操作

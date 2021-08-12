@@ -103,12 +103,16 @@
 </template>
 
 <script>
-import { postMarginInfo, getMarginInfo } from "./api";
+import { postMarginInfo, getMarginInfo,getZPDetail } from "./api";
 export default {
   data() {
     return {
       labelPosition: "right",
-
+      type: null,
+      id: {
+        gp: null,
+        zp: null
+      },
       margin: {
         freeze: "", //报价冻结金额
         balance: "", //账户金额
@@ -129,24 +133,42 @@ export default {
       },
     };
   },
-  mounted() {
+  created() {
+    console.log("margin created")
+    const q = this.$route.query;
+    if(q.zpid){
+      // 摘牌保证金
+      this.type = 'zp';
+      this.id.zp = q.zpid;
+    }else if(q.gpid){
+      // 挂牌保证金
+      this.type = 'gp';
+      this.id.gp = q.gpid;
+    }
     this.getdata();
   },
   methods: {
     submit() {
       //post 提交信息
-      const q = this.$route.query;
       this.postdata(q.id);
     },
     getdata: function () {
-      getMarginInfo()
-        .then((repos) => {
-          (this.margin.com_name = repos.data.comName),
-            (this.margin.freeze = repos.data.freeze),
-            (this.margin.balance = repos.data.balance),
-            (this.margin.unfreeze = repos.data.balance - repos.data.freeze),
+      const param = {};
+      param[this.type + "id"] = this.id[this.type];
+      getMarginInfo(param)
+        .then((res) => {
+          if(res.data.requestInfo === null){
+            this.$message({
+              message: `请求的${this.type==='zp'?'摘牌':'挂牌'}信息不存在`
+            })
+            return;
+          }
+          (this.margin.com_name = res.data.financeInfo.comName),
+            (this.margin.freeze = res.data.financeInfo.freeze),
+            (this.margin.balance = res.data.financeInfo.balance),
+            (this.margin.unfreeze = res.data.financeInfo.balance - res.data.financeInfo.freeze),
             (this.margin.performance = 0);
-
+            this.margin.docnumber = res.data.requestInfo.requestNum;
           //docnumber:
         })
         .catch((err) => {
