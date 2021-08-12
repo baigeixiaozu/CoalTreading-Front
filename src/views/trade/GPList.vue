@@ -30,7 +30,7 @@
               ><el-col :span="10" class="gp-list-item">{{
                 item.created_time
               }}</el-col>
-              <el-col :span="5" class="gp-list-item">查看，编辑，删除</el-col>
+              <el-col :span="5" class="gp-list-item" v-if="mode==='my'">查看，编辑，删除</el-col>
               </el-row
             ></router-link
           >

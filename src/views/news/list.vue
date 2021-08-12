@@ -23,7 +23,6 @@
       class="news-item"
     >
       <div class="item">{{ item.title }}</div>
-      <div>编辑，删除，撤销</div>
       <span>{{ item.date }}</span>
     </el-row>
     <el-pagination
