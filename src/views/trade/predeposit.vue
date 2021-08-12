@@ -73,7 +73,7 @@
       <el-form-item prop="file" label="汇款凭证:">
         <el-input v-model="predeposit.file"
         type="file"
-      
+
         ></el-input>
       </el-form-item>
         <el-form-item>
@@ -135,9 +135,25 @@
       this.predeposit.time= year + seperator1 + month + seperator1 + strDate;
     },
     methods:{
-      submit(FormName){
-        //post 提交信息
 
+      submitForm(formName) {
+        this.$refs[formName].validate((valid) => {
+          if (valid) {
+
+            this.postData();
+
+          } else {
+            this.$message({
+              message: '提交失败',
+              type: 'warning'
+            });
+            return false;
+          }
+        });
+      },
+
+      resetForm(formName) {
+        this.$refs[formName].resetFields();
       },
       getdata: function() {
         getPredepositinfo().then(repos => {
@@ -149,12 +165,29 @@
           this.predeposit.performance=0,
           this.predeposit.bankname=repos.data[0].bankName,
           this.predeposit.bankid=repos.data[0].bankAcc
-
-
           })
           .catch(function(err) {
             console.log(err);
           });
+      },
+      postData:function(){
+        const q = this.$route.query;
+          postPredepositinfo(1)
+                .then((res) => {
+                  console.log(res);
+                  this.$message({
+                    message: "提交成功",
+                    type: "success",
+                  });
+                })
+                .catch((err) => {
+                  console.log(err);
+                    this.$message({
+                      message: err.data,
+                      type: "error",
+                    });
+
+                });
       }
 
     }
