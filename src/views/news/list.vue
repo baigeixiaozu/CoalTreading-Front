@@ -81,14 +81,14 @@ export default {
     handleSizeChange: function (size) {
       console.log(this.pagesize); //每页下拉显示数据
       this.pagesize = size;
-      this.loadNews(this.currentPage, size);
+      this.loadNews("all",this.currentPage, size);
     },
     handleCurrentChange: function (currentPage) {
       this.currentPage = currentPage;
-      this.loadNews(this.currentPage, this.pagesize);
+      this.loadNews("all",this.currentPage, this.pagesize);
     },
-    loadNews(page, limit) {
-      getNewsList(page, limit).then(
+    loadNews(type,page, limit) {
+      getNewsList(type,page, limit).then(
         (res) => {
           const data = res.data;
           this.tableData = data.records;
@@ -100,7 +100,7 @@ export default {
     },
   },
   created() {
-    this.loadNews(1,20);
+    this.loadNews("all",1,20);
   },
 
 };
