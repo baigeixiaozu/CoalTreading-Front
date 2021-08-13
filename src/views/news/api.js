@@ -23,3 +23,9 @@ export const submit = (article,way)=>{
     })
 }
 
+export const getnotpass = (id)=>{
+    return request.get("/news/audit/" +"reject"+ id )
+}
+export const subauditopinion = (id)=>{
+    return request.get("/news/audit/"+"pass" + id )
+}
