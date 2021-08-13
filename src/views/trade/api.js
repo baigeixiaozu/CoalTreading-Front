@@ -124,3 +124,9 @@ export const downContractFile = (id, path)=>{
     responseType: 'blob'
   })
 }
+// 接受/拒绝
+export const acceptContract = (id, accept)=>{
+  return request.post("/request/contract/accept/" + id, {
+    accept
+  })
+}

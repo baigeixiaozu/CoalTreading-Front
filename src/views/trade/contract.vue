@@ -19,13 +19,15 @@
     <div v-else-if="mode === 'zp'">
       <!-- 摘牌方下载合同 -->
       <el-button @click="getContractFile">下载合同</el-button>
-      <el-button @click="acceptContract" type="primary">确认合同</el-button>
+      <br /><br /><br />
+      <el-button @click="acceptContract(true)" type="primary">确认合同</el-button>
+      <el-button @click="acceptContract(false)" type="warning">拒绝合同</el-button>
     </div>
   </div>
 </template>
 
 <script>
-import { downContractFile } from "./api";
+import { downContractFile,acceptContract } from "./api";
 export default {
   data() {
     return {
@@ -72,8 +74,15 @@ export default {
         link.click();
       });
     },
-    acceptContract() {
+    acceptContract(accept) {
       // 接受合同
+      acceptContract(this.id, accept).then(res=>{
+        console.log(res)
+        this.$message({
+          message: "提交成功",
+          type: "success"
+        })
+      })
     },
   },
 };
