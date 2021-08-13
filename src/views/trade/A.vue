@@ -334,6 +334,10 @@
         <!-- 已发布 -->
         <div>已发布</div>
       </div>
+      <div v-else-if="gpInfo.status === '8'">
+        <!-- 上传合同 -->
+        <div>上传合同</div>
+      </div>
       <div v-else-if="gpInfo.status === '15'">
         <!-- 待交保证金 -->
         <div>待交保证金</div>
@@ -350,6 +354,10 @@
         <!-- 待交保证金 -->
         <div>待交保证金</div>
         <router-link :to="'/trade/margin?gpid=' + this.gpInfo.id"><el-button>去交保证金</el-button></router-link>
+      </div>
+      <div v-else-if="gpInfo.status === '9'">
+        <!-- 确认合同 -->
+        <div>确认合同</div>
       </div>
       <div v-else-if="zpInfo.status === '2'">
         <!-- 摘牌成功 -->

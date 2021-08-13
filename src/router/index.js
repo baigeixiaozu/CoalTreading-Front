@@ -88,6 +88,12 @@ const routes = [
     meta: { title: "资金预存" }
   },
   {
+    path: "/trade/contract/:mode",
+    name: "contract",
+    component: () => import("../views/trade/contract.vue"),
+    meta: { title: "合同处理" }
+  },
+  {
     path: "/trade/A/:mode",
     name: "GP1",
     component: () => import("../views/trade/A.vue"),

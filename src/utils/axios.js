@@ -43,7 +43,7 @@ _axios.interceptors.response.use(
     if(response.status !== 200)return Promise.reject(response);
 
     const resp = response.data;
-    if(resp.code !== 200){
+    if(resp.code && resp.code !== 200){
       console.log("状态码异常", resp)
       if(resp.error){
         ElMessage({

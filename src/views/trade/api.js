@@ -113,3 +113,14 @@ export const postPredepositinfo = id => {
     }
   });
 };
+
+// 合同操作
+// 下载
+export const downContractFile = (id, path)=>{
+  return request.get("/request/contract/file/" + id, {
+    params: {
+      path
+    },
+    responseType: 'blob'
+  })
+}
