@@ -1,23 +1,9 @@
 <template>
-    <el-table ref="table" border stripe highlight-current-row :data="tableData" style="width: 800px;">
-      <el-table-column
-        label="商品 ID"
-        prop="id">
-      </el-table-column>
-      <el-table-column
-        label="商品名称"
-        prop="name">
-      </el-table-column>
-      <el-table-column
-        label="描述"
-        prop="desc">
-      </el-table-column>
-      <el-table-column label="操作" width="150">
-       <template slot-scope="scope">
-         <el-button type="text" @click="toogleExpand(scope.row)">查看详情</el-button>
-         <el-button type="text" @click="">返回</el-button>
-       </template>
-     </el-table-column>
+    <el-table ref="table"
+    border
+    stripe highlight-current-row
+    :data="tableData">
+
      <el-table-column type="expand" width="1">
        <template slot-scope="props">
          <el-form label-position="central" inline class="demo-table-expand">
@@ -45,27 +31,74 @@
          </el-form>
        </template>
      </el-table-column>
+     <el-table-column
+        label="商品 ID"
+        prop="id">
+      </el-table-column>
+      <el-table-column
+        label="商品名称"
+        prop="name">
+      </el-table-column>
+      <el-table-column
+        label="状态(是否已读)"
+        prop="desc">
+      </el-table-column>
+      <el-table-column label="操作" width="200px">
+
+        <el-button type="text" @click="toogleExpand(prop.row)">查看详情</el-button>
+         <el-button type="text" @click="">标记已读</el-button>
+       <template slot-scope="scope"></template>
+     </el-table-column>
    </el-table>
  </template>
 
  <script>
+   import {getMessageList} from './api'
  export default {
    data() {
      return {
+       total:'',
+       page:'',
        tableData: []
      };
    },
+   created() {
+     this.loadMsg(1,20);
+   },
    mounted() {
-     this.axios({
-       methed:'get',
-       url:this.baseURL+'/message/myMsg',
-     }).then()
+
    },
    methods: {
      toogleExpand(row) {
        let $table = this.$refs.table;
        $table.toggleRowExpansion(row)
-    }
+    },
+    loadMsg(page, limit) {
+      getMessageList(page, limit).then(
+        (res) => {
+          const data = res.data;
+          console.log(data.pages);
+          this.tableData = data.row;
+          this.page=data.pages;
+          this.total = data.total;
+        },
+        function (error) {}
+      );
+    },
    }
  }
  </script>
+<style>
+ .demo-table-expand {
+    font-size: 0;
+  }
+  .demo-table-expand label {
+    width: 90px;
+    color: #99a9bf;
+  }
+  .demo-table-expand .el-form-item {
+    margin-right: 0;
+    margin-bottom: 0;
+    width: 50%;
+  }
+</style>
