@@ -337,6 +337,21 @@
       <div v-else-if="gpInfo.status === '8'">
         <!-- 上传合同 -->
         <div>上传合同</div>
+        <router-link :to="'/trade/contract/gp?id=' + this.gpInfo.id"><el-button>去上传合同</el-button></router-link>
+      </div>
+      <div v-else-if="gpInfo.status === '9'">
+        <!-- 上传合同完毕，等待确认 -->
+        <div>上传合同完毕，等待确认</div>
+        <router-link :to="'/trade/contract/gp?id=' + this.gpInfo.id + (this.gpInfo.contractFile===null?'':'&path=' + this.gpInfo.contractFile)"><el-button>去查看合同</el-button></router-link>
+      </div>
+      <div v-else-if="gpInfo.status === '10'">
+        <!-- 上传合同 -->
+        <div>合同被拒绝</div>
+        <router-link :to="'/trade/contract/gp?id=' + this.gpInfo.id"><el-button>去上传合同</el-button></router-link>
+      </div>
+      <div v-else-if="gpInfo.status === '11'">
+        <!-- 合同被确认，生成订单 -->
+        <div>合同被确认，生成订单</div>
       </div>
       <div v-else-if="gpInfo.status === '15'">
         <!-- 待交保证金 -->
@@ -707,6 +722,7 @@ export default {
       gpInfo: {
         id: null,
         status: '0',
+        contractFile: null
       },
       zpInfo: {
         id: null,
@@ -859,6 +875,7 @@ export default {
           this.buyPubData = res.data.detail;
           this.gpInfo.id= res.data.id;
           this.gpInfo.status = res.data.status;
+          this.gpInfo.contractFile = res.data.contractFile;
           this.isFormDisabled = res.data.status!=='1' && res.data.status!=='7';
         })
         .catch((err) => {

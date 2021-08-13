@@ -2,19 +2,25 @@
   <div>
     <div v-if="mode === 'gp'">
       <!-- 挂牌放上传合同 -->
-      <el-upload
-        class="upload-demo"
-        :action="`${API}/request/contract/upload/${this.id}`"
-        :headers="auth"
-        :limit="1"
-        name="contract"
-        :on-success="successHandle"
-      >
-        <el-button size="small" type="primary">点击上传</el-button>
-        <template #tip>
-          <div class="el-upload__tip">只能上传不超过 5MB 的文件</div>
-        </template>
-      </el-upload>
+      <div v-if="path===null">
+        <el-upload
+          class="upload-demo"
+          :action="`${API}/request/contract/upload/${this.id}`"
+          :headers="auth"
+          :limit="1"
+          name="contract"
+          :on-success="successHandle"
+        >
+          <el-button size="small" type="primary">点击上传</el-button>
+          <template #tip>
+            <div class="el-upload__tip">只能上传不超过 5MB 的文件</div>
+          </template>
+        </el-upload>
+      </div>
+      <!-- TODO:使用fileList获取显示 -->
+      <div v-else>
+        <el-button @click="getContractFile">下载合同</el-button>
+      </div>
     </div>
     <div v-else-if="mode === 'zp'">
       <!-- 摘牌方下载合同 -->
@@ -43,12 +49,14 @@ export default {
   created() {
     const q = this.$route.query;
     const mode = this.$route.params.mode;
+    // 挂牌--挂牌ID，摘牌--摘牌ID
     this.id = q.id;
-    this.path = q.path;
+    if(q.path)this.path = q.path; // 挂牌传
     this.mode = mode;
   },
   methods: {
     successHandle(response, file, fileList) {
+      console.log("successHandle")
       file.name = response.data.path;
     },
     getContractFile() {
