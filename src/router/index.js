@@ -25,6 +25,11 @@ const routes = [
     component: () => import("../views/news/detail.vue"),
     meta: { title: "资讯详情" }
   },
+  {
+    path: "/news/auditdetail",
+    component: () => import("../views/news/auditdetail.vue"),
+    meta: { title: "审核资讯" }
+  },
   // 用户路由START
   {
     path: "/user/login",
