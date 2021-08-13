@@ -55,3 +55,18 @@ export const getreglist = (page,limit)=>{
         }
     })
 }
+export const downloadpicfile = (id,file)=>{
+    return request.get("/servlet/pic",{
+         id:id,
+         file:file
+    })
+}
+export const getpass = (id)=>{
+    return request.get("/info/verify/" + id )
+}
+export const getnotpass = (id)=>{
+    return request.get("/info/reject/" + id )
+}
+export const subauditopinion = (id,opinion)=>{
+    return request.get("/info/"+id+'/' + opinion )
+}
