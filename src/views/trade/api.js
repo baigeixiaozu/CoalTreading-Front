@@ -92,10 +92,10 @@ export const getMarginInfo = (params) => {
 };
 
 //用户进行支付保证金操作
-export const postMarginInfo = id => {
-  return request.post("/payment/number/{request_id}", {
+export const postMarginInfo = (type, id, count) => {
+  return request.post("/payment/number/"+id, {
     params: {
-      request_id: id
+      number: count
     }
   });
 };
