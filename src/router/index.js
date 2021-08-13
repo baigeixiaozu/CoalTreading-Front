@@ -38,9 +38,9 @@ const routes = [
     meta: { title: "注册" }
   },
   {
-    path: "/news/audit",
-    component: () => import("../views/news/audit.vue"),
-    meta: { title: "资讯审核" }
+    path: "/user/audit",
+    component: () => import("../views/user/audit.vue"),
+    meta: { title: "注册审核" }
   },
   {
     path: "/user/info",
