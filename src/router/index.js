@@ -62,6 +62,12 @@ const routes = [
     meta: { title: "新增用户" }
   },
   // 用户路由END
+  //用户消息列表
+  {
+    path: "/message/myMsg",
+    component: () => import("../views/message/list.vue"),
+    meta: { title: "用户信息列表" }
+  },
   // 交易路由START
   {
     path: "/trade/GPList/:mode",
