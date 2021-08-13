@@ -64,7 +64,7 @@ const routes = [
   // 用户路由END
   //用户消息列表
   {
-    path: "/message/myMsg",
+    path: "/message/list",
     component: () => import("../views/message/list.vue"),
     meta: { title: "用户信息列表" }
   },
