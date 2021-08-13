@@ -93,10 +93,8 @@ export const getMarginInfo = (params) => {
 
 //用户进行支付保证金操作
 export const postMarginInfo = (type, id, count) => {
-  return request.post("/payment/number/"+id, {
-    params: {
-      number: count
-    }
+  return request.post(`/payment/pay/${type}/${id}`, {
+    margin: count
   });
 };
 
@@ -105,7 +103,7 @@ export const getPredepositinfo = () => {
   return request.get("/fin/info");
 };
 
-//用户进行支付保证金操作
+//用户进行预存保证金操作
 export const postPredepositinfo = id => {
   return request.get("/fin/updateQ/{quantity}", {
     params: {

@@ -188,7 +188,7 @@ export default {
         });
     },
     postdata(id) {
-      postMarginInfo(id)
+      postMarginInfo(this.type, id, this.totalMargin)
         .then((res) => {
           console.log(res);
           this.$message({
