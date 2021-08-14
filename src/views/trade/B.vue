@@ -104,7 +104,7 @@
         </el-col>
       </el-row>
     </el-form>
-    <div v-if="this.$store.state.role === 'USER_BUY'">
+    <div v-if="this.$store.state.role === 'USER_SALE'">
       <!-- 挂牌区域 -->
       <div v-if="gpInfo.status === '0'">
         <el-button type="primary" @click="submitForm('buyPubData')"
@@ -141,7 +141,7 @@
         <div>待交保证金</div>
       </div>
     </div>
-    <div v-else-if="this.$store.state.role === 'USER_SALE'">
+    <div v-else-if="this.$store.state.role === 'USER_BUY'">
       <!-- 摘牌区域 -->
       <div v-if="zpInfo.status === '0'">
         <!-- 未摘牌,默认 -->
