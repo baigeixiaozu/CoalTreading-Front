@@ -148,6 +148,20 @@ export default {
             },
           ],
         },
+        {
+          index: "5",
+          name: "财务中心",
+          icon: "",
+          roles: ["USER_MONEY"],
+          child: [
+            {
+              index: "/trade/predeposit",
+              name: "预存资金",
+              icon: "el-icon-s-open",
+              roles: ["USER_MONEY"],
+            },
+          ],
+        },
       ],
     };
   },
