@@ -1,12 +1,11 @@
 import request from '../../utils/axios';
 
-export const getNewsList = (type, page,limit)=>{
+export const getNewsList = (page,limit)=>{
     console.log(page, limit);
     return request.get("/news/show", {
         params:{
             current: page,
-            size: limit,
-            type:type
+            size: limit
         }
     })
 }
@@ -23,10 +22,20 @@ export const submit = (article,way)=>{
          content:article.content  
     })
 }
-
+export const getauditList = (page,limit)=>{
+    console.log(page, limit);
+    return request.get("/news/showAudit", {
+        params:{
+            current: page,
+            size: limit,
+        }
+    })
+}
 export const getnotpass = (id)=>{
-    return request.get("/news/audit/reject/" + id )
+    console.log(id)
+    return request.post("/news/audit/reject" , id)
 }
 export const getpass = (id)=>{
-    return request.get("/news/audit/pass/" + id )
+    console.log(id)
+    return request.post("/news/audit/pass" ,id  )
 }
