@@ -104,10 +104,10 @@ export const getPredepositinfo = () => {
 };
 
 //用户进行预存保证金操作
-export const postPredepositinfo = id => {
-  return request.get("/fin/updateQ/{quantity}", {
+export const postPredepositinfo = (data, quantity) => {
+  return request.post("/fin/store", data, {
     params: {
-      quantity: id
+      quantity
     }
   });
 };
@@ -122,7 +122,7 @@ export const downContractFile = (id, path)=>{
     responseType: 'blob'
   })
 }
-// 接受/拒绝
+// 接受/拒绝合同
 export const acceptContract = (id, accept)=>{
   return request.post("/request/contract/accept/" + id, {
     accept
