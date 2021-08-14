@@ -87,8 +87,8 @@ export default {
       this.currentPage = currentPage;
       this.loadNews("all",this.currentPage, this.pagesize);
     },
-    loadNews(type,page, limit) {
-      getNewsList(type,page, limit).then(
+    loadNews(type, page, limit) {
+      getNewsList(type, page, limit).then(
         (res) => {
           const data = res.data;
           this.tableData = data.records;
