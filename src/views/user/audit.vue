@@ -174,8 +174,8 @@
     
        <template #footer>
       <span class="dialog-footer">
-      <el-button type="danger" @click="pass(detailform.userId)">拒绝</el-button>
-      <el-button type="success" @click="notpass(detailform.userId)">通过</el-button>
+      <el-button type="danger" @click="notpass(detailform.userId)">拒绝</el-button>
+      <el-button type="success" @click="pass(detailform.userId)">通过</el-button>
       </span>
      </template>
     </el-dialog>
