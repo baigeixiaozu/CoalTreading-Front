@@ -132,6 +132,18 @@ const routes = [
       next()
     }
   },
+  {
+    path: "/trade/audit/list",
+    name: "tradeAuditList",
+    component: ()=> import("../views/trade/audit/list.vue"),
+    meta: { title: "交易审核列表" }
+  },
+  {
+    path: "/trade/audit/detail",
+    name: "tradeAuditDetail",
+    component: ()=> import("../views/trade/audit/detail.vue"),
+    meta: { title: "交易审核" }
+  }
   // 交易路由END
 ];
 
@@ -140,8 +152,8 @@ const router = createRouter({
   routes
 });
 // 全局解析守卫
-// router.beforeResolve((to, from, next) => {
-//   window.document.title = to.meta.title
-//   next()
-// })
+router.beforeResolve((to, from, next) => {
+  window.document.title = to.meta.title
+  next()
+})
 export default router;
