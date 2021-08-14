@@ -48,7 +48,7 @@ export default {
           index: "1",
           name: "资讯",
           icon: "el-icon-chat-line-square",
-          roles: ['ALL'],
+          roles: ['NEWS_AUDITOR','USER_REG_AUDITOR'],
           child: [
             {
               index: "/news/edit",
