@@ -6,7 +6,7 @@ export const getNewsList = (type, page,limit)=>{
         params:{
             current: page,
             size: limit,
-            type
+            type:type
         }
     })
 }
