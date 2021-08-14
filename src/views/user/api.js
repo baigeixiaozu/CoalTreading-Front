@@ -62,10 +62,10 @@ export const downloadpicfile = (id,file)=>{
     })
 }
 export const getpass = (id)=>{
-    return request.get("/info/verify/" + id )
+    return request.post("/info/verify/"+id )
 }
 export const getnotpass = (id)=>{
-    return request.get("/info/reject/" + id )
+    return request.post("/info/reject/"+id )
 }
 export const subauditopinion = (id,opinion)=>{
     return request.get("/info/"+id+'/' + opinion )
