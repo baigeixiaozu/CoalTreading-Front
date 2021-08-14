@@ -25,8 +25,8 @@ export const submit = (article,way)=>{
 }
 
 export const getnotpass = (id)=>{
-    return request.get("/news/audit/" +"reject"+ id )
+    return request.get("/news/audit/reject/" + id )
 }
 export const getpass = (id)=>{
-    return request.get("/news/audit/"+"pass" + id )
+    return request.get("/news/audit/pass/" + id )
 }
