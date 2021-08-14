@@ -30,7 +30,7 @@
 </template>
 
 <script>
-import { getNewsList } from "./api";
+import { getauditList } from "./api";
 import {searchtitle} from "./api";
 export default {
   data() {
@@ -70,14 +70,14 @@ export default {
     handleSizeChange: function (size) {
       console.log(this.pagesize); //每页下拉显示数据
       this.pagesize = size;
-      this.loadNews("auditing",this.currentPage, size);
+      this.loadNews(this.currentPage, size);
     },
     handleCurrentChange: function (currentPage) {
       this.currentPage = currentPage;
-      this.loadNews("auditing",this.currentPage, this.pagesize);
+      this.loadNews(this.currentPage, this.pagesize);
     },
-    loadNews(type,page, limit) {
-      getNewsList(type,page, limit).then(
+    loadNews(page, limit) {
+      getauditList(page, limit).then(
         (res) => {
           const data = res.data;
           this.tableData = data.records;
@@ -89,7 +89,7 @@ export default {
     },
   },
   created() {
-    this.loadNews("auditing",1,20);
+    this.loadNews(1,20);
   },
 
 };
