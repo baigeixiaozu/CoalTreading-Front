@@ -6,8 +6,8 @@
         <div class="news-meta">发布时间：{{date}}</div>
         <div class="news-content">{{content}}</div>
       </el-main>
-      <el-button type="danger" @click="pass(this.$route.query.id)">拒绝</el-button>
-      <el-button type="success" @click="notpass(this.$route.query.id)">通过</el-button>
+      <el-button type="danger" @click="notpass(this.$route.query.id)">拒绝</el-button>
+      <el-button type="success" @click="pass(this.$route.query.id)">通过</el-button>
     </el-container>
   </div>
 </template>
