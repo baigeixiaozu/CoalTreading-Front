@@ -43,10 +43,10 @@ export const getFullUserInfo = ()=>{
 export const genNewUser = (data)=>{
     return request.post("/user/new", data)
 }
-export const getdetail = (id)=>{
+export const getDetail = (id)=>{
     return request.get("/info/" + id )
 }
-export const getreglist = (page,limit)=>{
+export const getRegList = (page,limit)=>{
     console.log(page, limit);
     return request.get("/info/list", {
         params:{
@@ -55,18 +55,18 @@ export const getreglist = (page,limit)=>{
         }
     })
 }
-export const downloadpicfile = (id,file)=>{
+export const downloadPicFile = (id,file)=>{
     return request.get("/servlet/pic",{
          id:id,
          file:file
     })
 }
-export const getpass = (id)=>{
+export const getPass = (id)=>{
     return request.post("/info/verify/"+id )
 }
-export const getnotpass = (id)=>{
+export const getNotPass = (id)=>{
     return request.post("/info/reject/"+id )
 }
-export const subauditopinion = (id,opinion)=>{
+export const subAuditOpinion = (id,opinion)=>{
     return request.get("/info/"+id+'/' + opinion )
 }
