@@ -128,3 +128,15 @@ export const acceptContract = (id, accept)=>{
     accept
   })
 }
+
+// 获取待审核交易列表
+export const getTradeAuditList = (page, limit)=>{
+  return request.get("/request/audit/pending", {
+    params: {
+      page,
+      limit
+    }
+  })
+}
+// 获取待审核交易信息
+// 交易审核操作

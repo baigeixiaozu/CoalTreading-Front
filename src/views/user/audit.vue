@@ -258,7 +258,7 @@ export default {
               h("img", {
                 style: { verticalAlign: "middle" },
                 attrs: {
-                  src: require(this.fileList[num].url),
+                  src: this.fileList[num].url,
                 },
               }),
             ]),

@@ -139,7 +139,7 @@ const routes = [
     meta: { title: "交易审核列表" }
   },
   {
-    path: "/trade/audit/detail",
+    path: "/trade/audit/detail/:id",
     name: "tradeAuditDetail",
     component: ()=> import("../views/trade/audit/detail.vue"),
     meta: { title: "交易审核" }

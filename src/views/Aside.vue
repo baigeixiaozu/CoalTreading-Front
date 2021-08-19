@@ -119,6 +119,12 @@ export default {
               name: "注册审核",
               icon: "",
               roles: ['USER_REG_AUDITOR'],
+            },
+            {
+              index: "/trade/audit/list",
+              name: "交易审核",
+              icon: "",
+              roles: ['TRADE_AUDITOR'],
             }
           ],
         },
