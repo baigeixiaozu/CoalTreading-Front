@@ -139,4 +139,7 @@ export const getTradeAuditList = (page, limit)=>{
   })
 }
 // 获取待审核交易信息
+export const getTradeAuditDetail = (id)=>{
+  return request.get("/request/audit/detail/" + id)
+}
 // 交易审核操作

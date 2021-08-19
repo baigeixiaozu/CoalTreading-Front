@@ -7,7 +7,7 @@
         </el-header>
         <el-main>
             <el-row v-for="item in list" :key="item.id">
-                <router-link :to="'detail/' + item.id">
+                <router-link :to="`detail/${item.type==1?'B':'A'}/${item.id}`">
                     <el-col style="color:black;">{{item.id}}</el-col>
                 </router-link>
             </el-row>

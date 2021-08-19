@@ -104,106 +104,9 @@
         </el-col>
       </el-row>
     </el-form>
-    <!-- 卖方用户 供应商 -->
-    <div v-if="this.$store.state.role === 'USER_SALE'">
-      <!-- 挂牌区域 -->
-      <div v-if="gpInfo.status === '0'">
-        <el-button type="primary" @click="submitForm('buyPubData')"
-          >提交</el-button
-        >
-        <el-button @click="save">保存</el-button>
-        <el-button @click="resetForm('buyPubData')">重置</el-button>
-      </div>
-      <div v-else-if="gpInfo.status === '3'">
-        <!-- 已发布 -->
-        <div>已发布</div>
-      </div>
-      <div v-else-if="gpInfo.status === '8'">
-        <!-- 上传合同 -->
-        <div>上传合同</div>
-        <router-link :to="'/trade/contract/gp?id=' + this.gpInfo.id"><el-button>去上传合同</el-button></router-link>
-      </div>
-      <div v-else-if="gpInfo.status === '9'">
-        <!-- 上传合同完毕，等待确认 -->
-        <div>上传合同完毕，等待确认</div>
-        <router-link :to="'/trade/contract/gp?id=' + this.gpInfo.id + (this.gpInfo.contractFile===null?'':'&path=' + this.gpInfo.contractFile)"><el-button>去查看合同</el-button></router-link>
-      </div>
-      <div v-else-if="gpInfo.status === '10'">
-        <!-- 上传合同 -->
-        <div>合同被拒绝</div>
-        <router-link :to="'/trade/contract/gp?id=' + this.gpInfo.id"><el-button>去上传合同</el-button></router-link>
-      </div>
-      <div v-else-if="gpInfo.status === '11'">
-        <!-- 合同被确认，生成订单 -->
-        <div>合同被确认，生成订单</div>
-      </div>
-      <div v-else-if="gpInfo.status === '15'">
-        <!-- 待交保证金 -->
-        <div>待交保证金</div>
-      </div>
-    </div>
-    <!-- 买方用户 采购商 -->
-    <div v-else-if="this.$store.state.role === 'USER_BUY'">
-      <!-- 摘牌区域 -->
-      <div v-if="zpInfo.status === '0'">
-        <!-- 未摘牌,默认 -->
-        <el-button type="primary" @click="zpAction">摘牌</el-button>
-        <el-button @click="this.$router.back()">返回</el-button>
-      </div>
-      <div v-else-if="zpInfo.status === '1'">
-        <!-- 待交保证金 -->
-        <div>待交保证金</div>
-        <router-link :to="'/trade/margin?gpid=' + this.gpInfo.id"><el-button>去交保证金</el-button></router-link>
-      </div>
-      <div v-else-if="gpInfo.status === '9'">
-        <!-- 确认合同 -->
-        <div>确认合同</div>
-      </div>
-      <div v-else-if="zpInfo.status === '2'">
-        <!-- 摘牌成功 -->
-        <div>摘牌成功</div>
-      </div>
-    </div>
-    <!-- 财务用户 -->
-    <div v-else-if="this.$store.state.role === 'USER_MONEY'">
-      <!-- 财务区域 -->
-      <div v-if="mode==='gp'">
-        <!-- 挂牌 -->
-        <div v-if="gpInfo.status === '0'">
-          <!-- 未挂牌,默认 -->
-          <div>未被交易用户挂牌</div>
-        </div>
-        <div v-else-if="gpInfo.status === '15'">
-          <!-- 待交保证金 -->
-          <div>待交保证金</div>
-          <router-link :to="'/trade/margin?gpid=' + this.gpInfo.id"><el-button>去交保证金</el-button></router-link>
-        </div>
-        <div v-else-if="gpInfo.status === '2'">
-          <!-- 摘牌成功 -->
-          <div>摘牌成功</div>
-        </div>
-      </div>
-      <div v-else-if="mode==='zp'">
-        <!-- 摘牌 -->
-        <div v-if="zpInfo.status === '0'">
-          <!-- 未摘牌,默认 -->
-          <div>未被交易用户摘牌</div>
-        </div>
-        <div v-else-if="zpInfo.status === '1'">
-          <!-- 待交保证金 -->
-          <div>待交保证金</div>
-          <router-link :to="'/trade/margin?zpid=' + this.zpInfo.id"><el-button>去交保证金</el-button></router-link>
-        </div>
-        <div v-else-if="zpInfo.status === '2'">
-          <!-- 摘牌成功 -->
-          <div>摘牌成功</div>
-        </div>
-      </div>
-    </div>
-    <div v-if="!this.$store.state.isLogin">
-      <!-- 未登录,默认 -->
-      <el-button type="primary" @click="zpAction">摘牌</el-button>
-      <el-button @click="this.$router.back()">返回</el-button>
+    <!-- 审核用户 -->
+    <div v-if="this.$store.state.role === 'TRADE_AUDITOR'">
+      审核用户可视区
     </div>
   </div>
 </template>
@@ -217,25 +120,17 @@ import {
   doDelist,
   getZPDetail,
   getZPDetail2,
-} from "./api";
+} from "../api";
 export default {
+  props:{
+    isFormDisabled: Boolean,
+    salelistForm: Object
+  },
   data() {
     return {
       labelPosition: "right",
       mode: this.$route.params.mode,
       publish: false,
-      salelistForm: {
-        supplyQuantity: "", //供应量 number
-        calorificValue: "", //热值 number
-        unitPrice: "", //原煤单价 number
-        ts: "", //全硫 number
-        location: "", //产地
-        transportPrice: "", //运费单价 number
-        vc: "", //挥发分 number
-        sendLocal: "", //发站 string
-        kgjhf: "", // 空干基灰分 number
-        ms: "", //全水分  number
-      },
       rules: {
         supplyQuantity: [
           {

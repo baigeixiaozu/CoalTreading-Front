@@ -5,6 +5,7 @@
      -->
   <div class="baseData">
     <el-form
+      v-if="buyPubData.baseData!==undefined"
       :label-position="labelPosition"
       :model="buyPubData"
       status-icon
@@ -321,165 +322,20 @@
         ></el-input>
       </el-form-item>
     </el-form>
-    <div v-if="this.$store.state.role === 'USER_BUY'">
-      <!-- 挂牌区域 -->
-      <div v-if="gpInfo.status === '0'">
-        <el-button type="primary" @click="submitForm('buyPubData')"
-          >提交</el-button
-        >
-        <el-button @click="save">保存</el-button>
-        <el-button @click="resetForm('buyPubData')">重置</el-button>
-      </div>
-      <div v-else-if="gpInfo.status === '3'">
-        <!-- 已发布 -->
-        <div>已发布</div>
-      </div>
-      <div v-else-if="gpInfo.status === '8'">
-        <!-- 上传合同 -->
-        <div>上传合同</div>
-        <router-link :to="'/trade/contract/gp?id=' + this.gpInfo.id"><el-button>去上传合同</el-button></router-link>
-      </div>
-      <div v-else-if="gpInfo.status === '9'">
-        <!-- 上传合同完毕，等待确认 -->
-        <div>上传合同完毕，等待确认</div>
-        <router-link :to="'/trade/contract/gp?id=' + this.gpInfo.id + (this.gpInfo.contractFile===null?'':'&path=' + this.gpInfo.contractFile)"><el-button>去查看合同</el-button></router-link>
-      </div>
-      <div v-else-if="gpInfo.status === '10'">
-        <!-- 上传合同 -->
-        <div>合同被拒绝</div>
-        <router-link :to="'/trade/contract/gp?id=' + this.gpInfo.id"><el-button>去上传合同</el-button></router-link>
-      </div>
-      <div v-else-if="gpInfo.status === '11'">
-        <!-- 合同被确认，生成订单 -->
-        <div>合同被确认，生成订单</div>
-      </div>
-      <div v-else-if="gpInfo.status === '15'">
-        <!-- 待交保证金 -->
-        <div>待交保证金</div>
-      </div>
-    </div>
-    <div v-else-if="this.$store.state.role === 'USER_SALE'">
-      <!-- 摘牌区域 -->
-      <div v-if="zpInfo.status === '0'">
-        <!-- 未摘牌,默认 -->
-        <el-button type="primary" @click="zpAction">摘牌</el-button>
-        <el-button @click="this.$router.back()">返回</el-button>
-      </div>
-      <div v-else-if="zpInfo.status === '1'">
-        <!-- 待交保证金 -->
-        <div>待交保证金</div>
-        <router-link :to="'/trade/margin?gpid=' + this.gpInfo.id"><el-button>去交保证金</el-button></router-link>
-      </div>
-      <div v-else-if="gpInfo.status === '9'">
-        <!-- 确认合同 -->
-        <div>确认合同</div>
-      </div>
-      <div v-else-if="zpInfo.status === '2'">
-        <!-- 摘牌成功 -->
-        <div>摘牌成功</div>
-      </div>
-    </div>
-    <div v-else-if="this.$store.state.role === 'USER_MONEY'">
-      <!-- 财务区域 -->
-      <div v-if="mode==='gp'">
-        <!-- 挂牌 -->
-        <div v-if="gpInfo.status === '0'">
-          <!-- 未挂牌,默认 -->
-          <div>未被交易用户挂牌</div>
-        </div>
-        <div v-else-if="gpInfo.status === '15'">
-          <!-- 待交保证金 -->
-          <div>待交保证金</div>
-          <router-link :to="'/trade/margin?gpid=' + this.gpInfo.id"><el-button>去交保证金</el-button></router-link>
-        </div>
-        <div v-else-if="gpInfo.status === '2'">
-          <!-- 摘牌成功 -->
-          <div>摘牌成功</div>
-        </div>
-      </div>
-      <div v-else-if="mode==='zp'">
-        <!-- 摘牌 -->
-        <div v-if="zpInfo.status === '0'">
-          <!-- 未摘牌,默认 -->
-          <div>未被交易用户摘牌</div>
-        </div>
-        <div v-else-if="zpInfo.status === '1'">
-          <!-- 待交保证金 -->
-          <div>待交保证金</div>
-          <router-link :to="'/trade/margin?zpid=' + this.zpInfo.id"><el-button>去交保证金</el-button></router-link>
-        </div>
-        <div v-else-if="zpInfo.status === '2'">
-          <!-- 摘牌成功 -->
-          <div>摘牌成功</div>
-        </div>
-      </div>
-    </div>
-    <div v-if="!this.$store.state.isLogin">
-      <!-- 未登录,默认 -->
-      <el-button type="primary" @click="zpAction">摘牌</el-button>
-      <el-button @click="this.$router.back()">返回</el-button>
-    </div>
   </div>
 </template>
 
 <script>
-import {
-  requestPublish,
-  requestEdit,
-  loadMyReqDetail,
-  getPublicReqDetail,
-  doDelist,
-  getComName,
-  getZPDetail,
-  getZPDetail2
-} from "./api";
 export default {
+  props: {
+    buyPubData: Object,
+    isFormDisabled: Boolean,
+  },
   data() {
     return {
       labelPosition: "right",
       mode: this.$route.params.mode,
-      isFormDisabled: false,
       publish: false,
-      buyPubData: {
-        baseData: {
-          requestCompany: "",
-          requestNum: "",
-          applicant: "",
-          signer: "",
-          reqDate: null,
-          deliveryStartTime: "",
-          deliveryEndTime: "",
-          coalType: "",
-          buyQuantity: "",
-          transportMode: "",
-          deliveryLocation: "",
-          settlementMethod: "",
-          acceptanceMethod: "",
-          paymentMethod: "",
-          deposit1: null,
-          deposit2: null,
-        },
-        coalQuality: {
-          lowHeat: null,
-          sdjql: null,
-          qsf: null,
-          sdjhf: "",
-          sdjhff1: "",
-          sdjhff2: "",
-          kgjsf: "",
-          kgjql: "",
-          kgjhff1: "",
-          kgjhff2: "",
-          highHeat: "",
-          gjql: "",
-          gzwhjhff1: "",
-          gzwhjhff2: "",
-          granularity: "",
-          hrd: "",
-          remark: "",
-          hskmxs: "",
-        },
-      },
       rules: {
         "baseData.applicant": [
           {
@@ -721,224 +577,18 @@ export default {
       },
       gpInfo: {
         id: null,
-        status: '0',
-        contractFile: null
+        status: "0",
+        contractFile: null,
       },
       zpInfo: {
         id: null,
-        status: '0',
+        status: "0",
       },
     };
   },
-  created() {
-    // this.buyPubData = JSON.parse(
-    //   `{"baseData":{"applicant":"nurt","signer":"fy","reqDate":null,"deliveryStartTime":["2021-08-03T16:00:00.000Z","2021-08-18T16:00:00.000Z"],"deliveryEndTime":"","coalType":"无烟煤","buyQuantity":2375,"transportMode":"火车","deliveryLocation":"73","settlementMethod":"二票结算","acceptanceMethod":"到厂第三方验收","paymentMethod":"8738","deposit1":3783,"deposit2":73873,"deliveryTime":["2021-08-11T16:00:00.000Z","2021-08-20T16:00:00.000Z"]},"coalQuality":{"lowHeat":38738,"sdjql":7387,"qsf":7387387,"sdjhf":378373,"sdjhff1":73,"sdjhff2":378,"kgjsf":73,"kgjql":783,"kgjhff1":387,"kgjhff2":383,"highHeat":783,"gjql":83,"gzwhjhff1":837,"gzwhjhff2":8383,"granularity":73,"hrd":152,"remark":"738","hskmxs":83}}`
-    // );
-    if (this.buyPubData.baseData.reqDate === null) {
-      this.buyPubData.baseData.reqDate = new Date();
-    }
-    this.init();
-  },
+  created() {},
   updated() {},
-  methods: {
-    init() {
-      const mode = this.$route.params.mode;
-      const q = this.$route.query;
-      this.gpInfo.id = q.id;
-      this.zpInfo.id = q.zid;
-      if (mode === "zp") {
-        this.isFormDisabled = true;
-        // 摘牌
-        if (q.id) {
-          // 第一次摘牌操作
-          this.loadZPDetail1(q.id);
-        } else if (q.zid) {
-          // 摘牌后续
-          this.loadZPDetail2(q.zid);
-        }
-      } else {
-        // 挂牌
-        if (q.id) {
-          // 编辑挂牌信息
-          this.loadGPDetail(q.id);
-        } else {
-          // 新建挂牌信息
-          getComName().then((res) => {
-            this.buyPubData.baseData.requestCompany = res.data;
-            this.buyPubData.baseData.requestNum =
-              res.data + new Date().getTime();
-          });
-        }
-      }
-    },
-    save() {
-      // 重置请求时间
-      this.buyPubData.baseData.reqDate = new Date();
-      // console.log(JSON.stringify(this.buyPubData));
-      this.$refs["buyPubData"].validate((valid) => {
-        if (valid) {
-          //保存草稿
-          const q = this.$route.query;
-          if (q.id) {
-            // 编辑
-            this.editData(q.id, false);
-          } else {
-            // 新增
-            this.publishData(false);
-          }
-        } else {
-          this.$message({
-            message: "请检查数据合法性",
-            type: "warning",
-          });
-        }
-      });
-    },
-    submitForm() {
-      const q = this.$route.query;
-      // 重置请求时间
-      this.buyPubData.baseData.reqDate = new Date();
-      this.$refs["buyPubData"].validate((valid) => {
-        if (valid) {
-          //提交
-          if (q.id) {
-            // 编辑
-            this.editData(q.id, true);
-          } else {
-            // 新增
-            this.publishData(true);
-          }
-        } else {
-          this.$message({
-            message: "数据格式有误，请检查！",
-            type: "warning",
-          });
-          return false;
-        }
-      });
-    },
-    // 新增
-    publishData(publish = false) {
-      requestPublish({
-        publish: publish,
-        buyPubData: this.buyPubData,
-      })
-        .then((res) => {
-          console.log(res);
-          this.$message({
-            message: "提交成功",
-            type: "success",
-          });
-          this.$router.push(`${this.$route.path}?id=${res.data.reqId}`);
-        })
-        .catch((err) => {
-          console.log(err);
-          if (err.error) {
-            this.$message({
-              message: err.error,
-              type: "error",
-            });
-          }
-        });
-    },
-    //编辑
-    editData(id, publish = false) {
-      requestEdit({
-        id: id,
-        publish: publish,
-        buyPubData: this.buyPubData,
-      })
-        .then((res) => {
-          this.$message({
-            message: "提交成功",
-            type: "success",
-          });
-          this.$router.push(`${this.$route.path}?id=${res.data.reqId}`);
-        })
-        .catch((err) => {
-          console.log(err);
-          if (err.error) {
-            this.$message({
-              message: err.error,
-              type: "error",
-            });
-          }
-        });
-    },
-    // 加载
-    loadGPDetail(id) {
-      loadMyReqDetail(id)
-        .then((res) => {
-          res.data.detail.baseData.reqDate = new Date(
-            res.data.detail.baseData.reqDate
-          );
-          this.buyPubData = res.data.detail;
-          this.gpInfo.id= res.data.id;
-          this.gpInfo.status = res.data.status;
-          this.gpInfo.contractFile = res.data.contractFile;
-          this.isFormDisabled = res.data.status!=='1' && res.data.status!=='7';
-        })
-        .catch((err) => {
-          console.log(err);
-          if (err.error) {
-            this.$message({
-              message: err.error,
-              type: "error",
-            });
-            this.$router.back();
-          }
-        });
-    },
-
-    // 摘牌
-    zpAction() {
-      this.doDelist(this.gpInfo.id);
-    },
-    loadZPDetail1(id) {
-      if(!this.$store.state.isLogin){
-        // 未登录
-        getPublicReqDetail(id).then((res) => {
-          console.log(res);
-          res.data.detail.baseData.reqDate = new Date(
-            res.data.detail.baseData.reqDate
-          );
-          this.buyPubData = res.data.detail;
-        });
-      }else{
-        // 已登录
-        getZPDetail2(this.gpInfo.id).then(res=>{
-          console.log(res);
-          res.data.reqInfo.detail.baseData.reqDate = new Date(
-            res.data.reqInfo.detail.baseData.reqDate
-          );
-          this.buyPubData = res.data.reqInfo.detail;
-          this.zpInfo.status = res.data.delistInfo.status;
-        })
-      }
-    },
-    loadZPDetail2(zid) {
-      getZPDetail(zid).then((res) => {
-        console.log(res);
-        res.data.reqInfo.detail.baseData.reqDate = new Date(
-          res.data.reqInfo.detail.baseData.reqDate
-        );
-        this.buyPubData = res.data.reqInfo.detail;
-        const delistinfo = res.data.delistInfo;
-        this.zpInfo.status = delistinfo.status;
-      });
-    },
-    doDelist(id) {
-      doDelist(id).then((res) => {
-        console.log(res);
-        this.$message({
-          message: "摘牌成功",
-          type: "success",
-        });
-
-        this.$router.push(this.$route.path + "?zid=" + res.data.id);
-      });
-    },
-  },
+  methods: {},
 };
 </script>
 
