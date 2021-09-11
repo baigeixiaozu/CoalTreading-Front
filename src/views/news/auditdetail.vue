@@ -15,6 +15,7 @@
 </template>
 
 <script>
+import { ElMessage } from 'element-plus'
 import {loadNewsDetail} from './api'
 import {getpass} from "./api.js"
 import {getnotpass} from "./api.js"
@@ -40,6 +41,11 @@ export default {
         this.$router.back()
       }
     })
+    ElMessage.success({
+            message: '已通过',
+            type: 'success',
+          })
+       this.$router.back()   
       },
     notpass(id){
       getnotpass(id).then(res=>{
@@ -54,6 +60,11 @@ export default {
         this.$router.back()
       }
     })
+    ElMessage.success({
+            message: '已拒绝',
+            type: 'success',
+          })
+          this.$router.back()
       },
   },
   created(){

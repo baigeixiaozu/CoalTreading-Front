@@ -33,9 +33,9 @@ export const getauditList = (page,limit)=>{
 }
 export const getnotpass = (id)=>{
     console.log(id)
-    return request.post("/news/audit/reject" , id)
+    return request.post("/news/audit/reject/"+id)
 }
 export const getpass = (id)=>{
     console.log(id)
-    return request.post("/news/audit/pass" ,id  )
+    return request.post("/news/audit/pass/"+id )
 }
