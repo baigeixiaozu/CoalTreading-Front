@@ -3,7 +3,7 @@
     卖方挂牌/买方摘牌
     调用 --- /trade/B/[zp|gp]?id=[req_id]
   -->
-  <div class="">
+  <div class>
     <el-form
       :label-position="labelPosition"
       :model="salelistForm"
@@ -17,100 +17,70 @@
       <el-row>
         <el-col :span="12">
           <el-form-item label="供应量(万吨)" prop="supplyQuantity">
-            <el-input
-              v-model.number="salelistForm.supplyQuantity"
-              class="input-item"
-            ></el-input>
+            <el-input v-model.number="salelistForm.supplyQuantity" class="input-item"></el-input>
           </el-form-item>
         </el-col>
         <el-col :span="12">
           <el-form-item label="热值(Kcal/kg)>" prop="calorificValue">
-            <el-input
-              v-model.number="salelistForm.calorificValue"
-              class="input-item"
-            ></el-input>
+            <el-input v-model.number="salelistForm.calorificValue" class="input-item"></el-input>
           </el-form-item>
         </el-col>
       </el-row>
       <el-row>
         <el-col :span="12">
           <el-form-item label="原煤单价(元/吨)" prop="unitPrice">
-            <el-input
-              v-model.number="salelistForm.unitPrice"
-              class="input-item"
-            ></el-input>
+            <el-input v-model.number="salelistForm.unitPrice" class="input-item"></el-input>
           </el-form-item>
         </el-col>
         <el-col :span="12">
           <el-form-item prop="transportPrice" label="运费单价(元/吨)">
-            <el-input
-              v-model.number="salelistForm.transportPrice"
-              class="input-item"
-            ></el-input>
+            <el-input v-model.number="salelistForm.transportPrice" class="input-item"></el-input>
           </el-form-item>
         </el-col>
       </el-row>
       <el-row>
         <el-col :span="12">
           <el-form-item label="全硫(%)<" prop="ts">
-            <el-input
-              v-model.number="salelistForm.ts"
-              class="input-item"
-            ></el-input>
+            <el-input v-model.number="salelistForm.ts" class="input-item"></el-input>
           </el-form-item>
         </el-col>
         <el-col :span="12">
           <el-form-item prop="location" label="产地">
-            <el-input
-              v-model="salelistForm.location"
-              class="input-item"
-            ></el-input>
+            <el-input v-model="salelistForm.location" class="input-item"></el-input>
           </el-form-item>
         </el-col>
       </el-row>
       <el-row>
         <el-col :span="12">
           <el-form-item label="挥发分(%)<" prop="vc">
-            <el-input v-model.number="salelistForm.vc" class="input-item">
-            </el-input>
+            <el-input v-model.number="salelistForm.vc" class="input-item"></el-input>
           </el-form-item>
         </el-col>
 
         <el-col :span="12">
           <el-form-item prop="sendLocal" label="发站(发货港口)">
-            <el-input
-              v-model="salelistForm.sendLocal"
-              class="input-item"
-            ></el-input>
+            <el-input v-model="salelistForm.sendLocal" class="input-item"></el-input>
           </el-form-item>
         </el-col>
       </el-row>
       <el-row>
         <el-col :span="12">
           <el-form-item prop="kgjhf" label="空干基灰分(%)<">
-            <el-input
-              v-model.number="salelistForm.kgjhf"
-              class="input-item"
-            ></el-input>
+            <el-input v-model.number="salelistForm.kgjhf" class="input-item"></el-input>
           </el-form-item>
         </el-col>
         <el-col :span="12">
           <el-form-item prop="ms" label="全水分(%)<">
-            <el-input
-              v-model.number="salelistForm.ms"
-              class="input-item"
-            ></el-input>
+            <el-input v-model.number="salelistForm.ms" class="input-item"></el-input>
           </el-form-item>
         </el-col>
       </el-row>
     </el-form>
     <!-- 卖方用户 供应商 -->
-    <div v-if="this.$store.state.role === 'USER_SALE'">
+    <div v-if="this.$store.state.role === 'USER_SALE' && mode === 'gp'">
       <!-- 挂牌区域 -->
       <div v-if="gpInfo.status === '0'">
-        <el-button type="primary" @click="submitForm('buyPubData')"
-          >提交</el-button
-        >
+        <el-button type="primary" @click="submitForm('buyPubData')">提交</el-button>
         <el-button @click="save">保存</el-button>
         <el-button @click="resetForm('buyPubData')">重置</el-button>
       </div>
@@ -121,17 +91,25 @@
       <div v-else-if="gpInfo.status === '8'">
         <!-- 上传合同 -->
         <div>上传合同</div>
-        <router-link :to="'/trade/contract/gp?id=' + this.gpInfo.id"><el-button>去上传合同</el-button></router-link>
+        <router-link :to="'/trade/contract/gp?id=' + this.gpInfo.id">
+          <el-button>去上传合同</el-button>
+        </router-link>
       </div>
       <div v-else-if="gpInfo.status === '9'">
         <!-- 上传合同完毕，等待确认 -->
         <div>上传合同完毕，等待确认</div>
-        <router-link :to="'/trade/contract/gp?id=' + this.gpInfo.id + (this.gpInfo.contractFile===null?'':'&path=' + this.gpInfo.contractFile)"><el-button>去查看合同</el-button></router-link>
+        <router-link
+          :to="'/trade/contract/gp?id=' + this.gpInfo.id + (this.gpInfo.contractFile===null?'':'&path=' + this.gpInfo.contractFile)"
+        >
+          <el-button>去查看合同</el-button>
+        </router-link>
       </div>
       <div v-else-if="gpInfo.status === '10'">
         <!-- 上传合同 -->
         <div>合同被拒绝</div>
-        <router-link :to="'/trade/contract/gp?id=' + this.gpInfo.id"><el-button>去上传合同</el-button></router-link>
+        <router-link :to="'/trade/contract/gp?id=' + this.gpInfo.id">
+          <el-button>去上传合同</el-button>
+        </router-link>
       </div>
       <div v-else-if="gpInfo.status === '11'">
         <!-- 合同被确认，生成订单 -->
@@ -143,7 +121,7 @@
       </div>
     </div>
     <!-- 买方用户 采购商 -->
-    <div v-else-if="this.$store.state.role === 'USER_BUY'">
+    <div v-else-if="this.$store.state.role === 'USER_BUY' && mode === 'zp'">
       <!-- 摘牌区域 -->
       <div v-if="zpInfo.status === '0'">
         <!-- 未摘牌,默认 -->
@@ -153,7 +131,9 @@
       <div v-else-if="zpInfo.status === '1'">
         <!-- 待交保证金 -->
         <div>待交保证金</div>
-        <router-link :to="'/trade/margin?gpid=' + this.gpInfo.id"><el-button>去交保证金</el-button></router-link>
+        <router-link :to="'/trade/margin?gpid=' + this.gpInfo.id">
+          <el-button>去交保证金</el-button>
+        </router-link>
       </div>
       <div v-else-if="gpInfo.status === '9'">
         <!-- 确认合同 -->
@@ -176,7 +156,9 @@
         <div v-else-if="gpInfo.status === '15'">
           <!-- 待交保证金 -->
           <div>待交保证金</div>
-          <router-link :to="'/trade/margin?gpid=' + this.gpInfo.id"><el-button>去交保证金</el-button></router-link>
+          <router-link :to="'/trade/margin?gpid=' + this.gpInfo.id">
+            <el-button>去交保证金</el-button>
+          </router-link>
         </div>
         <div v-else-if="gpInfo.status === '2'">
           <!-- 摘牌成功 -->
@@ -192,7 +174,9 @@
         <div v-else-if="zpInfo.status === '1'">
           <!-- 待交保证金 -->
           <div>待交保证金</div>
-          <router-link :to="'/trade/margin?zpid=' + this.zpInfo.id"><el-button>去交保证金</el-button></router-link>
+          <router-link :to="'/trade/margin?zpid=' + this.zpInfo.id">
+            <el-button>去交保证金</el-button>
+          </router-link>
         </div>
         <div v-else-if="zpInfo.status === '2'">
           <!-- 摘牌成功 -->
@@ -216,7 +200,7 @@ import {
   getPublicReqDetail,
   doDelist,
   getZPDetail,
-  getZPDetail2,
+  getZPDetail2
 } from "./api";
 export default {
   data() {
@@ -234,7 +218,7 @@ export default {
         vc: "", //挥发分 number
         sendLocal: "", //发站 string
         kgjhf: "", // 空干基灰分 number
-        ms: "", //全水分  number
+        ms: "" //全水分  number
       },
       rules: {
         supplyQuantity: [
@@ -242,88 +226,88 @@ export default {
             type: "number",
             required: true,
             message: "不能为空，且只能为数字",
-            trigger: "blur",
-          },
+            trigger: "blur"
+          }
         ],
         calorificValue: [
           {
             type: "number",
             required: true,
             message: "不能为空，且只能为数字",
-            trigger: "blur",
-          },
+            trigger: "blur"
+          }
         ],
         unitPrice: [
           {
             type: "number",
             required: true,
             message: "不能为空，且只能为数字",
-            trigger: "blur",
-          },
+            trigger: "blur"
+          }
         ],
         ts: [
           {
             type: "number",
             required: true,
             message: "不能为空，且只能为数字",
-            trigger: "blur",
-          },
+            trigger: "blur"
+          }
         ],
         location: [
           {
             required: true,
             message: "不能为空",
-            trigger: "blur",
-          },
+            trigger: "blur"
+          }
         ],
         transportPrice: [
           {
             type: "number",
             required: true,
             message: "不能为空，且只能为数字",
-            trigger: "blur",
-          },
+            trigger: "blur"
+          }
         ],
         vc: [
           {
             type: "number",
             required: true,
             message: "不能为空，且只能为数字",
-            trigger: "blur",
-          },
+            trigger: "blur"
+          }
         ],
         sendLocal: [
           {
             required: true,
             message: "不能为空",
-            trigger: "blur",
-          },
+            trigger: "blur"
+          }
         ], //发站 string
         kgjhf: [
           {
             type: "number",
             required: true,
             message: "不能为空，且只能为数字",
-            trigger: "blur",
-          },
+            trigger: "blur"
+          }
         ], // 空干基灰分 number
         ms: [
           {
             type: "number",
             required: true,
             message: "不能为空，且只能为数字",
-            trigger: "blur",
-          },
-        ], //全水分  number
+            trigger: "blur"
+          }
+        ] //全水分  number
       },
       gpInfo: {
         id: null,
-        status: "0",
+        status: "0"
       },
       zpInfo: {
         id: null,
-        status: "0",
-      },
+        status: "0"
+      }
     };
   },
   mounted() {
@@ -356,7 +340,7 @@ export default {
       }
     },
     Save() {
-      this.$refs["salelistForm"].validate((valid) => {
+      this.$refs["salelistForm"].validate(valid => {
         if (valid) {
           //保存草稿
           const q = this.$route.query;
@@ -370,14 +354,14 @@ export default {
         } else {
           this.$message({
             message: "请检查数据合法性",
-            type: "warning",
+            type: "warning"
           });
         }
       });
     },
     submitForm() {
       const q = this.$route.query;
-      this.$refs["salelistForm"].validate((valid) => {
+      this.$refs["salelistForm"].validate(valid => {
         if (valid) {
           //提交
           if (q.id) {
@@ -390,7 +374,7 @@ export default {
         } else {
           this.$message({
             message: "数据格式有误，请检查！",
-            type: "warning",
+            type: "warning"
           });
           return false;
         }
@@ -403,22 +387,22 @@ export default {
     publishData(publish = false) {
       requestPublish({
         publish: publish,
-        salePubData: this.salelistForm,
+        salePubData: this.salelistForm
       })
-        .then((res) => {
+        .then(res => {
           console.log(res);
           this.$message({
             message: "提交成功",
-            type: "success",
+            type: "success"
           });
           this.$router.push(`${this.$route.path}?id=${res.data.reqId}`);
         })
-        .catch((err) => {
+        .catch(err => {
           console.log(err);
           if (err.error) {
             this.$message({
               message: err.error,
-              type: "error",
+              type: "error"
             });
           }
         });
@@ -428,20 +412,20 @@ export default {
       requestEdit({
         id: id,
         publish: publish,
-        salePubData: this.salelistForm,
+        salePubData: this.salelistForm
       })
-        .then((res) => {
+        .then(res => {
           this.$message({
             message: "提交成功",
-            type: "success",
+            type: "success"
           });
         })
-        .catch((err) => {
+        .catch(err => {
           console.log(err);
           if (err.error) {
             this.$message({
               message: err.error,
-              type: "error",
+              type: "error"
             });
           }
         });
@@ -449,19 +433,19 @@ export default {
     // 加载挂牌信息
     loadGPDetail(id) {
       loadMyReqDetail(id)
-        .then((res) => {
+        .then(res => {
           this.salelistForm = res.data.detail;
           this.gpInfo.id = res.data.id;
           this.gpInfo.status = res.data.status;
           this.isFormDisabled =
             res.data.status !== "1" && res.data.status !== "7";
         })
-        .catch((err) => {
+        .catch(err => {
           console.log(err);
           if (err.error) {
             this.$message({
               message: err.error,
-              type: "error",
+              type: "error"
             });
             this.$router.back();
           }
@@ -475,13 +459,13 @@ export default {
     loadZPDetail1(id) {
       if (!this.$store.state.isLogin) {
         // 未登录
-        getPublicReqDetail(id).then((res) => {
+        getPublicReqDetail(id).then(res => {
           console.log(res);
           this.salelistForm = res.data.detail;
         });
       } else {
         // 已登录
-        getZPDetail2(this.gpInfo.id).then((res) => {
+        getZPDetail2(this.gpInfo.id).then(res => {
           this.salelistForm = res.data.reqInfo.detail;
           const delistinfo = res.data.delistInfo;
           if (delistinfo) this.zpInfo.status = delistinfo.status;
@@ -489,7 +473,7 @@ export default {
       }
     },
     loadZPDetail2(zid) {
-      getZPDetail(zid).then((res) => {
+      getZPDetail(zid).then(res => {
         console.log(res);
         this.salelistForm = res.data.reqInfo.detail;
         const delistinfo = res.data.delistInfo;
@@ -497,15 +481,15 @@ export default {
       });
     },
     doDelist(id) {
-      doDelist(id).then((res) => {
+      doDelist(id).then(res => {
         console.log(res);
         this.$message({
           message: "摘牌成功",
-          type: "success",
+          type: "success"
         });
       });
-    },
-  },
+    }
+  }
 };
 </script>
 

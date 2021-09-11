@@ -258,7 +258,7 @@
         <el-input v-model="buyPubData.coalQuality.remark" type="textarea" :rows="2"></el-input>
       </el-form-item>
     </el-form>
-    <div v-if="this.$store.state.role === 'USER_BUY'">
+    <div v-if="this.$store.state.role === 'USER_BUY' && mode==='gp'">
       <!-- 挂牌区域 -->
       <div v-if="gpInfo.status === '0'">
         <el-button type="primary" @click="submitForm('buyPubData')">提交</el-button>
@@ -301,7 +301,7 @@
         <div>待交保证金</div>
       </div>
     </div>
-    <div v-else-if="this.$store.state.role === 'USER_SALE'">
+    <div v-else-if="this.$store.state.role === 'USER_SALE' && mode==='zp'">
       <!-- 摘牌区域 -->
       <div v-if="zpInfo.status === '0'">
         <!-- 未摘牌,默认 -->
@@ -857,12 +857,12 @@ export default {
       } else {
         // 已登录
         getZPDetail2(this.gpInfo.id).then(res => {
-          console.log(res);
+          console.log("loadZPDetail1 - 已登录", res);
           res.data.reqInfo.detail.baseData.reqDate = new Date(
             res.data.reqInfo.detail.baseData.reqDate
           );
           this.buyPubData = res.data.reqInfo.detail;
-          this.zpInfo.status = res.data.delistInfo.status;
+          this.gpInfo.status = res.data.reqInfo.status;
         });
       }
     },
