@@ -2,7 +2,7 @@
   <!-- 
     买方挂牌/卖方摘牌
     调用 --- /trade/A/[zp|gp]?id=[req_id]
-     -->
+  -->
   <div class="baseData">
     <el-form
       :label-position="labelPosition"
@@ -17,18 +17,12 @@
       <el-row>
         <el-col :span="8">
           <el-form-item label="申请单位" prop="baseData.requestCompany">
-            <el-input
-              v-model="buyPubData.baseData.requestCompany"
-              :disabled="true"
-            ></el-input>
+            <el-input v-model="buyPubData.baseData.requestCompany" :disabled="true"></el-input>
           </el-form-item>
         </el-col>
         <el-col :span="8">
           <el-form-item label="单据编号" prop="baseData.requestNum">
-            <el-input
-              v-model="buyPubData.baseData.requestNum"
-              :disabled="true"
-            ></el-input>
+            <el-input v-model="buyPubData.baseData.requestNum" :disabled="true"></el-input>
           </el-form-item>
         </el-col>
         <el-col :span="8">
@@ -55,19 +49,14 @@
       </el-row>
       <el-row>
         <el-col :span="8">
-          <el-form-item
-            prop="baseData.deliveryTime"
-            label="交货日期"
-            style="display: flex"
-          >
+          <el-form-item prop="baseData.deliveryTime" label="交货日期" style="display: flex">
             <el-date-picker
               v-model="buyPubData.baseData.deliveryTime"
               type="daterange"
               start-placeholder="开始日期"
               end-placeholder="结束日期"
               range-separator="至"
-            >
-            </el-date-picker>
+            ></el-date-picker>
           </el-form-item>
         </el-col>
       </el-row>
@@ -75,29 +64,17 @@
       <el-row>
         <el-col :span="12">
           <el-form-item prop="baseData.acceptanceMethod" label="验收方式">
-            <el-select
-              v-model="buyPubData.baseData.acceptanceMethod"
-              placeholder="请选择..."
-            >
+            <el-select v-model="buyPubData.baseData.acceptanceMethod" placeholder="请选择...">
               <el-option label="到厂验收" value="到厂验收"></el-option>
-              <el-option
-                label="到厂第三方验收"
-                value="到厂第三方验收"
-              ></el-option>
-              <el-option
-                label="港口第三方验收"
-                value="港口第三方验收"
-              ></el-option>
+              <el-option label="到厂第三方验收" value="到厂第三方验收"></el-option>
+              <el-option label="港口第三方验收" value="港口第三方验收"></el-option>
             </el-select>
           </el-form-item>
         </el-col>
 
         <el-col :span="12">
           <el-form-item prop="baseData.coalType" label="煤种">
-            <el-select
-              v-model="buyPubData.baseData.coalType"
-              placeholder="请选择..."
-            >
+            <el-select v-model="buyPubData.baseData.coalType" placeholder="请选择...">
               <el-option label="烟煤" value="烟煤"></el-option>
               <el-option label="无烟煤" value="无烟煤"></el-option>
               <el-option label="褐煤" value="褐煤"></el-option>
@@ -109,17 +86,12 @@
       <el-row>
         <el-col :span="12">
           <el-form-item prop="baseData.buyQuantity" label="采购数量">
-            <el-input
-              v-model.number="buyPubData.baseData.buyQuantity"
-            ></el-input>
+            <el-input v-model.number="buyPubData.baseData.buyQuantity"></el-input>
           </el-form-item>
         </el-col>
         <el-col :span="12">
           <el-form-item prop="baseData.transportMode" label="运输方式">
-            <el-select
-              v-model="buyPubData.baseData.transportMode"
-              placeholder="请选择..."
-            >
+            <el-select v-model="buyPubData.baseData.transportMode" placeholder="请选择...">
               <el-option label="火车" value="火车"></el-option>
               <el-option label="汽车" value="汽车"></el-option>
               <el-option label="船运" value="船运"></el-option>
@@ -135,10 +107,7 @@
         </el-col>
         <el-col :span="12">
           <el-form-item prop="baseData.settlementMethod" label="结算方式">
-            <el-select
-              v-model="buyPubData.baseData.settlementMethod"
-              placeholder="请选择..."
-            >
+            <el-select v-model="buyPubData.baseData.settlementMethod" placeholder="请选择...">
               <el-option label="一票结算" value="一票结算"></el-option>
               <el-option label="二票结算" value="二票结算"></el-option>
               <el-option label="铁路大票" value="铁路大票"></el-option>
@@ -150,11 +119,7 @@
       <el-row>
         <el-col>
           <el-form-item prop="baseData.paymentMethod" label="结算付款方式">
-            <el-input
-              v-model="buyPubData.baseData.paymentMethod"
-              type="textarea"
-              :rows="2"
-            ></el-input>
+            <el-input v-model="buyPubData.baseData.paymentMethod" type="textarea" :rows="2"></el-input>
           </el-form-item>
         </el-col>
       </el-row>
@@ -176,9 +141,7 @@
       <el-row>
         <el-col :span="8">
           <el-form-item label="收到基低位发热量" prop="coalQuality.lowHeat">
-            <el-input
-              v-model.number="buyPubData.coalQuality.lowHeat"
-            ></el-input>
+            <el-input v-model.number="buyPubData.coalQuality.lowHeat"></el-input>
           </el-form-item>
         </el-col>
         <el-col :span="8">
@@ -205,9 +168,7 @@
             style="display: flex"
             label-width="145px"
           >
-            <el-input
-              v-model.number="buyPubData.coalQuality.sdjhff1"
-            ></el-input>
+            <el-input v-model.number="buyPubData.coalQuality.sdjhff1"></el-input>
           </el-form-item>
           <el-form-item
             prop="coalQuality.sdjhff2"
@@ -215,14 +176,10 @@
             style="display: flex"
             label-width="60px"
           >
-            <el-input
-              v-model.number="buyPubData.coalQuality.sdjhff2"
-            ></el-input>
+            <el-input v-model.number="buyPubData.coalQuality.sdjhff2"></el-input>
           </el-form-item>
         </el-col>
-        <span style="display: flex; align-items: center; margin-bottom: 22px">
-          (%)
-        </span>
+        <span style="display: flex; align-items: center; margin-bottom: 22px">(%)</span>
       </el-row>
       <hr />
       <el-row>
@@ -238,9 +195,7 @@
         </el-col>
         <el-col :span="12" style="display: flex">
           <el-form-item prop="coalQuality.kgjhff1" label="空干基挥发分">
-            <el-input
-              v-model.number="buyPubData.coalQuality.kgjhff1"
-            ></el-input>
+            <el-input v-model.number="buyPubData.coalQuality.kgjhff1"></el-input>
           </el-form-item>
           <el-form-item
             prop="coalQuality.kgjhff2"
@@ -248,22 +203,16 @@
             style="display: flex"
             label-width="60px"
           >
-            <el-input
-              v-model.number="buyPubData.coalQuality.kgjhff2"
-            ></el-input>
+            <el-input v-model.number="buyPubData.coalQuality.kgjhff2"></el-input>
           </el-form-item>
         </el-col>
-        <span style="display: flex; align-items: center; margin-bottom: 22px">
-          (%)
-        </span>
+        <span style="display: flex; align-items: center; margin-bottom: 22px">(%)</span>
       </el-row>
       <hr />
       <el-row>
         <el-col :span="12">
           <el-form-item prop="coalQuality.highHeat" label="干基高位发热量">
-            <el-input
-              v-model.number="buyPubData.coalQuality.highHeat"
-            ></el-input>
+            <el-input v-model.number="buyPubData.coalQuality.highHeat"></el-input>
           </el-form-item>
         </el-col>
         <el-col :span="12">
@@ -273,9 +222,7 @@
         </el-col>
         <el-col :span="12" style="display: flex">
           <el-form-item label="干燥无灰基挥发分" prop="coalQuality.gzwhjhff1">
-            <el-input
-              v-model.number="buyPubData.coalQuality.gzwhjhff1"
-            ></el-input>
+            <el-input v-model.number="buyPubData.coalQuality.gzwhjhff1"></el-input>
           </el-form-item>
           <el-form-item
             prop="coalQuality.gzwhjhff2"
@@ -283,22 +230,16 @@
             style="display: flex"
             label-width="60px"
           >
-            <el-input
-              v-model.number="buyPubData.coalQuality.gzwhjhff2"
-            ></el-input>
+            <el-input v-model.number="buyPubData.coalQuality.gzwhjhff2"></el-input>
           </el-form-item>
         </el-col>
-        <span style="display: flex; align-items: center; margin-bottom: 22px">
-          (%)
-        </span>
+        <span style="display: flex; align-items: center; margin-bottom: 22px">(%)</span>
       </el-row>
       <hr />
       <el-row>
         <el-col :span="8">
           <el-form-item label="粒度" prop="coalQuality.granularity">
-            <el-input
-              v-model.number="buyPubData.coalQuality.granularity"
-            ></el-input>
+            <el-input v-model.number="buyPubData.coalQuality.granularity"></el-input>
           </el-form-item>
         </el-col>
         <el-col :span="8">
@@ -314,19 +255,13 @@
       </el-row>
       <hr />
       <el-form-item prop="coalQuality.remark" label="备注">
-        <el-input
-          v-model="buyPubData.coalQuality.remark"
-          type="textarea"
-          :rows="2"
-        ></el-input>
+        <el-input v-model="buyPubData.coalQuality.remark" type="textarea" :rows="2"></el-input>
       </el-form-item>
     </el-form>
     <div v-if="this.$store.state.role === 'USER_BUY'">
       <!-- 挂牌区域 -->
       <div v-if="gpInfo.status === '0'">
-        <el-button type="primary" @click="submitForm('buyPubData')"
-          >提交</el-button
-        >
+        <el-button type="primary" @click="submitForm('buyPubData')">提交</el-button>
         <el-button @click="save">保存</el-button>
         <el-button @click="resetForm('buyPubData')">重置</el-button>
       </div>
@@ -337,17 +272,25 @@
       <div v-else-if="gpInfo.status === '8'">
         <!-- 上传合同 -->
         <div>上传合同</div>
-        <router-link :to="'/trade/contract/gp?id=' + this.gpInfo.id"><el-button>去上传合同</el-button></router-link>
+        <router-link :to="'/trade/contract/gp?id=' + this.gpInfo.id">
+          <el-button>去上传合同</el-button>
+        </router-link>
       </div>
       <div v-else-if="gpInfo.status === '9'">
         <!-- 上传合同完毕，等待确认 -->
         <div>上传合同完毕，等待确认</div>
-        <router-link :to="'/trade/contract/gp?id=' + this.gpInfo.id + (this.gpInfo.contractFile===null?'':'&path=' + this.gpInfo.contractFile)"><el-button>去查看合同</el-button></router-link>
+        <router-link
+          :to="'/trade/contract/gp?id=' + this.gpInfo.id + (this.gpInfo.contractFile===null?'':'&path=' + this.gpInfo.contractFile)"
+        >
+          <el-button>去查看合同</el-button>
+        </router-link>
       </div>
       <div v-else-if="gpInfo.status === '10'">
         <!-- 上传合同 -->
         <div>合同被拒绝</div>
-        <router-link :to="'/trade/contract/gp?id=' + this.gpInfo.id"><el-button>去上传合同</el-button></router-link>
+        <router-link :to="'/trade/contract/gp?id=' + this.gpInfo.id">
+          <el-button>去上传合同</el-button>
+        </router-link>
       </div>
       <div v-else-if="gpInfo.status === '11'">
         <!-- 合同被确认，生成订单 -->
@@ -368,7 +311,9 @@
       <div v-else-if="zpInfo.status === '1'">
         <!-- 待交保证金 -->
         <div>待交保证金</div>
-        <router-link :to="'/trade/margin?gpid=' + this.gpInfo.id"><el-button>去交保证金</el-button></router-link>
+        <router-link :to="'/trade/margin?gpid=' + this.gpInfo.id">
+          <el-button>去交保证金</el-button>
+        </router-link>
       </div>
       <div v-else-if="gpInfo.status === '9'">
         <!-- 确认合同 -->
@@ -390,7 +335,9 @@
         <div v-else-if="gpInfo.status === '15'">
           <!-- 待交保证金 -->
           <div>待交保证金</div>
-          <router-link :to="'/trade/margin?gpid=' + this.gpInfo.id"><el-button>去交保证金</el-button></router-link>
+          <router-link :to="'/trade/margin?gpid=' + this.gpInfo.id">
+            <el-button>去交保证金</el-button>
+          </router-link>
         </div>
         <div v-else-if="gpInfo.status === '2'">
           <!-- 摘牌成功 -->
@@ -406,7 +353,9 @@
         <div v-else-if="zpInfo.status === '1'">
           <!-- 待交保证金 -->
           <div>待交保证金</div>
-          <router-link :to="'/trade/margin?zpid=' + this.zpInfo.id"><el-button>去交保证金</el-button></router-link>
+          <router-link :to="'/trade/margin?zpid=' + this.zpInfo.id">
+            <el-button>去交保证金</el-button>
+          </router-link>
         </div>
         <div v-else-if="zpInfo.status === '2'">
           <!-- 摘牌成功 -->
@@ -457,7 +406,7 @@ export default {
           acceptanceMethod: "",
           paymentMethod: "",
           deposit1: null,
-          deposit2: null,
+          deposit2: null
         },
         coalQuality: {
           lowHeat: null,
@@ -477,103 +426,103 @@ export default {
           granularity: "",
           hrd: "",
           remark: "",
-          hskmxs: "",
-        },
+          hskmxs: ""
+        }
       },
       rules: {
         "baseData.applicant": [
           {
             required: true,
             message: "不能为空",
-            trigger: "blur",
-          },
+            trigger: "blur"
+          }
         ],
         "baseData.signer": [
           {
             required: true,
             message: "不能为空",
-            trigger: "blur",
-          },
+            trigger: "blur"
+          }
         ],
         "baseData.reqDate": [
           {
             required: true,
             message: "不能为空",
-            trigger: "blur",
-          },
+            trigger: "blur"
+          }
         ],
         "baseData.deliveryTime": [
           {
             required: true,
             message: "不能为空",
-            trigger: "blur",
-          },
+            trigger: "blur"
+          }
         ],
         "baseData.coalType": [
           {
             required: true,
             message: "不能为空",
-            trigger: "blur",
-          },
+            trigger: "blur"
+          }
         ],
         "baseData.buyQuantity": [
           {
             type: "number",
             required: true,
             message: "不能为空，且只能为数字",
-            trigger: "blur",
-          },
+            trigger: "blur"
+          }
         ],
         "baseData.transportMode": [
           {
             required: true,
             message: "不能为空",
-            trigger: "blur",
-          },
+            trigger: "blur"
+          }
         ],
         "baseData.deliveryLocation": [
           {
             required: true,
             message: "不能为空",
-            trigger: "blur",
-          },
+            trigger: "blur"
+          }
         ],
         "baseData.settlementMethod": [
           {
             required: true,
             message: "不能为空",
-            trigger: "blur",
-          },
+            trigger: "blur"
+          }
         ],
         "baseData.acceptanceMethod": [
           {
             required: true,
             message: "不能为空",
-            trigger: "blur",
-          },
+            trigger: "blur"
+          }
         ],
         "baseData.paymentMethod": [
           {
             required: true,
             message: "不能为空",
-            trigger: "blur",
-          },
+            trigger: "blur"
+          }
         ],
         "baseData.deposit1": [
           {
             type: "number",
             required: true,
             message: "不能为空，且只能为数字",
-            trigger: "blur",
-          },
+            trigger: "blur"
+          }
         ],
         "baseData.deposit2": [
           {
             type: "number",
             required: true,
             message: "不能为空，且只能为数字",
-            trigger: "blur",
-          },
+            trigger: "blur"
+          }
         ],
 
         "coalQuality.lowHeat": [
@@ -581,153 +530,153 @@ export default {
             type: "number",
             required: true,
             message: "不能为空，且只能为数字",
-            trigger: "blur",
-          },
+            trigger: "blur"
+          }
         ],
         "coalQuality.sdjql": [
           {
             type: "number",
             required: true,
             message: "不能为空，且只能为数字",
-            trigger: "blur",
-          },
+            trigger: "blur"
+          }
         ],
         "coalQuality.qsf": [
           {
             type: "number",
             required: true,
             message: "不能为空，且只能为数字",
-            trigger: "blur",
-          },
+            trigger: "blur"
+          }
         ],
         "coalQuality.sdjhff1": [
           {
             type: "number",
             required: true,
             message: "不能为空，且只能为数字",
-            trigger: "change",
+            trigger: "change"
           },
           {
             type: "number",
             max: 100,
             min: 0,
             message: "超出范围",
-            trigger: "change",
-          },
+            trigger: "change"
+          }
         ],
         "coalQuality.sdjhff2": [
           {
             type: "number",
             required: true,
             message: "不能为空，且只能为数字",
-            trigger: "change",
-          },
+            trigger: "change"
+          }
         ],
         "coalQuality.kgjsf": [
           {
             type: "number",
             required: true,
             message: "不能为空，且只能为数字",
-            trigger: "blur",
-          },
+            trigger: "blur"
+          }
         ],
         "coalQuality.kgjql": [
           {
             type: "number",
             required: true,
             message: "不能为空，且只能为数字",
-            trigger: "blur",
-          },
+            trigger: "blur"
+          }
         ],
         "coalQuality.kgjhff1": [
           {
             type: "number",
             required: true,
             message: "不能为空，且只能为数字",
-            trigger: "blur",
-          },
+            trigger: "blur"
+          }
         ],
         "coalQuality.kgjhff2": [
           {
             type: "number",
             required: true,
             message: "不能为空，且只能为数字",
-            trigger: "blur",
-          },
+            trigger: "blur"
+          }
         ],
         "coalQuality.highHeat": [
           {
             type: "number",
             required: true,
             message: "不能为空，且只能为数字",
-            trigger: "blur",
-          },
+            trigger: "blur"
+          }
         ],
         "coalQuality.gjql": [
           {
             type: "number",
             required: true,
             message: "不能为空，且只能为数字",
-            trigger: "blur",
-          },
+            trigger: "blur"
+          }
         ],
         "coalQuality.gzwhjhff1": [
           {
             type: "number",
             required: true,
             message: "不能为空，且只能为数字",
-            trigger: "blur",
-          },
+            trigger: "blur"
+          }
         ],
         "coalQuality.gzwhjhff2": [
           {
             type: "number",
             required: true,
             message: "不能为空，且只能为数字",
-            trigger: "blur",
-          },
+            trigger: "blur"
+          }
         ],
         "coalQuality.granularity": [
           {
             type: "number",
             required: true,
             message: "不能为空，且只能为数字",
-            trigger: "blur",
-          },
+            trigger: "blur"
+          }
         ],
         "coalQuality.hrd": [
           {
             type: "number",
             required: true,
             message: "不能为空，且只能为数字",
-            trigger: "blur",
-          },
+            trigger: "blur"
+          }
         ],
         "coalQuality.hskmxs": [
           {
             type: "number",
             required: true,
             message: "不能为空，且只能为数字",
-            trigger: "blur",
-          },
+            trigger: "blur"
+          }
         ],
         "coalQuality.remark": [
           {
             required: true,
             message: "不能为空",
-            trigger: "blur",
-          },
-        ],
+            trigger: "blur"
+          }
+        ]
       },
       gpInfo: {
         id: null,
-        status: '0',
+        status: "0",
         contractFile: null
       },
       zpInfo: {
         id: null,
-        status: '0',
-      },
+        status: "0"
+      }
     };
   },
   created() {
@@ -763,7 +712,7 @@ export default {
           this.loadGPDetail(q.id);
         } else {
           // 新建挂牌信息
-          getComName().then((res) => {
+          getComName().then(res => {
             this.buyPubData.baseData.requestCompany = res.data;
             this.buyPubData.baseData.requestNum =
               res.data + new Date().getTime();
@@ -775,7 +724,7 @@ export default {
       // 重置请求时间
       this.buyPubData.baseData.reqDate = new Date();
       // console.log(JSON.stringify(this.buyPubData));
-      this.$refs["buyPubData"].validate((valid) => {
+      this.$refs["buyPubData"].validate(valid => {
         if (valid) {
           //保存草稿
           const q = this.$route.query;
@@ -789,7 +738,7 @@ export default {
         } else {
           this.$message({
             message: "请检查数据合法性",
-            type: "warning",
+            type: "warning"
           });
         }
       });
@@ -798,7 +747,7 @@ export default {
       const q = this.$route.query;
       // 重置请求时间
       this.buyPubData.baseData.reqDate = new Date();
-      this.$refs["buyPubData"].validate((valid) => {
+      this.$refs["buyPubData"].validate(valid => {
         if (valid) {
           //提交
           if (q.id) {
@@ -811,7 +760,7 @@ export default {
         } else {
           this.$message({
             message: "数据格式有误，请检查！",
-            type: "warning",
+            type: "warning"
           });
           return false;
         }
@@ -821,22 +770,22 @@ export default {
     publishData(publish = false) {
       requestPublish({
         publish: publish,
-        buyPubData: this.buyPubData,
+        buyPubData: this.buyPubData
       })
-        .then((res) => {
+        .then(res => {
           console.log(res);
           this.$message({
             message: "提交成功",
-            type: "success",
+            type: "success"
           });
           this.$router.push(`${this.$route.path}?id=${res.data.reqId}`);
         })
-        .catch((err) => {
+        .catch(err => {
           console.log(err);
           if (err.error) {
             this.$message({
               message: err.error,
-              type: "error",
+              type: "error"
             });
           }
         });
@@ -846,21 +795,21 @@ export default {
       requestEdit({
         id: id,
         publish: publish,
-        buyPubData: this.buyPubData,
+        buyPubData: this.buyPubData
       })
-        .then((res) => {
+        .then(res => {
           this.$message({
             message: "提交成功",
-            type: "success",
+            type: "success"
           });
           this.$router.push(`${this.$route.path}?id=${res.data.reqId}`);
         })
-        .catch((err) => {
+        .catch(err => {
           console.log(err);
           if (err.error) {
             this.$message({
               message: err.error,
-              type: "error",
+              type: "error"
             });
           }
         });
@@ -868,22 +817,23 @@ export default {
     // 加载
     loadGPDetail(id) {
       loadMyReqDetail(id)
-        .then((res) => {
+        .then(res => {
           res.data.detail.baseData.reqDate = new Date(
             res.data.detail.baseData.reqDate
           );
           this.buyPubData = res.data.detail;
-          this.gpInfo.id= res.data.id;
+          this.gpInfo.id = res.data.id;
           this.gpInfo.status = res.data.status;
           this.gpInfo.contractFile = res.data.contractFile;
-          this.isFormDisabled = res.data.status!=='1' && res.data.status!=='7';
+          this.isFormDisabled =
+            res.data.status !== "1" && res.data.status !== "7";
         })
-        .catch((err) => {
+        .catch(err => {
           console.log(err);
           if (err.error) {
             this.$message({
               message: err.error,
-              type: "error",
+              type: "error"
             });
             this.$router.back();
           }
@@ -895,29 +845,29 @@ export default {
       this.doDelist(this.gpInfo.id);
     },
     loadZPDetail1(id) {
-      if(!this.$store.state.isLogin){
+      if (!this.$store.state.isLogin) {
         // 未登录
-        getPublicReqDetail(id).then((res) => {
+        getPublicReqDetail(id).then(res => {
           console.log(res);
           res.data.detail.baseData.reqDate = new Date(
             res.data.detail.baseData.reqDate
           );
           this.buyPubData = res.data.detail;
         });
-      }else{
+      } else {
         // 已登录
-        getZPDetail2(this.gpInfo.id).then(res=>{
+        getZPDetail2(this.gpInfo.id).then(res => {
           console.log(res);
           res.data.reqInfo.detail.baseData.reqDate = new Date(
             res.data.reqInfo.detail.baseData.reqDate
           );
           this.buyPubData = res.data.reqInfo.detail;
           this.zpInfo.status = res.data.delistInfo.status;
-        })
+        });
       }
     },
     loadZPDetail2(zid) {
-      getZPDetail(zid).then((res) => {
+      getZPDetail(zid).then(res => {
         console.log(res);
         res.data.reqInfo.detail.baseData.reqDate = new Date(
           res.data.reqInfo.detail.baseData.reqDate
@@ -928,17 +878,17 @@ export default {
       });
     },
     doDelist(id) {
-      doDelist(id).then((res) => {
+      doDelist(id).then(res => {
         console.log(res);
         this.$message({
           message: "摘牌成功",
-          type: "success",
+          type: "success"
         });
 
         this.$router.push(this.$route.path + "?zid=" + res.data.id);
       });
-    },
-  },
+    }
+  }
 };
 </script>
 
