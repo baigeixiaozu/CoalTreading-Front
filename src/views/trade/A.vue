@@ -260,7 +260,7 @@
     </el-form>
     <div v-if="this.$store.state.role === 'USER_BUY' && mode==='gp'">
       <!-- 挂牌区域 -->
-      <div v-if="gpInfo.status === '0'">
+      <div v-if="gpInfo.status === '1'">
         <el-button type="primary" @click="submitForm('buyPubData')">提交</el-button>
         <el-button @click="save">保存</el-button>
         <el-button @click="resetForm('buyPubData')">重置</el-button>
